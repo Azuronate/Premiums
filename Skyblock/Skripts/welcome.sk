@@ -1,0 +1,9 @@
+command welcome:
+  permission: premiums.staff
+  trigger:
+    set {_player} to player
+    make console execute "sudo %{_player}% c:&fWelcome! To get started do /start"
+	
+on command "/w":
+  cancel event
+  make player execute command "/welcome"

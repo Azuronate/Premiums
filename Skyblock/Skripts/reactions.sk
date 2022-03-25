@@ -1,0 +1,514 @@
+# SPECIAL PREMIUMS EDITION
+
+
+#=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=#
+# Chat Reactions
+# Created by Ninja_Talon (Discord: Talon#1707)
+# Plugin Requirements: ----------------------------
+# Offical Discord Support: ------------------------
+#=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=#
+																													
+options: # The options below configurate how the chat reactions work ingame. Only edit the text after the colons.
+
+# Prefix - Choose the prefix for all the reaction chat messages.
+	prefix: &c&lREACTION &7¬ &f
+
+# Cooldown - This is how often a new reaction message will appear (time in seconds) in the chat.
+	timebetween: 720 #12 mins
+
+# Time Limit - This is the maximum amount of time (in seconds) a player has to answer the chat reaction.
+	answerwithin: 45 #45 seconds
+
+# Game Modes - Change whether or not the different word games / chat reactions are enabled. (true or false)
+	word: "true"
+	math: "true"
+	unscramble: "true"
+
+# Prize - Choose whether you want to give the player money or run a command once a chat reaction is answered correctly. 
+# (options: "eco" or "cmd") #SPECIAL EDITION: special (FOR USE ONLY ON PREMIUMS SKYBLOCK)
+	prizetype: "special"
+
+# Eco Prize Amounts - Choose the minimum & maximum amount of money someone can earn by doing a chat reaction.
+	# Be sure the minAmount is lower than the maxAmount. The prizetype must be set to "eco" to make use of this.
+	# This, by default, uses Vault's economy / Essentials. Feel free to adjust this to your economy, you can manually change the outcomes at the bottom of the skript.
+	minAmount: 5000
+	maxAmount: 10000
+
+# Cmd Prize - Make the console execute a command when a player gets a chat reaction correct.
+	# The prizetype must be set to "cmd" to make use of this.
+	cmd: "/give %player% diamond 1"
+
+# Word List - This is the word list, here you can add any word you wish to have in the scramble / first to say categories.
+	# To reload this list ingame and make use of the configured one do "/reaction deleteall" then reload the skript.
+	# FORMAT: add "<word>" to {words::*}
+	# You can add as many words as you like, just add more lines, below are some pre-made examples:
+on script load: # Do not edit this line
+	if {words::*} is not set: # Do not edit this line
+		add "Minecraft" to {words::*}
+		add "Minehut" to {words::*}
+		add "Reaction" to {words::*}
+		add "Obsidian" to {words::*}
+		add "Grass" to {words::*}
+		add "Squid" to {words::*}
+		add "Creeper" to {words::*}
+		add "Enderman" to {words::*}
+		add "Villager" to {words::*}
+		add "Diamond" to {words::*}
+		add "Premiums" to {words::*}
+		add "Skyblock" to {words::*}
+		add "Chicken" to {words::*}
+		add "Pickaxe" to {words::*}
+		add "Shovel" to {words::*}
+		add "Spawner" to {words::*}
+		add "Piston" to {words::*}
+		add "Cauldron" to {words::*}
+		add "Redstone" to {words::*}
+		add "Lapis" to {words::*}
+		add "Endermite" to {words::*}
+		add "Silverfish" to {words::*}
+		add "Spider" to {words::*}
+		add "Phantom" to {words::*}
+		add "Netherite" to {words::*}
+		add "Bookshelf" to {words::*}
+		add "Compass" to {words::*}
+		add "Painting" to {words::*}
+		add "Snowman" to {words::*}
+		add "Thunder" to {words::*}
+		add "Leggings" to {words::*}
+		add "Mushroom" to {words::*}
+		add "Jukebox" to {words::*}
+		add "Feather" to {words::*}
+		add "Glowstone" to {words::*}
+		add "Prismarine" to {words::*}
+		add "Diorite" to {words::*}
+		add "Snowball" to {words::*}
+		add "Reciepes" to {words::*}
+		add "Dispenser" to {words::*}
+		add "Crafting" to {words::*}
+		add "Chestplate" to {words::*}
+		add "Ingot" to {words::*}
+		add "Beacon" to {words::*}
+		add "Pufferfish" to {words::*}
+		add "Arrow" to {words::*}
+		add "Lightning" to {words::*}
+		add "Blackstone" to {words::*}
+		add "Island" to {words::*}
+		add "Supercalifragilisticexpialidocious" to {words::*}
+		add "Dandelion" to {words::*}
+		add "Tulip" to {words::*}
+		add "Amethyst" to {words::*}
+		add "Bucket" to {words::*}
+		add "Granite" to {words::*}
+		add "Andesite" to {words::*}
+		add "Cobblestone" to {words::*}
+		add "Nether" to {words::*}
+		add "Spruce" to {words::*}
+		add "Jungle" to {words::*}
+		add "Acacia" to {words::*}
+		add "Birch" to {words::*}
+		add "Cobweb" to {words::*}
+		add "Sandstone" to {words::*}
+		add "Sponge" to {words::*}
+		add "Seagrass" to {words::*}
+		add "Crimson" to {words::*}
+		add "Podzel" to {words::*}
+		add "Nylium" to {words::*}
+		add "Cornflower" to {words::*}
+		add "Fungus" to {words::*}
+		add "Chorus" to {words::*}
+		add "Torch" to {words::*}
+		add "Bamboo" to {words::*}
+		add "Ladder" to {words::*}
+		add "Farmland" to {words::*}
+		add "Chain" to {words::*}
+		add "Vines" to {words::*}
+		add "Mycelium" to {words::*}
+		add "Cactus" to {words::*}
+		add "Pumpkin" to {words::*}
+		add "Basalt" to {words::*}
+		add "Enchantment" to {words::*}
+		add "Enchanting" to {words::*}
+		add "Anvil" to {words::*}
+		add "Hopper" to {words::*}
+		add "Terracotta" to {words::*}
+		add "Carpet" to {words::*}
+		add "Magma" to {words::*}
+		add "Shulker" to {words::*}
+		add "Coral" to {words::*}
+		add "Turtle" to {words::*}
+		add "Concrete" to {words::*}
+		add "Conduit" to {words::*}
+		add "Scaffolding" to {words::*}
+		add "Scute" to {words::*}
+		add "Chainmail" to {words::*}
+		add "Elytra" to {words::*}
+		add "Shield" to {words::*}
+		add "Trident" to {words::*}
+		add "Crossbow" to {words::*}
+		add "Stonecutter" to {words::*}
+		add "Dragon" to {words::*}
+		add "Firework" to {words::*}
+		add "Beehive" to {words::*}
+		add "Lodestone" to {words::*}
+		add "Berries" to {words::*}
+		add "Campfire" to {words::*}
+		add "Lantern" to {words::*}
+		add "Quartz" to {words::*}
+		add "Minecart" to {words::*}
+		add "Brewing" to {words::*}
+		add "Cauldron" to {words::*}
+		add "Hyphae" to {words::*}
+		add "Saddle" to {words::*}
+		add "Fishing" to {words::*}
+		add "Potato" to {words::*}
+		add "Carrot" to {words::*}
+		add "Flower" to {words::*}
+		add "Blaze" to {words::*}
+		add "Donkey" to {words::*}
+		add "Dolphin" to {words::*}
+		add "Cookie" to {words::*}
+		add "Sugar" to {words::*}
+		add "Melon" to {words::*}
+		add "Horse" to {words::*}
+		add "Cartography" to {words::*}
+		add "Dropper" to {words::*}
+		add "Button" to {words::*}
+		add "Fence" to {words::*}
+		add "Lectern" to {words::*}
+
+
+
+
+# DO NOT PROCEED TO EDIT ANYTHING BELOW UNLESS YOU ARE AN EXPERIENCED SKRIPTER OR UNDERSTAND
+# HOW SKRIPTS WORK. Below are the commands as well as the actual outcomes of the reactions.
+
+#=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=#
+
+command /reaction [<text>] [<text>] [<text>]:
+	permission: premiums.reactions.edit
+	trigger:
+		if arg-1 is not set:
+			send "{@prefix}Valid Usages: add, delete, deleteall, list, toggle"
+		else if arg-1 is "list":
+			if {words::*} is not set:
+				send "{@prefix}Word List: &7None."
+			else:
+				send "{@prefix}Word List: &7%{words::*}%"
+		else if arg-1 is "add":
+			loop {words::*}:
+				if arg-2 is loop-value:
+					send "{@prefix}This word is already on the list."
+					stop
+			add the 2nd argument to {words::*}
+			send "{@prefix}Added ""&7%arg-2%&f"" to the word list."
+		else if arg-1 is "delete":
+			if arg-2 is set:
+				loop {words::*}:
+					if {words::*} contain arg-2:
+						set {_delete.word} to true
+				wait 5 ticks
+				if {_delete.word} is set:
+					send "{@prefix}Deleted ""&7%arg-2%&f"" from the word list."
+					remove the 2nd argument from {words::*}
+				else:
+					send "{@prefix}This is not a word in the list."
+				delete {_delete.word}
+			else:
+				send "{@prefix}You must include a word to delete from the list."
+		else if arg-1 is "deleteall":
+			send "{@prefix}All words have been deleted off the list. &7&oIf the skript is reloaded without adding new words, the list will be reset to the original configuration."
+			delete {words::*}
+		else if arg-1 is "toggle":
+			if {reactions.on} is not set:
+				send "{@prefix}Toggled on the reactions!"
+				set {reactions.on} to true
+			else:
+				send "{@prefix}Toggled off the reactions!"
+				delete {reactions.on}
+		else:
+			send "{@prefix}Valid Usages: add, delete, deleteall, list, toggle"
+
+every second:
+	if {reactions.on} is set:
+		add 1 to {reactions.timer}
+		set {_t} to {@timebetween}
+		if {reactions.timer} is greater than {_t} - 1:
+			if {reactions.activeWord} is set:
+				delete {reactions.activeWord}
+			if {reactions.activeMath} is set:
+				delete {reactions.activeMath}
+			IF {@math} is "true":
+				add "math" to {_type::*}
+			if {@unscramble} is "true":
+				add "unscramble" to {_type::*}
+			if {@word} is "true":
+				add "word" to {_type::*}
+			#add "math", "unscramble", and "word" to {_type::*}
+			set {_type} to random element out of {_type::*}
+			if {_type} is "unscramble":
+				{words::*} is set
+				set {rtime} to now
+				set {_w} to random element out of {words::*}
+				set {reactions.activeScramble} to "%{_w}%"
+				set {_p::*} to shuffled (length of {_w} times)
+				set {_scrambled} to join characters at {_p::*} of {_w}
+				delete {reactions.timer}
+				send formatted "<tooltip:&7Unscramble the word: %nl%&c&l%{_scrambled}%>&c&lREACTION &7¬ &fHover your mouse over & unscramble the word!<reset>" to all players
+				wait {@answerwithin} seconds
+				if {reactions.activeScramble} is set:
+					send "{@prefix}Nobody unscrambled the word in time!" to all players
+					delete {reactions.activeScramble}
+			if {_type} is "word":	
+				{words::*} is set
+				set {rtime} to now
+				set {_w} to random element out of {words::*}
+				set {reactions.activeWord} to "%{_w}%"
+				delete {reactions.timer}
+				send formatted "<tooltip:&7Be the first to type: %nl%&c&l%{_w}%>&c&lREACTION &7¬ &fHover your mouse over this for a word to type!<reset>" to all players
+				wait {@answerwithin} seconds 
+				if {reactions.activeWord} is set:
+					send "{@prefix}Nobody typed the word in time!" to all players
+					delete {reactions.activeWord}
+			if {_type} is "math":	
+				add "addition", "division", "multiplication" and "subtraction" to {_math-prob::*}
+				set {_math-prob} to random element out of {_math-prob::*}
+				if {_math-prob} is "addition":
+					set {integer.1} to random integer between 100 and 500
+					set {integer.2} to random integer between 100 and 500
+					set {rtime} to now
+					set {_w} to sum({integer.1}, {integer.2})
+					set {reactions.activeMath} to "%{_w}%"
+					delete {reactions.timer}
+					send formatted "<tooltip:&7Solve: %nl%&c&l%{integer.1}% &c+&c&l %{integer.2}%>&c&lREACTION &7¬ &fHover your mouse over this for an equation.<reset>" to all players
+					wait {@answerwithin} seconds 
+					if {reactions.activeMath} is set:
+						send "{@prefix}Nobody solved the equation in time!" to all players
+						delete {reactions.activeMath}
+				if {_math-prob} is "subtraction":
+					set {integer.2} to random integer between 100 and 300
+					set {integer.1} to random integer between 300 and 500 + {integer.2}
+					set {rtime} to now
+					set {_w} to {integer.1} - {integer.2}
+					set {reactions.activeMath} to "%{_w}%"
+					delete {reactions.timer}
+					send formatted "<tooltip:&7Solve: %nl%&c&l%{integer.1}% &c-&c&l %{integer.2}%>&c&lREACTION &7¬ &fHover your mouse over this for an equation.<reset>" to all players
+					wait {@answerwithin} seconds 
+					if {reactions.activeMath} is set:
+						send "{@prefix}Nobody solved the equation in time!" to all players
+						delete {reactions.activeMath}
+				if {_math-prob} is "multiplication":
+					set {integer.2} to random integer between 1 and 20
+					set {integer.1} to random integer between 3 and 20 
+					set {rtime} to now
+					set {_w} to {integer.1} * {integer.2}
+					set {reactions.activeMath} to "%{_w}%"
+					delete {reactions.timer}
+					send formatted "<tooltip:&7Solve: %nl%&c&l%{integer.1}% &c*&c&l %{integer.2}%>&c&lREACTION &7¬ &fHover your mouse over this for an equation.<reset>" to all players
+					wait {@answerwithin} seconds 
+					if {reactions.activeMath} is set:
+						send "{@prefix}Nobody solved the equation in time!" to all players
+						delete {reactions.activeMath}
+				if {_math-prob} is "division":
+					set {math.division-on} to true
+					while {math.division-on} is set:
+						set {integer.1} to random integer between 1 and 100 
+						set {integer.2} to random integer between 3 and 100 
+						set {answer} to {integer.1} / {integer.2}
+						if {integer.1} > {integer.2}:
+							if {integer.1} is not equal to {integer.2}:
+								if "%{answer}%" does not contain ".":
+									wait 5 ticks
+									delete {math.division-on}
+									set {rtime} to now
+									set {_w} to {answer}
+									set {reactions.activeMath} to "%{_w}%"
+									delete {reactions.timer}
+									send formatted "<tooltip:&7Solve: %nl%&c&l%{integer.1}% &r&c/ &c&l%{integer.2}%>&c&lREACTION &7¬ &fHover your mouse over this for an equation.<reset>" to all players
+									wait {@answerwithin} seconds 
+									if {reactions.activeMath} is set:
+										send "{@prefix}Nobody solved the equation in time!" to all players
+										delete {reactions.activeMath}
+
+on chat:
+	if {reactions.activeWord} is set:
+		if the chat message is "%{reactions.activeWord}%":
+			add 1 to {reaction.solved::%player's uuid%}
+			if {@prizetype} is "eco":
+				set {_r} to random integer between {@minAmount} and {@maxAmount}
+				delete {reactions.activeWord}
+				add {_r} to {balance::%player's uuid%}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				set {_p} to regex("%{_r}%")
+				send "{@prefix}&c%player% &ftyped the word in &c%{_diff}%&f." to all players
+				send "{@prefix}You typed the word first and got &c$%{_p}%&f." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+
+			if {@prizetype} is "special":
+
+				add "cash" and "gems" to {_special::*}
+				set {_special} to random element out of {_special::*}
+				if {_special} is "cash":
+
+					set {_r} to random integer between {@minAmount} and {@maxAmount}
+					delete {reactions.activeWord}
+					add {_r} to {balance::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &ftyped the word in &c%{_diff}%&f." to all players
+					send "{@prefix}You typed the word first and got &c$%{_p}%&f." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}
+				if {_special} is "gems":
+
+					set {_r} to random integer between 10 and 30
+					delete {reactions.activeWord}
+					add {_r} to {gems::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &ftyped the word in &c%{_diff}%&f." to all players
+					send "{@prefix}You typed the word first and got &c%{_p}%&f gems." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}
+
+			if {@prizetype} is "cmd":
+				delete {reactions.activeWord}
+				execute console command {@cmd}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				send "{@prefix}&c%player% &ftyped the word in &c%{_diff}%&f." to all players
+				send "{@prefix}You typed the word first and earned a reward." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+
+	else if {reactions.activeMath} is set:
+		if the chat message is "%{reactions.activeMath}%":
+			add 1 to {reaction.solved::%player's uuid%}
+			if {@prizetype} is "eco":
+				set {_r} to random integer between {@minAmount} and {@maxAmount}
+				delete {reactions.activeMath}
+				add {_r} to {balance::%player's uuid%}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				set {_p} to regex("%{_r}%")
+				send "{@prefix}&c%player% &fsolved the equation in &c%{_diff}%&f." to all players
+				send "{@prefix}You solved the equation first and got &c$%{_p}%&f." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+			if {@prizetype} is "cmd":
+				delete {reactions.activeMath}
+				execute console command {@cmd}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				send "{@prefix}&c%player% &fsolved the equation in &c%{_diff}%&f." to all players
+				send "{@prefix}You solved the equation first and earned a reward." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+
+			if {@prizetype} is "special":
+
+				add "cash" and "gems" to {_special::*}
+				set {_special} to random element out of {_special::*}
+				if {_special} is "cash":
+
+					set {_r} to random integer between {@minAmount} and {@maxAmount}
+					delete {reactions.activeMath}
+					add {_r} to {balance::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &fsolved the equation in &c%{_diff}%&f." to all players
+					send "{@prefix}You solved the equation first and got &c$%{_p}%&f." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}
+				if {_special} is "gems":
+
+					set {_r} to random integer between 10 and 30
+					delete {reactions.activeMath}
+					add {_r} to {gems::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &fsolved the equation in &c%{_diff}%&f." to all players
+					send "{@prefix}You solved the equation first and got &c%{_p}%&f gems." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}
+
+	else if {reactions.activeScramble} is set:
+		if the chat message is "%{reactions.activeScramble}%":
+			add 1 to {reaction.solved::%player's uuid%}
+			if {@prizetype} is "eco":
+				set {_r} to random integer between {@minAmount} and {@maxAmount}
+				delete {reactions.activeScramble}
+				add {_r} to {balance::%player's uuid%}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				set {_p} to regex("%{_r}%")
+				send "{@prefix}&c%player% &funscrambled the word in &c%{_diff}%&f." to all players
+				send "{@prefix}You unscrambled the word first and got &c$%{_p}%&f." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+			if {@prizetype} is "cmd":
+				delete {reactions.activeScramble}
+				execute console command {@cmd}
+				set {_diff} to difference between {rtime} and now 
+				set {_diff} to "%{_diff}%"
+				replace all " seconds" with "s" in {_diff}
+				send "{@prefix}&c%player% &funscrambled the word in &c%{_diff}%&f." to all players
+				send "{@prefix}You unscrambled the word first and earned a reward." to player
+				delete {rtime}
+				cancel event
+				delete {answer-time}
+
+			if {@prizetype} is "special":
+
+				add "cash" and "gems" to {_special::*}
+				set {_special} to random element out of {_special::*}
+				if {_special} is "cash":
+
+					set {_r} to random integer between {@minAmount} and {@maxAmount}
+					delete {reactions.activeScramble}
+					add {_r} to {balance::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &funscrambled the word in &c%{_diff}%&f." to all players
+					send "{@prefix}You unscrambled the word first and got &c$%{_p}%&f." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}
+				if {_special} is "gems":
+					set {_r} to random integer between 10 and 30
+					delete {reactions.activeScramble}
+					add {_r} to {gems::%player's uuid%}
+					set {_diff} to difference between {rtime} and now 
+					set {_diff} to "%{_diff}%"
+					replace all " seconds" with "s" in {_diff}
+					set {_p} to regex("%{_r}%")
+					send "{@prefix}&c%player% &funscrambled the word in &c%{_diff}%&f." to all players
+					send "{@prefix}You unscrambled the word first and got &c%{_p}%&f gems." to player
+					delete {rtime}
+					cancel event
+					delete {answer-time}

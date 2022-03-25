@@ -1,0 +1,108 @@
+options:
+    tag: &e&lSKYBLOCK &7¬&f
+
+on right click on sign:
+    if player's world = "ul_spawn":
+        if line 1 of the clicked block is "":
+            if line 2 of the clicked block contains "REDEEM CODE":
+                if line 3 of the clicked block contains "skyblock":
+                    make player execute "/redeem skyblock"
+                if line 3 of the clicked block contains "honey":
+                    make player execute "/redeem honey"
+                if line 3 of the clicked block contains "wheat":
+                    make player execute "/redeem wheat"
+                if line 3 of the clicked block contains "dory":
+                    make player execute "/redeem dory"
+                if line 3 of the clicked block contains "/redeem":
+                    if line 4 of clicked block contains "piggybank":
+                        make player execute "/redeem piggybank"
+                if line 3 of the clicked block contains "geforce":
+                    make player execute "/redeem geforce"
+                if line 3 of the clicked block contains "lgb":
+                    make player execute "/redeem lgb"
+                if line 3 of the clicked block contains "/redeem":
+                    if line 4 of clicked block contains "scarecrow":
+                        make player execute "/redeem scarecrow"
+                if line 3 of the clicked block contains "firefly":
+                    make player execute "/redeem firefly"
+                if line 3 of the clicked block contains "clone":
+                    make player execute "/redeem clone"
+                if line 3 of the clicked block contains "juicy":
+                    make player execute "/redeem juicy"
+                if line 3 of the clicked block contains "ispy":
+                    make player execute "/redeem ispy"
+                if line 3 of the clicked block contains "laghut":
+                    make player execute "/redeem laghut"
+                if line 3 of the clicked block contains "nature":
+                    make player execute "/redeem nature"
+                if line 3 of the clicked block contains "cherry":
+                    make player execute "/redeem cherry"
+                if line 3 of the clicked block contains "/redeem":
+                    if line 4 of clicked block contains "allnighter":
+                        make player execute "/redeem allnighter"
+
+command /redeem [<text>]:
+    trigger:    
+        if arg-1 is set:
+            set {_uuid} to uuid of player
+            if arg-1 is "delete-all":
+                clear {redeemed.codes.%{_uuid}%::*}
+                stop
+            if {redeemed.codes.%{_uuid}%::*} contains arg-1:
+                send "{@tag} You already redeemed this code!"
+                stop
+            else:
+                set {_code} to arg-1 in uppercase
+                add arg-1 to {redeemed.codes.%{_uuid}%::*}
+                if arg-1 is "skyblock":
+                    make console execute "/crate give %player% lucky 2"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "honey":
+                    give player 1 honey bottle named "&e&lHoney" with lore "&fHoney is a free browser add-on available on Google, Oprah,", "&fFirefox, Safari, if it's a browser it has Honey. All you have to", "&fdo is when you're checking out on one of these major sites,", "&fjust click that little orange button, and it will scan the entire", "&finternet and find discount codes for you. As you see right", "&fhere, I'm on Hanes, y'know, ordering some shirts because", "&fwho doesn't like ordering shirts; We saved 11 dollars! Dude", "&four total is 55 dollars, and after Honey, it's 44 dollars. Boom.", "&fI clicked once and I saved 11 dollars. There's literally no", "&freason not to install Honey. It takes two clicks, 10 million", "&fpeople use it, 100,000 five star reviews, unless you hate" and "&fmoney, you should install Honey."
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "wheat":
+                    make console execute "/sellwand give %player% 1 25 1.0"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "dory":
+                    make console execute "/tag give %player% &aTropical"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "piggybank":
+                    make console execute "/eco give %player% 20000"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "geforce":
+                    make console execute "/rosestacker give spawner %player% blaze 2"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "lgb":
+                    make console execute "/tag give %player% &cFJB"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "scarecrow":
+                    make console execute "/gem give %player% 100"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "firefly":
+                    give player 2 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "clone":
+                    give player skull of ("%player%" parsed as offline player)
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "juicy":
+                    make console execute "/eco give %player% 20000"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "ispy":
+                    make console execute "/give %player% spyglass 1"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "laghut":
+                    make console execute "/gem give %player% 100"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "nature":
+                    make console execute "/crate give %player% mystic 1"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "cherry":
+                    make console execute "/tag give %player% &dsimp"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                if arg-1 is "allnighter":
+                    make console execute "/tag give %player% &d☽"
+                    send "{@tag} You've redeemed a code! &7[%{_code}%&7]"
+                    #give player 1 name tag named "&d? &7- &fSuffix" with lore "", "&fRedeem this item to be given your", "&ftag. Manage your tags in &e/tags&f.", "" and "&7&o(( Right-Click to Redeem ))"
+                    #send "&d&lTAGS &7¬ &fYou recived the tag &d?"
+        else:
+            send "{@tag} You need to input a code!"

@@ -1,0 +1,566 @@
+# ██████╗░██╗░░░██╗███╗░░██╗██╗░██████╗██╗░░██╗███╗░░░███╗███████╗███╗░░██╗████████╗
+# ██╔══██╗██║░░░██║████╗░██║██║██╔════╝██║░░██║████╗░████║██╔════╝████╗░██║╚══██╔══╝
+# ██████╔╝██║░░░██║██╔██╗██║██║╚█████╗░███████║██╔████╔██║█████╗░░██╔██╗██║░░░██║░░░
+# ██╔═══╝░██║░░░██║██║╚████║██║░╚═══██╗██╔══██║██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░
+# ██║░░░░░╚██████╔╝██║░╚███║██║██████╔╝██║░░██║██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░
+# ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░
+
+# ██████╗░██╗░░░██╗  ██╗  ██╗░░██╗██╗███╗░░██╗░██████╗░██████╗░██████╗░░█████╗░░█████╗░███████╗
+# ██╔══██╗╚██╗░██╔╝  ╚═╝  ██║░██╔╝██║████╗░██║██╔════╝░██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚════██║
+# ██████╦╝░╚████╔╝░  ░░░  █████═╝░██║██╔██╗██║██║░░██╗░██████╔╝██████╔╝██║░░██║██║░░██║░░░░██╔╝
+# ██╔══██╗░░╚██╔╝░░  ░░░  ██╔═██╗░██║██║╚████║██║░░╚██╗██╔═══╝░██╔══██╗██║░░██║██║░░██║░░░██╔╝░
+# ██████╦╝░░░██║░░░  ██╗  ██║░╚██╗██║██║░╚███║╚██████╔╝██║░░░░░██║░░██║╚█████╔╝╚█████╔╝░░██╔╝░░
+# ╚═════╝░░░░╚═╝░░░  ╚═╝  ╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░╚═╝░░░░░╚═╝░░╚═╝░╚════╝░░╚════╝░░░╚═╝░░░
+
+
+options:
+# Mute
+	mute: premiums.mute
+	muteview: premiums.mute.view
+	mutenoperm: &4&lPUNISH &7¬ &fYou don't have permissions do to this!
+# Unmute
+	unmute: premiums.unmute
+	unmuteview: premiums.unmute.view
+	unmutenoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this!
+# Tempmute
+	tempmute: premiums.tempmute
+	tempmutenoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this! 
+# Ban
+	banperm: premiums.ban
+	banview: premiums.ban.view
+	bannoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this!
+# Unban
+	unban: premiums.unban
+	unbanview: premiums.unban.view
+	unbannoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this!
+# Tempban
+	tempban: premiums.tempban
+	tempbannoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this!
+# Kick
+	kick: premiums.kick
+	kicknoperm: &4&lPUNISH &7¬ &fYou don't have permission do to this!
+
+
+#
+# Functions
+#
+
+function punish_embed(p: player, a: player, t: text):
+	set {_uuid} to uuid of {_p}
+	if {_t} is "Mute":
+		make embed:
+			set author of embed to "%{_p}% has been muted!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Reason** %{muted.reason::%{_uuid}%}% %nl%**Muted by** %{muted.attacker::%{_uuid}%}%"
+			set the colour of the embed to red
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Muted on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"							
+		send last embed to channel with id "904056496709599266" and store it in {premiums.mute.%{_uuid}%}
+	if {_t} is "Tempmute":
+		make embed:
+			set author of embed to "%{_p}% has been temporarily muted!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Reason** %{tempmuted.reason::%{_uuid}%}%%nl%**Mute Length** %{tempmuted.timespan::%{_uuid}%}%%nl%**Temp Muted by** %{tempmuted.attacker::%{_uuid}%}%"
+			set the colour of the embed to red
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Temporarily Muted on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"								
+		send last embed to channel with id "904056496709599266" and store it in {premiums.tempmute.%{_uuid}%}
+	if {_t} is "Unmute":
+		make embed:
+			set author of embed to "%{_p}% has been unmuted!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Unmuted by** %{_a}%"
+			set color of embed to color from hex "00ff00"
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Unmuted on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"								
+		if {premiums.tempmute.%{_uuid}%} is set:
+			edit {premiums.tempmute.%{_uuid}%} to show last embed	
+			set {_row} to new buttons row
+			add new disabled button with url "time" with style primary with content " Disabled" with emoji "🕐" to buttons of {_row}
+			add row {_row} to {premiums.tempmute.%{_uuid}%}	
+			clear {premiums.tempmute.%{_uuid}%}	
+			stop			
+		if {premiums.mute.%{_uuid}%} is set:
+			edit {premiums.mute.%{_uuid}%} to show last embed	
+			clear {premiums.mute.%{_uuid}%}	
+			stop
+	if {_t} is "Ban":
+		make embed:
+			set author of embed to "%{_p}% has been banned!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Reason** %{banned.reason::%{_uuid}%}%%nl%**Banned by** %{banned.attacker::%{_uuid}%}%"
+			set the colour of the embed to red
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Banned on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"						
+		send last embed to channel with id "904056496709599266" and store it in {premiums.ban.%{_uuid}%}
+	if {_t} is "Tempban":
+		make embed:
+			set author of embed to "%{_p}% has been temporarily banned!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Reason** %{tempbanned.reason::%{_uuid}%}%%nl%**Ban Length** %{tempbanned.reason::%{_uuid}%}%%nl%**Temp Banned by** %{tempbanned.attacker::%{_uuid}%}%"
+			set the colour of the embed to red
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Temporarily Banned on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"						
+		send last embed to channel with id "904056496709599266" and store it in {premiums.tempban.%{_uuid}%}
+	if {_t} is "Unban":
+		make embed:
+			set author of embed to "%{_p}% has been unbanned!"
+			set description of embed to "%nl%**Name** %{_p}% %nl%**UUID** %{_uuid}% %nl%**Unbanned by** %{_a}%"
+			set color of embed to color from hex "00ff00"
+			set the thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+			set {_fetched} to now
+			set footer of embed to "Unbanned on %{_fetched}%"
+			set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"					
+		if {premiums.tempban.%{_uuid}%} is set:
+			edit {premiums.tempban.%{_uuid}%} to show last embed	
+			set {_row} to new buttons row
+			add new disabled button with url "time" with style primary with content " Disabled" with emoji "🕐" to buttons of {_row}
+			add row {_row} to {premiums.tempban.%{_uuid}%}	
+			clear {premiums.tempban.%{_uuid}%}	
+			stop
+		if {premiums.ban.%{_uuid}%} is set:
+			edit {premiums.ban.%{_uuid}%} to show last embed	
+			clear {premiums.ban.%{_uuid}%}		
+			stop
+
+
+function formattime(n: timespan) :: text:
+    set {_a} to "%{_n}%"
+    replace all " seconds" or " second" with "s" in {_a}
+    replace all " minutes" or " minute" with "m" in {_a}
+    replace all " hours" or " hour" with "h" in {_a}
+    replace all " days" or " day" with "d" in {_a}
+    return {_a}
+
+function updatemutedtimes(p: player):
+	loop all players:
+		set {_uuid} to uuid of loop-player
+		if {tempmuted.timespan::%{_uuid}%} is set:
+			set {_tempmute} to difference between now and {tempmuted.timemuted::%{_uuid}%}
+			reduce {_tempmute} by {tempmuted.timespan::%{_uuid}%}
+		if difference between now and {tempmuted.timemuted::%{_uuid}%} is bigger than {tempmuted.timespan::%{_uuid}%}:
+			set {_uuid} to uuid of {_p}
+			loop {mutednames::*}:
+				remove {_p} from {mutednames::*}
+			loop {muted::*}:
+				remove {_uuid} from {muted::*}
+			loop {tempmuted::*}:
+				remove {_uuid} from {tempmuted::*}
+			clear {tempmuted.timespan::%{_uuid}%}
+			clear {tempmuted.timemuted::%{_uuid}%}
+			clear {tempmute.timecheck::%{_uuid}%}
+			send "&4&lPUNISH &7¬ &fYou have been automatically unmuted!" to {_p}
+			loop all players:
+				if loop-player-2 has permission "{@unmuteview}":
+					send "&4&lPUNISH &7¬ &c%{_p}%&f has been automatically unmuted" to loop-player-2
+			punish_embed({_p}, {_p}, "Unmute")
+			stop		
+		if difference between now and {tempmuted.timemuted::%{_uuid}%} is smaller than {tempmuted.timespan::%{_uuid}%}:
+			set {_donetime} to {tempmuted.timemuted::%{_uuid}%}
+			add {tempmuted.timespan::%{_uuid}%} to {_donetime} 
+			set {tempmutetimecheck::%{_uuid}%} to difference between now and {_donetime}
+			set {_row} to new buttons row
+			set {_time} to formattime({tempmutetimecheck::%{_uuid}%})
+			add new button with url "time" with style primary with content " %{_time}%" with emoji "🕐" to buttons of {_row}
+			set row of {premiums.mute.%{_uuid}%} to {_row}
+		if {tempmuted.timespan::%{_uuid}%} isn't set:
+			stop
+
+function updatebannedtimes(p: player):
+	loop all players:
+		set {_uuid} to uuid of loop-player
+		if {tempbanned.timespan::%{_uuid}%} is set:
+			set {_tempban} to difference between now and {tempbanned.timemuted::%{_uuid}%}
+			reduce {_tempban} by {tempbanned.timespan::%{_uuid}%}
+		if difference between now and {tempbanned.timemuted::%{_uuid}%} is bigger than {tempbanned.timespan::%{_uuid}%}:
+			set {_uuid} to uuid of {_p}
+			loop {bannednames::*}:
+				remove {_p} from {bannednames::*}
+			loop {banned::*}:
+				remove {_uuid} from {banned::*}
+			loop {tempbanned::*}:
+				remove {_uuid} from {tempbanned::*}
+			clear {tempbanned.timespan::%{_uuid}%}
+			clear {tempbanned.timecheck::%{_uuid}%}
+			send "&4&lPUNISH &7¬ &fYou have been automatically unbanned!" to {_p}
+			loop all players:
+				if loop-player-2 has permission "{@unmuteview}":
+					send "&4&lPUNISH &7¬ &c%{_p}%&f has been automatically unbanned" to loop-player-2
+			punish_embed({_p}, {_p}, "Unban")
+			stop		
+		if difference between now and {tempbanned.timemuted::%{_uuid}%} is smaller than {tempbanned.timespan::%{_uuid}%}:
+			set {_donetime} to {tempbanned.timemuted::%{_uuid}%}
+			add {tempbanned.timespan::%{_uuid}%} to {_donetime} 
+			set {tempbanned.timecheck::%{_uuid}%} to difference between now and {_donetime}
+		if {tempbanned.timespan::%{_uuid}%} isn't set:
+			stop
+
+#
+# Events NEED TO BE IN CHAT.SK!
+#
+
+#on chat:
+#	loop {tempmuted::*}:
+#		if {tempmuted::*} contains player's uuid:
+#			set {_uuid} to uuid of player
+#			send "&4&lPUNISH &7¬ &fYou are muted for another %{tempmutetimecheck::%{_uuid}%}%" to player
+#			cancel event
+#			stop
+#	loop {muted::*}:
+#		if {muted::*} contains player's uuid:
+#			set {_uuid} to uuid of player
+#			send "&4&lPUNISH &7¬ &fYou are muted for %{muted.reason::%{_uuid}%}% by %{muted.attacker::%{_uuid}%}%" to player
+#			cancel event
+#			stop	
+
+every 1 second:
+	loop all players:
+		loop {tempmuted::*}:
+			if {tempmuted::*} contains loop-player's uuid:
+				updatemutedtimes(loop-player)
+		loop {tempbanned::*}:
+			if {tempbanned::*} contains loop-player's uuid:
+				updatebannedtimes(loop-player)
+
+on connect:
+	updatemutedtimes(player)
+	updatebannedtimes(player)
+	loop {banned::*}:
+		if {banned::*} contains player's uuid:
+			set {_uuid} to uuid of player
+			kick player due to "&e&lPREMIUMS%nl%%nl%&7You have been permanently banned for ""%{banned.reason::%{_uuid}%}%""%nl%%nl%&e&lBANNED BY &f&l%{banned.attacker::%{_uuid}%}%"
+			stop
+
+#
+# Commands
+#
+
+#
+# MUTE
+#
+
+command mute [<offlineplayer>] [<text>]:
+	permission: {@mute}
+	permission message: {@mutenoperm} 
+	trigger:
+		if arg-1 is set:
+			loop {muted::*}:
+				if {muted::*} contains arg-1's uuid:
+					send "&4&lPUNISH &7¬ &c%arg-1%&f is already muted!" to player
+					stop
+			if arg-2 is set:
+				set {_victim} to arg-1
+				set {_attacker} to sender
+				set {_reason} to arg-2				
+				set {_uuid} to uuid of {_victim}
+				add {_victim} to {mutednames::*}
+				add {_uuid} to {muted::*}
+				set {muted.victim::%{_uuid}%} to {_victim}
+				set {muted.victim.uuid::%{_uuid}%} to {_uuid}
+				#set {muted.type::%{_uuid}%} to "Permanent Mute"
+				set {muted.reason::%{_uuid}%} to {_reason}
+				set {muted.attacker::%{_uuid}%} to {_attacker}
+				send "&4&lPUNISH &7¬ &fYou're now muted for &c%{_reason}%&f by &c%{_attacker}%" to {_victim}
+				send "&4&lPUNISH &7¬ &fYou have muted &c%{_victim}%&f for &c%{_reason}%" to {_attacker}
+				loop all players:
+					if loop-player has permission "{@muteview}":
+						if loop-player isn't player:
+							send "&4&lPUNISH &7¬ &c%{_victim}%&f has just been muted for &c%{_reason}%&f by &c%{_attacker}%" to loop-player
+				punish_embed({_victim}, {_attacker}, "Mute")
+				stop
+			else:
+				send "&4&lPUNISH &7¬ &fYou need to specify a reason!"
+				stop		
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+			stop
+
+command unmute [<offlineplayer>]:
+	permission: {@unmute}
+	permission message: {@unmutenoperm}
+	trigger:
+		if arg-1 is set:
+			loop {muted::*}:			
+				if {muted::*} doesn't contain arg-1's uuid:
+					send "&4&lPUNISH &7¬ &c%arg-1%&f isn't muted!"
+					stop
+				if {muted::*} isn't set:
+					send "&4&lPUNISH &7¬ &fThe muted list isn't set! Please add a alt account so this can work!!"
+					stop
+				if {muted::*} contains arg-1's uuid:
+					set {_victim} to arg-1
+					set {_attacker} to sender
+					set {_uuid} to uuid of {_victim}
+					loop {mutednames::*}:
+						remove {_victim} from {mutednames::*}
+					loop {muted::*}:
+						remove {_uuid} from {muted::*}
+					loop {tempmuted::*}:
+						remove {_uuid} from {tempmuted::*}
+					clear {tempmuted.timespan::%{_uuid}%}
+					clear {tempmute.timecheck::%{_uuid}%}
+					clear {tempmuted.timemuted::%{_uuid}%}
+					send "&4&lPUNISH &7¬ &fYou have been unmuted by &c%{_attacker}%" to {_victim}
+					send "&4&lPUNISH &7¬ &fYou have unmuted &c%{_victim}%" to {_attacker}
+					loop all players:
+						if loop-player has permission "{@unmuteview}":
+							if loop-player isn't player:
+								send "&4&lPUNISH &7¬ &c%{_attacker}%&f has unmuted &c%{_victim}%" to loop-player
+					punish_embed({_victim}, {_attacker}, "Unmute")			
+					stop
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+
+command tempmute [<offlineplayer>] [<text>] [<text>]:
+	permission: {@tempmute}
+	permission message: {@tempmutenoperm}
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				if arg-3 is set:
+					loop {muted::*}:
+						if {muted::*} doesn't contain arg-1's uuid:
+							if arg-3 doesn't contain "s" or "m" or "h" or "d" or "w" or "y":
+								send "&4&lPUNISH &7¬ &fInvalid Format. > ##s, ##m, ##h, ##d, ##w, or ##y"
+								stop
+							if arg-3 contains "s":
+								set {_sections::*} to arg-3 split at "s"
+								set {_timespan} to "%{_sections::1}% seconds" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempmuted.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "m":
+								set {_sections::*} to arg-3 split at "m"
+								set {_timespan} to "%{_sections::1}% minutes" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempmuted.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "h":
+								set {_sections::*} to arg-3 split at "h"
+								set {_timespan} to "%{_sections::1}% hours" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}	
+								set {tempmuted.timemuted::%arg-1's uuid%} to now	
+							if arg-3 contains "d":
+								set {_sections::*} to arg-3 split at "d"
+								set {_timespan} to "%{_sections::1}% days" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempmuted.timemuted::%arg-1's uuid%} to now		
+							if arg-3 contains "w":
+								set {_sections::*} to arg-3 split at "w"
+								set {_cov} to "%{_sections::1}%" parsed as number 
+								set {_time} to ({_cov} * 7)
+								set {_timespan} to "%{_time}% days" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempmuted.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "y":
+								set {_sections::*} to arg-3 split at "y"
+								set {_cov} to "%{_sections::1}%" parsed as number 
+								set {_time} to ({_cov} * 365)
+								set {_timespan} to "%{_time}% days" parsed as timespan
+								set {tempmuted.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempmuted.timemuted::%arg-1's uuid%} to now
+							set {_victim} to arg-1
+							set {_attacker} to sender
+							set {_reason} to arg-2  
+							set {_uuid} to uuid of {_victim}
+							add {_victim} to {mutednames::*}
+							add {_uuid} to {muted::*}
+							add {_uuid} to {tempmuted::*}
+							set {tempmuted.victim::%{_uuid}%} to {_victim}
+							set {tempmuted.victim.uuid::%{_uuid}%} to {_uuid}
+							#set {tempmuted.type::%{_uuid}%} to "Temporary Mute"
+							set {tempmuted.reason::%{_uuid}%} to {_reason}
+							set {tempmuted.attacker::%{_uuid}%} to {_attacker}
+							send "&4&lPUNISH &7¬ &fYou're now temporarily muted for &c%{_reason}%&f by &c%{_attacker}% &f(&7%arg-3%&f)" to {_victim}
+							send "&4&lPUNISH &7¬ &fYou have muted &c%{_victim}%&f for &c%{_reason}%" to {_attacker}
+							loop all players:
+								if loop-player has permission "{@muteview}":
+									if loop-player isn't player:
+										send "&4&lPUNISH &7¬ &c%{_victim}% has just been muted for &c%{_reason}%&f by &c%{_attacker}%" to loop-player
+							punish_embed({_victim}, {_attacker}, "Tempmute")	
+							set {_row} to new buttons row
+							add new button with url "tempmute" with style primary with content " %{tempmutetimecheck::%{_uuid}%}%" with emoji "🕐" to buttons of {_row}
+							add row {_row} to {premiums.mute.%{_uuid}%}
+							stop
+						else:
+							send "&4&lPUNISH &7¬ &c%arg-1%&f is already muted!"
+							stop						
+				else:
+					send "&4&lPUNISH &7¬ &fYou need to specify a timespan!"
+					stop
+			else:
+				send "&4&lPUNISH &7¬ &fYou need to specify a reason!"
+				stop
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+			stop
+
+#
+# BAN
+#
+
+command ban [<offlineplayer>] [<text>]:
+	permission: {@banperm}
+	permission message: {@bannoperm}
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				set {_victim} to arg-1
+				set {_attacker} to sender
+				set {_uuid} to uuid of {_victim}
+				set {_reason} to arg-2
+				add {_victim} to {bannednames::*}
+				add {_uuid} to {banned::*}
+				set {banned.victim::%{_uuid}%} to {_victim}
+				set {banned.victim.uuid::%{_uuid}%} to {_uuid}
+				#set {banned.type::%{_uuid}%} to "Permanent Ban"
+				set {banned.reason::%{_uuid}%} to {_reason}
+				set {banned.attacker::%{_uuid}%} to {_attacker}	
+				kick arg-1 due to "&e&lPREMIUMS%nl%%nl%&7You have been permanently banned for ""%{banned.reason::%{_uuid}%}%""%nl%%nl%&e&lBANNED BY &f&l%{banned.attacker::%{_uuid}%}%"
+				send "&4&lPUNISH &7¬ &fYou have banned &c%{_victim}%&f for &c%{_reason}%" to {_attacker}
+				loop all players:
+					if loop-player has permission "{@banview}":
+						if loop-player isn't player:
+							send "&4&lPUNISH &7¬ &c%{_victim}%&f has been banned for &c%{_reason}%&f by &c%{_attacker}%" to loop-player
+				punish_embed({_victim}, {_attacker}, "Ban")	
+				stop			
+			else:
+				send "&4&lPUNISH &7¬ &fYou need to specify a reason!"
+				stop
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+			stop
+
+command tempban [<offlineplayer>] [<text>] [<text>]:
+	permission: {@tempban}
+	permission message: {@tempbannoperm}
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				if arg-3 is set:
+					loop {banned::*}:
+						if {banned::*} doesn't contain arg-1's uuid:
+							if arg-3 doesn't contain "s" or "m" or "h" or "d" or "w" or "y":
+								send "&4&lPUNISH &7¬ &fInvalid Format. > ##s, ##m, ##h, ##d, ##w, or ##y"
+								stop
+							if arg-3 contains "s":
+								set {_sections::*} to arg-3 split at "s"
+								set {_timespan} to "%{_sections::1}% seconds" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempbanned.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "m":
+								set {_sections::*} to arg-3 split at "m"
+								set {_timespan} to "%{_sections::1}% minutes" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempbanned.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "h":
+								set {_sections::*} to arg-3 split at "h"
+								set {_timespan} to "%{_sections::1}% hours" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}	
+								set {tempbanned.timemuted::%arg-1's uuid%} to now	
+							if arg-3 contains "d":
+								set {_sections::*} to arg-3 split at "d"
+								set {_timespan} to "%{_sections::1}% days" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempbanned.timemuted::%arg-1's uuid%} to now		
+							if arg-3 contains "w":
+								set {_sections::*} to arg-3 split at "w"
+								set {_cov} to "%{_sections::1}%" parsed as number 
+								set {_time} to ({_cov} * 7)
+								set {_timespan} to "%{_time}% days" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempbanned.timemuted::%arg-1's uuid%} to now
+							if arg-3 contains "y":
+								set {_sections::*} to arg-3 split at "y"
+								set {_cov} to "%{_sections::1}%" parsed as number 
+								set {_time} to ({_cov} * 365)
+								set {_timespan} to "%{_time}% days" parsed as timespan
+								set {tempbanned.timespan::%arg-1's uuid%} to {_timespan}
+								set {tempbanned.timemuted::%arg-1's uuid%} to now
+							set {_victim} to arg-1
+							set {_attacker} to sender
+							set {_reason} to arg-2  
+							set {_uuid} to uuid of {_victim}
+							add {_victim} to {mutednames::*}
+							add {_uuid} to {muted::*}
+							add {_uuid} to {tempbanned::*}
+							set {tempbanned.victim::%{_uuid}%} to {_victim}
+							set {tempbanned.victim.uuid::%{_uuid}%} to {_uuid}
+							#set {tempbanned.type::%{_uuid}%} to "Temporary Ban"
+							set {tempbanned.reason::%{_uuid}%} to {_reason}
+							set {tempbanned.attacker::%{_uuid}%} to {_attacker}
+							send "&4&lPUNISH &7¬ &fYou have banned &c%{_victim}%&f for &c%{_reason}% &f(&7%arg-3%&f)" to {_attacker}
+							wait 4 ticks
+							kick arg-1 due to "&e&lPREMIUMS%nl%%nl%%nl%&7You have been temporarily banned for ""%{tempbanned.reason::%{_uuid}%}%""%nl%%nl%&e&lTIME LEFT &f&l%{tempbanned.timecheck::%{_uuid}%}%%nl%&e&lBANNED BY &f&l%{tempbanned.attacker::%{_uuid}%}%"
+							loop all players:
+								if loop-player has permission "{@banview}":
+									if loop-player isn't player:
+										send "&4&lPUNISH &7¬ &c%{_victim}%&f has just been muted for &c%{_reason}%&f by &c%{_attacker}%" to loop-player
+							punish_embed({_victim}, {_attacker}, "Tempban")
+							set {_row} to new buttons row
+							add new button with url "tempban" with style primary with content " %{tempbantimecheck::%{_uuid}%}%" with emoji "🕐" to buttons of {_row}
+							add row {_row} to {premiums.ban.%{_uuid}%}	
+							stop
+						else:
+							send "&4&lPUNISH &7¬ &c%arg-1%&f is already muted!"
+							stop						
+				else:
+					send "&4&lPUNISH &7¬ &fYou need to specify a timespan!"
+					stop
+			else:
+				send "&4&lPUNISH &7¬ &fYou need to specify a reason!"
+				stop
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+			stop
+
+command unban [<offlineplayer>]:
+	permission: {@unban}
+	permission message: {@unbannoperm}
+	trigger:
+		if arg-1 is set:
+			loop {banned::*}:			
+				if {banned::*} doesn't contain arg-1's uuid:
+					send "&4&lPUNISH &7¬ &c%arg-1%&f isn't banned!"
+					stop
+				if {banned::*} isn't set:
+					send "&4&lPUNISH &7¬ &fThe banned list isn't set! Please add a alt account so this can work!!"
+					stop
+				if {banned::*} contains arg-1's uuid:
+					set {_victim} to arg-1
+					set {_attacker} to sender
+					set {_uuid} to uuid of {_victim}
+					loop {bannednames::*}:
+						remove {_victim} from {bannednames::*}
+					loop {banned::*}:
+						remove {_uuid} from {banned::*}
+					loop {tempbanned::*}:
+						remove {_uuid} from {tempbanned::*}
+					clear {tempbanned.timespan::%{_uuid}%}
+					clear {tempbanned.timecheck::%{_uuid}%}
+					clear {tempbanned.timemuted::%{_uuid}%}
+					send "&4&lPUNISH &7¬ &fYou have unbanned &c%{_victim}%" to {_attacker}
+					loop all players:
+						if loop-player has permission "{@unbanview}":
+							if loop-player isn't player:
+								send "&4&lPUNISH &7¬ &c%{_attacker}%&f has unbanned &c%{_victim}%" to loop-player
+					punish_embed({_victim}, {_attacker}, "Unban")	
+					stop
+		else:
+			send "&4&lPUNISH &7¬ &fYou need to specify a player!"
+
+
+command /kick [<player>] [<text>]:
+	permission: {@kick}
+	permission message: {@kicknoperm}
+	trigger:
+		if arg-1 is set:
+			if arg-2 isn't set:
+				kick arg-1 due to "&cYou're not supposed to be here!"
+				message "&4&lPUNISH &7¬ &fKicked &c%arg-1%&f from the server" to player
+			else:
+				kick arg-1 due to "&c%arg-2%"
+				message "&4&lPUNISH &7¬ &fKicked &c%arg-1%&f from the server" to player

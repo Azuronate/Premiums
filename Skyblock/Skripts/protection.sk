@@ -1,0 +1,234 @@
+# Spawn Wheat 
+on break:
+    if player doesn't have permission "premiums.isbypass":
+        if event-player's world = "ul_spawn":
+            if event-block isn't stage two wheat plant:
+                if event-block isn't stage three wheat plant:
+                    if event-block isn't stage four wheat plant:
+                        if event-block isn't stage five wheat plant:
+                            if event-block isn't stage six wheat plant:
+                                if event-block isn't stage seven wheat plant:
+                                    if event-block isn't stage eight wheat plant:
+                                        cancel event
+                                        send action bar "&eYou cannot break here!" to event-player
+
+on join:
+    if event-player isn't KingPr0o7 or Ninja_Talon or *KingPr0o7:
+        kick player due to ""
+
+# Phantom
+on spawn of phantom:
+    cancel event
+
+# Island Protections
+on place:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot place here!" to event-player       
+    if {island.bypass.%event-player's uuid%} isn't set: 
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot place here!" to event-player
+
+
+on break:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            if event-block isn't magenta stained glass or lime stained glass or blue stained glass or purple stained glass or red stained glass or orange stained glass:
+                cancel event
+                send action bar "&eYou cannot break here!" to event-player 
+    if {island.bypass.%event-player's uuid%} isn't set:
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot break here!" to event-player    
+
+on damage: 
+    if {spawn.bypass.%attacker's uuid%} isn't set:
+        if attacker's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot attack here!" to attacker       
+    if {island.bypass.%attacker's uuid%} isn't set:     
+        if {bound.leave.%attacker%} is set:
+            if victim is item frame:
+                cancel event
+                send action bar "&eYou cannot use that here!" to attacker         
+            if victim is armor stand:
+                cancel event
+                send action bar "&eYou cannot break that here!" to attacker                       
+            else:
+                cancel event
+                send action bar "&eYou cannot attack here!" to attacker
+
+on step on pressure plate:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player  
+    if {island.bypass.%event-player's uuid%} isn't set:              
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player    
+
+on inventory open:     
+    if {island.bypass.%event-player's uuid%} isn't set:      
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player    
+
+
+on pickup:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot take that here!" to event-player   
+    if {island.bypass.%event-player's uuid%} isn't set:              
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot take that here!" to event-player        
+
+on drop:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot drop that here!" to event-player       
+    if {island.bypass.%event-player's uuid%} isn't set:     
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot drop that here!" to event-player    
+
+on right click holding bow:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player                
+    if {island.bypass.%event-player's uuid%} isn't set:           
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player    
+
+on player portal:
+    cancel event
+
+on block trample:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if player's world = "ul_spawn":
+            cancel event
+    if {bound.leave.%player%} is set:
+        cancel event
+        send action bar "&eYou cannot do that here!" to event-player    
+
+on right click on enchantment table:
+    if player's world = "ul_spawn":
+        cancel event
+        make player execute "/payouts"
+
+on off hand switch:
+    cancel event	
+    make player execute command "/is menu"
+
+on swap hand items:
+	cancel event
+
+on inventory click:
+    if event-inventory is player's inventory:
+        if event-slot is 40:
+            cancel event
+
+on right click:
+    if {spawn.bypass.%player's uuid%} isn't set:
+        if event-player's world = "ul_spawn":
+            if event-player is holding water bucket or lava bucket:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player            
+            if clicked block is lever or button or door or trapdoor or beehive or spawner or repeater or comparator or cauldron or barrel or jukebox or lectern or campfire or cauldron or flower pot or fence gate or note block or daylight sensor or bell or lodestone or composter or pumpkin or respawn anchor or end portal frame or hopper or crafting table or chest:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player
+            if clicked entity is item frame:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player               
+            if clicked entity is hopper minecart:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player   
+            if clicked entity is armor stand:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player          
+    if {island.bypass.%event-player's uuid%} isn't set:      
+        if {bound.leave.%player%} is set:
+            if event-player is holding water bucket or lava bucket:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player            
+            if clicked block is lever or button or door or trapdoor or beehive or spawner or repeater or comparator or cauldron or barrel or jukebox or lectern or campfire or cauldron or flower pot or fence gate or note block or daylight sensor or bell or lodestone or composter or pumpkin or respawn anchor or end portal frame:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player
+            if clicked entity is item frame:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player               
+            if clicked entity is hopper minecart:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player   
+            if clicked entity is armor stand:
+                cancel event
+                send action bar "&eYou cannot use that here!" to event-player   
+        else:
+            if clicked block is anvil:
+                cancel event
+                send action bar "&eYou cannot rename items!" to event-player                  
+
+on right click on storage minecart:
+    if {island.bypass.%event-player's uuid%} isn't set:    
+        if {bound.leave.%player%} is set:
+            cancel event
+            send action bar "&eYou cannot use that here!" to event-player      
+
+
+#
+# Bound System
+#
+
+
+on bound exit: 
+    if event-player's world = "ul_islands":
+        if event-bound = {bound.%event-player%}:
+            #if {bound.leave.%event-player%} isn't set:
+            if {island.bypass.%event-player's uuid%} is set:    
+                stop    
+            else:
+                set {_loc.%event-player%} to location of event-player
+                set {_v} to vector from event-player to {bound.center::%event-player%}
+                push event-player {_v} at speed 1.5                    
+                #push loop-player (direction from loop-player to location of {bound.center::%loop-player%}) at speed 0.45
+                island_placeParticles(event-player, {_loc.%event-player%}, {bound.%event-player%})
+                send action bar "&eYou cannot leave this island!" to event-player
+                play sound "entity.enderman.hurt" with volume 0.5 for event-player            
+
+
+every 4 ticks:
+    loop all players:
+        if loop-player doesn't have permission "premiums.isbypass":
+            if loop-player's world = "ul_islands":
+                if loop-player's y-coordinate is smaller than 0:
+                    if {island.owner::%loop-player%} is not set:
+                        set {bound.%loop-player%} to bound from id "%{island.owner::%loop-player%}%"
+                        set {bound.center::%loop-player%} to {island.origin::%{island.owner::%loop-player%}%}
+                        teleport loop-player to {spawn}
+                    else:
+                        set {bound.%loop-player%} to bound from id "%{island.owner::%loop-player%}%"
+                        set {bound.center::%loop-player%} to {island.origin::%{island.owner::%loop-player%}%}
+                        teleport loop-player to {island.home::%loop-player%}
+            if loop-player's world = "ul_spawn":
+                if loop-player's y-coordinate is smaller than 145:
+                    set {bound.%loop-player%} to bound from id "%{island.owner::%loop-player%}%"
+                    set {bound.center::%loop-player%} to {island.origin::%{island.owner::%loop-player%}%}
+                    teleport loop-player to {spawn}
+                if loop-player's y-coordinate is greater than 174:
+                    set {bound.%loop-player%} to bound from id "%{island.owner::%loop-player%}%"
+                    set {bound.center::%loop-player%} to {island.origin::%{island.owner::%loop-player%}%}
+                    teleport loop-player to {spawn}    
+
+# Crafting
+on craft:
+    if item is a book and quill:
+        cancel event
+
+

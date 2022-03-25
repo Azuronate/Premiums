@@ -1,0 +1,405 @@
+options:
+	tag: &e&lSKYBLOCK &7¬&f
+
+#
+# Nameing Convention Function
+#
+
+function capitalizeFirst(text: texts) :: texts:
+	loop {_text::*}:
+		set {_first-char} to first character of loop-value
+		set {_remaining} to last (length of loop-value - 1) characters of loop-value
+		set {_output::%loop-index%} to "%{_first-char} in upper case%%{_remaining}%"
+	return {_output::*}
+
+#
+# On chat event
+#
+
+
+on chat:
+	cancel event
+	set {_uuid} to uuid of player
+	# Captcha 
+	if {captcha::%player%} is set:
+		if message is "%{captcha::%player%}%":
+			reset the title of player
+			initilizePlayer(player)
+		else:
+			send "{@tag} You must type ""%{captcha::%player%}%"" to begin."
+		stop
+	else:
+		# deposit/Withdrawal from Island Bank
+		if {input.cash.deposit::%{_uuid}%} is true:
+			set {_amount} to message
+			if {_amount} contains "cancel" or "Cancel" or "stop" or "exit":
+				set {input.cash.deposit::%{_uuid}%} to false
+				send "{@tag} Deposit canceled."
+				stop
+			if {_amount} contains ".":
+				send "{@tag} You must input a whole number value!"
+				stop
+			set {_int} to unformat("%{_amount}%")
+			set {_number} to "%{_int}%" parsed as integer
+			if {_number} is greater than {balance::%{_uuid}%}:
+				send "{@tag} You don't have enough money to deposit!"
+				stop
+			if {_number} is less than 1:
+				send "{@tag} You can't put a number less than 1!"
+				stop						
+			else:					
+				remove {_number} from {balance::%player's uuid%}
+				add {_number} to {island.bank.%{island.members.%{island.owner::%player%}%::*}%}
+				send "{@tag} You've successfully deposited $%regex({_number})%."
+				send title "&a&lBANK DEPOSIT" with subtitle "&f%player% deposited &a$%format({_number})%" to {island.members.%player%::*}
+				set {_members::*} to {island.members.%player%::*}
+				remove player from {_members::*}
+				message "{@tag} %player% has deposited $%regex({_number})% into the bank!" to {_members::*}				
+				set {input.cash.deposit::%{_uuid}%} to false
+				stop
+		if {input.cash.withdraw::%{_uuid}%} is true:
+			set {_amount} to message
+			if {_amount} contains "cancel" or "Cancel" or "stop" or "exit":
+				set {input.cash.withdraw::%{_uuid}%} to false
+				send "{@tag} Withdraw canceled."
+				stop
+			if {_amount} contains ".":
+				send "{@tag} You must input a whole number value!"
+				stop
+			set {_int} to unformat("%{_amount}%")
+			set {_number} to "%{_int}%" parsed as integer
+			if {_number} is greater than {island.bank.%{island.members.%{island.owner::%player%}%::*}%}:
+				send "{@tag} There is not enough money to withdraw!"
+				stop
+			if {_number} is less than 1:
+				send "{@tag} You can't put a number less than 1!"
+				stop	
+			else:						
+				add {_number} to {balance::%{_uuid}%}
+				remove {_number} from {island.bank.%{island.members.%{island.owner::%player%}%::*}%}
+				send "{@tag} You've successfully withdrawn $%regex({_number})%."	
+				set {_members::*} to {island.members.%player%::*}
+				remove player from {_members::*}
+				message "{@tag} %player% has withdrawn $%format({_number})% from the bank!" to {_members::*}			
+				send title "&c&lBANK WITHDRAWAL" with subtitle "&f%player% withdrawn &c$%format({_number})%" to {island.members.%player%::*}		
+				set {input.cash.withdraw::%{_uuid}%} to false	
+				stop        
+		# Punishment restrictions 
+		loop {tempmuted::*}:
+			if {tempmuted::*} contains player's uuid:
+				set {_uuid} to uuid of player
+				send "&4&lPUNSIH &7¬ &fYou are muted for another %{tempmutetimecheck::%{_uuid}%}%" to player
+				cancel event
+				stop
+		loop {muted::*}:
+			if {muted::*} contains player's uuid:
+				set {_uuid} to uuid of player
+				send "&4&lPUNSIH &7¬ &fYou are muted for %{muted.reason::%{_uuid}%}% by %{muted.attacker::%{_uuid}%}%" to player
+				cancel event
+				stop	
+		# Chat mute
+		if {chat.muted} is 1:
+			if player doesn't have permission "premiums.staff":
+				send "{@tag} Chat is currently muted."
+				cancel event
+				stop
+		# Blacklisted words
+		if message contains "nigger", "nigga", "faggot", "fag", "retard", "jew", "hitler", "nazi" or "卐":
+			cancel event            
+			#mute the player
+			send "&e&lPREMIUMS &7¬ &c%player% &ftried to say ""&c%message%&f""." to all players where [player input has permission "premiums.staff"]
+			execute console command  "/tempmute %player% TOXICITY 10m"
+			stop
+		set {_message} to message
+		# Color chat
+		#if {chatcolor::%{_p}%} is set:
+		#	set {_color} to {chatcolor::%player%}
+		if {_message} contains "&":
+			if player doesn't have permission "premiums.admin":
+				replace all "&" in {_message} with "?" 
+		if {_message} contains ">":
+			if player has permission "premiums.admin":
+				cancel event 
+				replace all ">" in {_message} with ""
+				make player execute "/sc %{_message}%"
+				stop
+		# [item] display 
+		if {_message} contains "[item]":
+			set {_i} to type of player's held item
+			if {_i} is air:
+				send "{@tag} You must have an item in your hand to use [item]!" to player
+				stop
+			# Enchantments for [item]
+			loop enchantments of player's held item:
+				add "&7%loop-value%" to {_enchants::*}
+			if {_enchants::*} is set:
+				set {_enchants} to "%{_enchants::*}%"
+				if {_enchants} contains " and " or ", ":
+					replace all " and " or ", " in {_enchants} with newline
+				replace all "1" in {_enchants} with "I"
+				replace all "2" in {_enchants} with "II"
+				replace all "3" in {_enchants} with "III"
+				replace all "4" in {_enchants} with "IV"
+				replace all "5" in {_enchants} with "V"
+				add {_enchants} to {_enchants::*}
+			else:
+				set {_enchants} to "&7No enchantments on this item!"
+			# Lore for [item]
+			set {_item-name} to name of held item
+			if line 1 of lore of held item is set:
+				set {_lore} to "%lore of held item%"
+				replace all " and " or ", " in {_lore} with newline
+				if {_lore} contains "┃" or "&7Theme:":
+					clear {_enchants}
+			# Name for [item]
+			if {_item-name} is not set:
+				set {_item} to "%held item's type%"
+				if {_item} contains " ":
+					set {_sections::*} to {_item} split at " "
+				loop {_sections::*}:
+					set {_number} to loop-index
+					add "%capitalizeFirst({_sections::%{_number}%})%" to {_item-name::*}
+				set {_item-name} to "%{_item-name::*}%"
+				if {_item-name} contains " and " or ", ":
+					replace all " and " or ", " in {_item-name} with " "
+				set {_item-display} to "&b%{_item-name}%"
+			else:
+				set {_item} to "%nl%&8%held item's type%"
+		# Luckperms prefix settings
+		set {_prefix} to player's prefix
+		if {_prefix} contains "PEARL" or "SAPPHIRE" or "DIAMOND" or "RUBY" or "AMETHYST":
+			set {_color} to "&f"
+		if {_prefix} contains "HELPER" or "MOD" or "ADMIN" or "OWNER":
+			set {_color} to "&f" #"<##19C8FB>"
+		if {_prefix} contains "none":
+			set {_color} to "&7"
+		if {_prefix} contains "ADMIN" or "AMETHYST" or "DIAMOND" or "RUBY" or "SAPPHIRE":
+			replace all "&##" in {_prefix} with "<####"
+			replace all "&l" with ">&l" in {_prefix}
+		replace all "&l " with "" in {_prefix}
+		if {_prefix} contains "none":
+			set {_name} to "&7%player%"
+		else:
+			set {_name} to "%{_prefix}% %player%"
+		# Send [item]
+		if {_item-display} is set:
+			set {_item-chat-name} to "&e%{_item-name}%"	
+			if {_enchants} isn't set:
+				if {_lore} isn't set:	
+					replace all "[item]" with "<tooltip:&f%{_item-display}%>&e%{_item-chat-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} isn't set:
+				if {_lore} is set:
+					replace all "[item]" with "<tooltip:&f%{_item-display}%%nl%%colored {_lore}%>&e%{_item-chat-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} is set:
+				if {_lore} isn't set:
+					replace all "[item]" with "<tooltip:&f%{_item-display}%%nl%%{_enchants}%>&e%{_item-chat-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} is set:
+				if {_lore} is set:
+					replace all "[item]" with "<tooltip:&f%{_item-display}%%nl%%{_enchants}%%nl%%colored {_lore}%>&e%{_item-chat-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+		if {_item-name} is set:			
+			if {_enchants} isn't set:
+				if {_lore} isn't set:	
+					replace all "[item]" with "<tooltip:&f%{_item-name}%%nl%%{_item}%>&e%{_item-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} isn't set:
+				if {_lore} is set:
+					replace all "[item]" with "<tooltip:&f%{_item-name}%%nl%%colored {_lore}%%nl%%{_item}%>&e%{_item-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} is set:
+				if {_lore} isn't set:
+					replace all "[item]" with "<tooltip:&f%{_item-name}%%nl%%{_enchants}%%nl%%{_item}%>&e%{_item-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+			if {_enchants} is set:
+				if {_lore} is set:
+					replace all "[item]" with "<tooltip:&f%{_item-name}%%nl%%{_enchants}%%nl%%colored {_lore}%%nl%%{_item}%>&e%{_item-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+
+			#replace all "[item]" with "<tooltip:&f%{_item-name}%%nl%%{_enchants}%%nl%%colored {_lore}%%held item's type%>&e%{_item-name}% &7[%amount of player's held item in player's inventory%x&7]<reset>%{_color}%" in {_message}
+		# Ping Players in Chat 
+		if message contains "@":
+			loop all players:
+				if message contains "@%loop-player%":
+					set {_contains-ping} to 1
+					set {_loop-player} to loop-player
+					if {_loop-player} is player:
+						send "{@tag} Do you not get enough attention already? You cannot ping yourself, silly!" to player
+						stop
+					replace all "@%{_loop-player}%" with "&e@%{_loop-player}%%{_color}%" in {_message}
+					if {ping.%{loop-player}%} is 1:
+						play sound "minecraft:block.note_block.harp" with volume 2 and pitch 2 at loop-player for loop-player
+						play sound "minecraft:block.note_block.harp" with volume 2 and pitch 2 at loop-player for loop-player
+						play sound "minecraft:block.note_block.harp" with volume 2 and pitch 2 at loop-player for loop-player
+						play sound "minecraft:block.note_block.harp" with volume 2 and pitch 2 at loop-player for loop-player
+					else:
+						cancel event
+				else:
+					cancel event
+		# Tooltip player stats 
+		if {island.owner::%player%} is not set:
+			set {_owner} to "N/A"
+			set {_level} to "N/A"
+			set {_balance} to format({balance::%{_uuid}%})
+			set {_gems} to format({gems::%{_uuid}%})
+		else:
+			set {_owner} to "%{island.owner::%player%}%"
+			set {_level} to format({island.level::%{island.owner::%player%}%})
+			set {_balance} to format({balance::%{_uuid}%})
+			set {_gems} to format({gems::%{_uuid}%})
+		set {_tooltip} to "&7%player%'s Statistics%nl%&fIsland Owner &e%{_owner}%%nl%&fIsland Level &e%{_level}%%nl%&fBalance &e%{_balance}%%nl%&fGems &e%{_gems}%"
+		if {island.chat::%player%} isn't set:
+			if {selected.suffix.%{_uuid}%} is set:
+				set {_suffix} to "&7| %{selected.suffix.%{_uuid}%}%"
+				if {_contains-ping} is 1:
+					send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to {_loop-player}	
+					wait 1 tick 
+				else:
+					send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to all players	
+					stop
+				if {_loop-player} isn't player:	
+					replace all "@%{_loop-player}%" with "%{_color}%@%{_loop-player}%%{_color}%" in {_message}
+					send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to player		
+			else:
+				if {_contains-ping} is 1:
+					send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to {_loop-player}	
+					wait 1 tick 
+				else:
+					send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to all players	
+					stop
+				if {_loop-player} isn't player:	
+					replace all "@%{_loop-player}%" with "%{_color}%@%{_loop-player}%%{_color}%" in {_message}
+					send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to player
+		if {island.chat::%player%} is 1:
+			set {_members::*} to {island.members.%{island.owner::%player%}%::*}
+			remove player from {_members::*}
+			if {_contains-ping} is 1:
+				if {island.members.%{island.owner::%player%}%::*} contains {_loop-player}:
+					send formatted "<tooltip:%{_tooltip}%>&b&lISLAND CHAT &7| %player%<reset> &7» %{_color}%%{_message}%" to {island.members.%{island.owner::%player%}%::*}
+					wait 1 tick 
+			else:
+				send formatted "<tooltip:%{_tooltip}%>&b&lISLAND CHAT &7| %player%<reset> &7» %{_color}%%{_message}%" to {island.members.%{island.owner::%player%}%::*}	
+				stop
+			if {_loop-player} isn't player:	
+				replace all "@%{_loop-player}%" with "%{_color}%@%{_loop-player}%%{_color}%" in {_message}
+				send formatted "<tooltip:%{_tooltip}%>&b&lISLAND CHAT &7| %player%<reset> &7» %{_color}%%{_message}%" to player
+		#	if {_contains-ping} is 1:
+		#		if {_loop-player} is player:
+		#			stop
+		#		replace all "@%{_loop-player}%" with "&e@%{_loop-player}%%{_color}%" in {_message}
+		#		send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to {_loop-player}	
+		#		wait 1 tick 
+		#		if {_loop-player} is player:
+		#			stop
+		#		else:
+		#			replace all "@%{_loop-player}%" with "%{_color}%@%{_loop-player}%%{_color}%" in {_message}
+		#			send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to player	
+		#	else:
+		#		send formatted "<tooltip:%{_tooltip}%>%{_name}% %{_suffix}%<reset> &7» %{_color}%%{_message}%" to all players	
+		#else:
+		#	if {_contains-ping} is 1:
+		#		if {_loop-player} is player:
+		#			stop
+		#		replace all "@%{_loop-player}%" with "&e@%{_loop-player}%%{_color}%" in {_message}
+		#		send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to {_loop-player}	
+		#		wait 1 tick 
+		#		if {_loop-player} is player:
+		#			stop
+		#		else:
+		#			replace all "@%{_loop-player}%" with "%{_color}%@%{_loop-player}%%{_color}%" in {_message}
+		#			send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to player	
+		#	else:
+		#		send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to all players	
+#
+
+
+
+	#		send formatted "<tooltip:%{_tooltip}%>%{_name}%<reset> &7» %{_color}%%{_message}%" to all players	
+	#	if {_contains-ping} is 1:
+	#		send "U got pinged by %player%" to {_loop-player}
+	#		send "U pinged %{_loop-player}%" to player	
+
+					
+
+
+command /debugsounds:
+	trigger:
+		set {ping.%player%} to 1
+
+command /debugsounds1:
+	trigger:
+		set {ping.%player%} to 2
+
+
+        #send "players: %{_plr::*}%" to loop-player
+
+			#replace all "@%loop-player%" with "&e@%loop-player%":
+
+#command /chatcolor [<offlineplayer>]:
+#	permission: premiums.admin
+#	trigger:
+#		if arg-1 is set:
+#			if arg-1 is "clear":
+#				set {_p} to player
+#				clear {chatcolor::%{_p}%}
+#			else:
+#				set {chatcolor::editing::%player%} to arg 1
+#				set {_call} to "%arg-1%'s"
+#		else:
+#			set {chatcolor::editing::%player%} to player
+#			set {_call} to "Your"
+#		set {_p} to player
+#		open virtual chest inventory with size 3 named "Change Chat Color" to player
+#		# 13, 14, 15, 16,
+#		format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 26 and 27 of player with black stained glass pane named "&7" to do nothing
+#		format gui slot 10 of player with gray dye named "&7Gray (Click)" to run:
+#			set {chatcolor::%{_p}%} to "&7"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+#		format gui slot 11 of player with white dye named "&fWhite &7(Click)" to run:
+#			set {chatcolor::%{_p}%} to "&f"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+#		format gui slot 12 of player with blue dye named "<##056AF6>Dark Blue &7(Click)" to run:
+#			set {chatcolor::%{_p}%} to "<##056AF6>"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+#		format gui slot 13 of player with light blue dye named "<##19C8FB>Light Blue &7(Click)" to run:
+#			set {chatcolor::%{_p}%} to "<##19C8FB>"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+#		format gui slot 14 of player with red dye named "<##FF6666>Light Red &7(Click)" to run:
+#			set {chatcolor::%{_p}%} to "<##FF6666>"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+#		format gui slot 15 of player with purple dye named "<##DD04B3>Purple &7(Click)" to run:
+#			set {chatcolor::%{_p}%} to "<##DD04B3>"
+#			send "{@tag} %{_call}% chat color has been changed."
+#			delete {chatcolor::editing::%{_p}%}
+#			close inventory for player
+
+
+#function auctionPlusSelling(player: player):
+#	set {_gui} to virtual dispenser named "§8§lSell"
+#	set {_i} to {Market::sell::%{_player}%}
+#	set {Market::open-player::%{_player}%} to true
+#	format gui slot 0 of {_gui} to orange stained glass pane named " "
+#	format gui slot 2 of {_gui} to orange stained glass pane named " "
+#	format gui slot 8 of {_gui} to orange stained glass pane named " "
+#	format gui slot 7 of {_gui} to shiny barrier named "§c§lAbort"
+#	format gui slot 6 of {_gui} to orange stained glass pane named " "
+#	format gui slot 1 of {_gui} to {_i}
+#	set {_test} to 0
+#	if {Market::rightaway-price::%{_player}%} is set:
+#		add 1 to {_test}
+#	if {_test} is 1:
+#		format gui slot 4 of {_gui} to emerald named "§a§lTo sell" with lore "§3now §lto sell§3!"
+#	else:
+#		format gui slot 4 of {_gui} to emerald named "§c§lTo sell" with lore "§cPut a command" and "§cand buy it now price."
+#	set {_skull-2} to player head with nbt "{Damage:3,display:{Name:'{""extra"":[{""bold"":false,""italic"":false,""underlined"":false,""strikethrough"":false,""obfuscated"":false,""color"":""blue"",""text"":""Bag of Gold""}],""text"":""""}'},SkullOwner:{Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTliOTA2YjIxNTVmMTkzNzg3MDQyMzM4ZDA1Zjg0MDM5MWMwNWE2ZDNlODE2MjM5MDFiMjk2YmVlM2ZmZGQyIn19fQ==""}]},Id:[I;67411088,-739686879,-1666252800,-1432214704]}}"
+#	set {_skull-3} to player head with nbt "{Damage:3,display:{Name:'{""extra"":[{""bold"":false,""italic"":false,""underlined"":false,""strikethrough"":false,""obfuscated"":false,""color"":""blue"",""text"":""Bag of Diamonds""}],""text"":""""}'},SkullOwner:{Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjZhNjg4NmU4NGVhZTViYTJiMmI2MDI0MzI0MjljNmZiMjg2OTFmYzAyZTlmOWNjYjVjNTdmMmNkZDBmMWQ4In19fQ==""}]},Id:[I;67411088,-739686879,-1666252800,178930453]}}"
+#	if {Market::rightaway-price::%{_player}%} is set:
+#		format gui slot 5 of {_gui} to {_skull-3} named "§a§lBuy it now price" with lore "§3§lCurrent: §b%{Market::rightaway-price::%{_player}%}% §a⛃"
+#	else:
+#		format gui slot 5 of {_gui} to {_skull-3} named "§a§lBuy it now price" with lore "§3Put one Buy it now price."
+#	open {_gui} to {_player}
+

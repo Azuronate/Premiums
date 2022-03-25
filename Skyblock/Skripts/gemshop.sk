@@ -1,0 +1,343 @@
+options:
+    tag: &e&lSKYBLOCK &7¬&f
+
+function gemshop(t:text, p:player):
+    set {_uuid} to uuid of {_p}
+    if {_t} is "main":
+        create a gui with virtual chest inventory with 5 rows named "Gemshop": 
+            make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 41, 42, 43, and 44 with black glass pane named "&0"
+            make gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 22, 24, 25, 28, 29, 30, 31, 32, 33, and 34 with gray glass pane named "&7"
+            make gui slot 21 with gold hoe with all flags hidden named "&e&lBUILD-A-SELLWAND!":
+                gemshop("build-a-sellwand", {_p})
+            make gui slot 23 with beacon named "&e&lGENERAL":
+                gemshop("general", {_p})
+            make gui slot 40 with barrier named "&cClose":
+                close inventory for {_p}
+        open gui last gui to {_p}        
+    if {_t} is "build-a-sellwand":
+        create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "Gemshop": 
+            format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane named "&0"
+            make gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20,  24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray glass pane named "&7"
+            set {uses::%{_p}%} to 100
+            set {multi::%{_p}%} to 1.0
+            set {price.uses::%{_p}%} to 50
+            set {price.multi::%{_p}%} to 250
+            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""   
+            make gui slot 21 with yellow glass pane named "&eUses (100)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))":
+                if {uses::%{_p}%} is greater than or equal to 100:
+                    if clicked type is left mouse button:
+                        add 100 to {uses::%{_p}%}
+                        add 50 to {price.uses::%{_p}%}
+                        if {uses::%{_p}%} is 1100:
+                            set {uses::%{_p}%} to 1000
+                            set {price.uses::%{_p}%} to 2500
+                            set {uses::%{_p}%} to "Infinite"
+                        edit gui with id "%{_p}%":
+                            if {uses::%{_p}%} is "Infinite":
+                                make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}%)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                                make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                    set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                    if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                        remove {_total} from {gems::%{_uuid}%}	
+                                        make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                    else:
+                                        if {gems::%{_uuid}%} is less than {_total}:
+                                            send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                            stop 
+                            else:
+                                make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                                make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                    set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                    if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                        remove {_total} from {gems::%{_uuid}%}	
+                                        make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                    else:
+                                        if {gems::%{_uuid}%} is less than {_total}:
+                                            send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                            stop 
+                        set clicked item to lime glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                if clicked type is right mouse button:
+                    if {uses::%{_p}%} is greater than 100:
+                        remove 100 from {uses::%{_p}%}
+                        remove 50 from {price.uses::%{_p}%}
+                        set clicked item to red glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        if {uses::%{_p}%} is 100:
+                            set clicked item to yellow glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        edit gui with id "%{_p}%":
+                            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                    remove {_total} from {gems::%{_uuid}%}	
+                                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                else:
+                                    if {gems::%{_uuid}%} is less than {_total}:
+                                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                        stop 
+                        set clicked item to red glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                    if {uses::%{_p}%} is "Infinite":
+                        set {uses::%{_p}%} to 1000
+                        set {price.uses::%{_p}%} to 500
+                        set clicked item to red glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        edit gui with id "%{_p}%":
+                            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""                        
+                            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                    remove {_total} from {gems::%{_uuid}%}	
+                                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                else:
+                                    if {gems::%{_uuid}%} is less than {_total}:
+                                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                        stop 
+                        set clicked item to red glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eUses (%{uses::%{_p}%}%)" with lore "" and "&fAdd or remove how many uses" and "&fthe sellwand can have." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+            make gui slot 23 with yellow glass pane named "&eMultiplier (1x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))":
+                if clicked type is left mouse button:
+                    if {multi::%{_p}%} is "1.0":
+                        set {multi::%{_p}%} to 1.1
+                        add 250 to {price.multi::%{_p}%}
+                        set clicked item to lime glass pane
+                        edit gui with id "%{_p}%":
+                            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                    remove {_total} from {gems::%{_uuid}%}	
+                                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                else:
+                                    if {gems::%{_uuid}%} is less than {_total}:
+                                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                        stop 
+                        set clicked item to lime glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        stop
+                    if {multi::%{_p}%} is less than 1.5:
+                        add .1 to {multi::%{_p}%}
+                        add 250 to {price.multi::%{_p}%}
+                        set clicked item to lime glass pane
+                        edit gui with id "%{_p}%":
+                            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                    remove {_total} from {gems::%{_uuid}%}	
+                                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                else:
+                                    if {gems::%{_uuid}%} is less than {_total}:
+                                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                        stop 
+                        set clicked item to lime glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                if clicked type is right mouse button:
+                    if {multi::%{_p}%} is greater than 1:
+                        remove .1 from {multi::%{_p}%}
+                        if {multi::%{_p}%} is 1:
+                            set {multi::%{_p}%} to "1.0"
+                        remove 250 from {price.multi::%{_p}%}
+                        set clicked item to red glass pane
+                        if {multi::%{_p}%} is "1.0":
+                            set clicked item to yellow glass pane
+                        edit gui with id "%{_p}%":
+                            make gui slot 22 with gold hoe with all flags hidden named "&e&lSELLWAND &7(%{uses::%{_p}%}% uses)" with lore "", "&7Right-click on any storage block", "&7to instantly sell the contents!", "", "&7Multiplier: &ex%{multi::%{_p}%}%" and ""
+                            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                                    remove {_total} from {gems::%{_uuid}%}	
+                                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% %{multi::%{_p}%}%"
+                                else:
+                                    if {gems::%{_uuid}%} is less than {_total}:
+                                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                                        stop 
+                        set clicked item to red glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"
+                        wait 1 second 
+                        set clicked item to yellow glass pane named "&eMultiplier (%{multi::%{_p}%}%x)" with lore "" and "&fIncrease or decrease the multiplier" and "&fapplied to your items sold." and "" and "&7&o(( Left-click to add ))" and "&7&o(( Right-click to remove ))"                   
+            make gui slot 31 with anvil with all flags hidden named "&fConfirm Purchase!" with lore "" and "&fCost: %format({price.uses::%{_p}%} + {price.multi::%{_p}%})% Gems":
+                set {_total} to ({price.uses::%{_p}%} + {price.multi::%{_p}%})
+                if {gems::%{_uuid}%} is greater than or equal to {_total}:
+                    remove {_total} from {gems::%{_uuid}%}	
+                    make console execute "/sellwand give %{_p}% 1 %{uses::%{_p}%}% 1.0"
+                else:
+                    if {gems::%{_uuid}%} is less than {_total}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop  
+            make gui slot 49 with barrier named "&cMain Menu":
+                gemshop("main", {_p})
+            run on gui close:
+                delete {uses::%{_p}%}
+                delete {multi::%{_p}%}
+                delete {price::%{_p}%}
+                delete {price.multi::%{_p}%}
+        open gui last gui to {_p}         
+    if {_t} is "general":
+        create a gui with virtual chest inventory with 5 rows named "Gemshop": 
+            make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 41, 42, 43, and 44 with black glass pane named "&0"
+            make gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 22, 24, 25, 28, 29, 30, 31, 32, 33, and 34 with gray glass pane named "&7"
+            #Prices
+            #Tags
+            set {_gemlord-tag} to 500
+            set {_rainbow-tag} to 250
+            set {_s3-tag} to 250
+            #Keys
+            set {_daily-key} to 250
+            set {_basic-key} to 500
+            set {_lucky-key} to 1000
+            set {_special-key} to 1500
+            set {_mystic-key} to 2250
+            set {_golden-key} to 3000
+            set {_miner-robot} to 400
+            #Ranks
+            set {_pearl-rank} to 2500
+            set {_sapphire-rank} to 4000
+            set {_diamond-rank} to 5500
+            #set {_ruby-rank} to 7500
+            #set {_amethyst-rank} to 12500
+            make gui slot 12 with name tag named "<##b800c5>&lG<##c210cb>&lE<##cd1cd0>&lM<##d725d6>&lL<##e12edc>&lO<##ec35e1>&lR<##f63de7>&lD" with lore "" and "&fCost: %{_gemlord-tag}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_gemlord-tag}:
+                    remove {_gemlord-tag} from {gems::%{_uuid}%}	
+                    make console execute "/tag give %{_p}% <##b800c5>&lG<##c210cb>&lE<##cd1cd0>&lM<##d725d6>&lL<##e12edc>&lO<##ec35e1>&lR<##f63de7>&lD"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_gemlord-tag}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop                        	                    
+            make gui slot 13 with name tag named "<##FF0000>&lR<##FF7F00>&lA<##FFFF00>&lI<##00FF00>&lN<##0cb1ff>&lB<##463cdb>&lO<##8B00FF>&lW" with lore "" and "&fCost: %{_rainbow-tag}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_rainbow-tag}:
+                    remove {_rainbow-tag} from {gems::%{_uuid}%}	
+                    make console execute "/tag give %{_p}% <##FF0000>&lR<##FF7F00>&lA<##FFFF00>&lI<##00FF00>&lN<##0cb1ff>&lB<##463cdb>&lO<##8B00FF>&lW"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_rainbow-tag}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop 
+            make gui slot 14 with name tag named "&eS3" with lore "" and "&fCost: %{_s1-tag}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_s1-tag}:
+                    remove {_s1-tag} from {gems::%{_uuid}%}	
+                    make console execute "/tag give %{_p}% &eS1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_s1-tag}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop 
+            make gui slot 19 with tripwire hook named "&d&lDAILY &7Crate Key" with lore "" and "&fCost: %{_daily-key}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_daily-key}:
+                    remove {_daily-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% daily 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_daily-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 20 with tripwire hook named "&a&lBASIC &7Crate Key" with lore "" and "&fCost: %{_basic-key}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_basic-key}:
+                    remove {_basic-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% basic 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_basic-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 21 with tripwire hook named "&9&lLUCKY &7Crate Key" with lore "" and "&fCost: %regex({_lucky-key})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_lucky-key}:
+                    remove {_lucky-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% lucky 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_lucky-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 23 with tripwire hook named "&5&lSPECIAL &7Crate Key" with lore "" and "&fCost: %regex({_special-key})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_special-key}:
+                    remove {_special-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% special 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_special-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 24 with tripwire hook named "&c&lMYSTIC &7Crate Key" with lore "" and "&fCost: %regex({_mystic-key})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_mystic-key}:
+                    remove {_mystic-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% mystic 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_mystic-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 25 with tripwire hook named "&6&lGOLDEN &7Crate Key" with lore "" and "&fCost: %regex({_golden-key})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_golden-key}:
+                    remove {_golden-key} from {gems::%{_uuid}%}	
+                    make console execute "/crate give %{_p}% golden 1"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_golden-key}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop
+            make gui slot 22 with silverfish egg named "&e&lMINER ROBOT" with lore "" and "&fCost: %{_miner-robot}% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_miner-robot}:
+                    remove {_miner-robot} from {gems::%{_uuid}%}	
+                    make console execute "/robot give %{_p}% 1 miner default"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_miner-robot}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop            
+            make gui slot 30 with nether star named "&eRank Voucher &7» &f&lPEARL" with lore "" and "&fCost: %regex({_pearl-rank})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_pearl-rank}:
+                    remove {_pearl-rank} from {gems::%{_uuid}%}	
+                    make console execute "/voucher give %{_p}% pearl"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_pearl-rank}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop   
+            make gui slot 31 with nether star named "&eRank Voucher &7» <##056AF6>&lSAPPHIRE" with lore "" and "&fCost: %regex({_sapphire-rank})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_sapphire-rank}:
+                    remove {_sapphire-rank} from {gems::%{_uuid}%}	
+                    make console execute "/voucher give %{_p}% sapphire"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_sapphire-rank}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop 
+            make gui slot 32 with nether star named "&eRank Voucher &7» <##19C8FB>&lDIAMOND" with lore "" and "&fCost: %regex({_diamond-rank})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+                if {gems::%{_uuid}%} is greater than or equal to {_diamond-rank}:
+                    remove {_diamond-rank} from {gems::%{_uuid}%}	
+                    make console execute "/voucher give %{_p}% diamond"
+                    gemshop("general", {_p})
+                else:
+                    if {gems::%{_uuid}%} is less than {_diamond-rank}:
+                        send "{@tag} &fSorry you don't have enough gems to purchase!"		
+                        stop 
+            #make gui slot 32 with nether star named "&eRank Voucher &7» <##FF6666>&lRUBY<##FF6666>" with lore "" and "&fCost: %regex({_ruby-rank})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+            #    if {gems::%{_uuid}%} is greater than or equal to {_ruby-rank}:
+            #        remove {_ruby-rank} from {gems::%{_uuid}%}	
+            #        make console execute "/voucher give %{_p}% ruby"
+            #        gemshop("general", {_p})
+            #    else:
+            #        if {gems::%{_uuid}%} is less than {_ruby-rank}:
+            #            send "{@tag} &fSorry you don't have enough gems to purchase!"		
+            #            stop 
+            #make gui slot 33 with nether star named "&eRank Voucher &7» <##DA04B1>&lAMETHYST" with lore "" and "&fCost: %regex({_amethyst-rank})% Gems" and "" and "&7&o(( Left-Click to buy ))":
+            #    if {gems::%{_uuid}%} is greater than or equal to {_amethyst-rank}:
+            #        remove {_amethyst-rank} from {gems::%{_uuid}%}	
+            #        make console execute "/voucher give %{_p}% amethyst"
+            #        gemshop("general", {_p})
+            #    else:
+            #        if {gems::%{_uuid}%} is less than {_amethyst-rank}:
+            #            send "{@tag} &fSorry you don't have enough gems to purchase!"		
+            #            stop 
+            make gui slot 40 with barrier named "&cMain Menu":
+                gemshop("main", {_p})
+        open gui last gui to {_p}   
+
+command /gemshop:
+    trigger:
+        gemshop("main", player)

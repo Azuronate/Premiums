@@ -1,0 +1,15 @@
+on load:
+	set {servername-long} to "skyblock"
+	set {servername-short} to "SB"
+	set {skyblock.status} to "&a&lONLINE"
+	set variable "skyblock.status" in channel "hub" to {skyblock.status}
+	send redis message "%{skyblock.status}%" to channel "hub"  	
+	set {_players::*} to all players
+	set {_playercount} to size of {_players::*}
+	set variable "skyblock.playercount" in channel "hub" to {_playercount}
+	send redis message "%{skyblock.playercount}%" to channel "hub" 
+
+on redis message:
+	if redis channel is "global":
+		if redis message contains "SC":
+			send redis message to all players where [input has permission "premiums.staff"]

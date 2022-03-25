@@ -1,0 +1,830 @@
+options:
+	starter_wait_time: 30 minutes
+	pearl_wait_time: 12 hours
+	sapphire_wait_time: 12 hours
+	diamond_wait_time: 12 hours
+	ruby_wait_time: 12 hours
+	amethyst_wait_time: 12 hours
+	YouDoNotOwnKitMSG: &c&l[!] &r&cYou do not own this kit, purchase it at merchant.craftingstore.net
+
+on command "/kits":
+	cancel event
+	make player execute "/kit"
+
+on command "/kitshow":
+	cancel event
+	make player execute "/kit"
+
+
+function KitStarter(p: player):
+	give stone sword named "&eRookie Sword" to {_p}
+	give stone pickaxe named "&eRookie Pickaxe" to {_p}
+	give stone axe named "&eRookie Axe" to {_p}
+	give stone shovel named "&eRookie Shovel" to {_p}
+	set {_starter.helmet} to leather helmet
+	dye {_starter.helmet} (255, 228, 0)
+	enchant {_starter.helmet} with unbreaking 1
+	give {_starter.helmet} named "&eRookie's Helmet" to {_p}
+	set {_starter.chestplate} to leather chestplate
+	dye {_starter.chestplate} (255, 228, 0)
+	enchant {_starter.chestplate} with unbreaking 1
+	give {_starter.chestplate} named "&eRookie's Chestplate" to {_p}
+	set {_starter.leggings} to leather leggings
+	dye {_starter.leggings} (255, 228, 0)
+	enchant {_starter.leggings} with unbreaking 1
+	give {_starter.leggings} named "&eRookie's Leggings" to {_p}
+	set {_starter.boots} to leather boots
+	dye {_starter.boots} (255, 228, 0)
+	enchant {_starter.boots} with unbreaking 1
+	give {_starter.boots} named "&eRookie's Boots" to {_p}
+	give 16 steak to {_p}
+
+
+command /kit [<text>] [<player>]:
+	trigger:
+		if arg-1 is not set:
+			if arg-2 is not set:
+				open virtual chest inventory with size 3 named "&8KITS" to player
+				wait 1 tick
+				set {_StarterKitPreview} to player head
+				set {_PearlKitPreview} to player head
+				set {_SapphireKitPreview} to player head
+				set {_DiamondKitPreview} to player head
+				set {_AmethystKitPreview} to player head
+				set {_RubyKitPreview} to player head
+
+				add "{SkullOwner:{Id:[I;1757103858,-1384363305,-1768224373,208854599],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjgzMjM2NjM5NjA3MDM2YzFiYTM5MWMyYjQ2YTljN2IwZWZkNzYwYzhiZmEyOTk2YTYwNTU1ODJiNGRhNSJ9fX0=""}]}}}" to nbt of {_RubyKitPreview}
+				add "{SkullOwner:{Id:[I;1779249861,-1945615709,-1110092384,68104524],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTY0ZjI1Y2ZmZjc1NGYyODdhOTgzOGQ4ZWZlMDM5OTgwNzNjMjJkZjdhOWQzMDI1YzQyNWUzZWQ3ZmY1MmMyMCJ9fX0=""}]}}}" to nbt of {_DiamondKitPreview}
+				add "{SkullOwner:{Id:[I;-1568085455,1269974714,-1864817327,-1958517541],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTc5ZjhjOTI3NzZkNjQyZDExOWY5ZTkyMzYwYjFlNWI5NzFlNjZlNjE0MjhhM2UxYjMxMWQ4YjYxODVlNiJ9fX0=""}]}}}" to nbt of {_AmethystKitPreview}
+				add "{SkullOwner:{Id:[I;-1978461553,900286104,-1962547148,1755042368],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjdhZDk2Y2IyYTRiMTRkMDE2MWYyODc5OTRkM2RiMTg3YWZkODcxNjRmMzk4N2I4N2U3ZjExOGQxZjU4NzkifX19""}]}}}" to nbt of {_StarterKitPreview}
+				add "{SkullOwner:{Id:[I;622538504,125782449,-1700194400,-1519890722],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDE0N2MyMGM0ZjM1YmQyN2QzZDQxOTEyNzkyYTc5OGU5ZjRmOWJiZmUwNGYwZDMyNTVkOWJjYWRmOGE0MWFhZSJ9fX0=""}]}}}" to nbt of {_PearlKitPreview}
+				add "{SkullOwner:{Id:[I;-1187870211,-453950471,-2138609786,-1004093254],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZThjNTExYjk2MWIyZGNhMDEyZjNhNWY1YjQ2NjA3OGEwZWMyMzgwYTc2ZDUxOWVhMzY0YTdkNmRjMjhlMWJiIn19fQ==""}]}}}" to nbt of {_SapphireKitPreview}
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 and 27 of player's current inventory to gray glass pane named "&f"
+
+				set slot 12 of player's current inventory to {_PearlKitPreview} named "&f&lPEARL &r&fKit" with lore "&eCooldown: &f12 hours", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+				set slot 13 of player's current inventory to {_SapphireKitPreview} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Kit" with lore "&eCooldown: &f12 hours", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+				set slot 14 of player's current inventory to {_DiamondKitPreview} named "<##19C8FB>&lDIAMOND <##19C8FB>Kit" with lore "&eCooldown: &f12 hours", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+				set slot 15 of player's current inventory to {_RubyKitPreview} named "<##FF6666>&lRUBY &r<##FF6666>Kit" with lore "&eCooldown: &f12 hours", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+				set slot 16 of player's current inventory to {_AmethystKitPreview} named "<##DD04B3>&lAMETHYST <##DD04B3>Kit" with lore "&eCooldown: &f12 hours", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+				set slot 10 of player's current inventory to {_StarterKitPreview} named "&eRookie Kit" with lore "&eCooldown: &f30 minutes", "&f", "&7&oLeft click to claim." and "&7&oRight click to preview."
+
+#STARTER
+		else if arg-1 is "starter" or "rookie":
+			if arg-2 is not set:
+				set {_waited.starter} to difference between {last-use.%player%.starter} and now
+				if {_waited.starter} is less than {@starter_wait_time}:
+					message "&c&l[!] &r&cYou must wait %difference between {_waited.starter} and {@starter_wait_time}% &cbefore claiming this kit again."
+					stop
+				player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+					message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+					stop
+				KitStarter(player)
+				set {last-use.%player%.starter} to now
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						set {player} to "%arg 2%"
+						give stone sword named "&eRookie Sword" to {player}
+						give stone pickaxe named "&eRookie Pickaxe" to {player}
+						give stone axe named "&eRookie Axe" to {player}
+						give stone shovel named "&eRookie Shovel" to {player}
+						set {_starter.helmet} to leather helmet
+						dye {_starter.helmet} (255, 228, 0)
+						enchant {_starter.helmet} with unbreaking 1
+						give {_starter.helmet} named "&eRookie's Helmet" to {player}
+						set {_starter.chestplate} to leather chestplate
+						dye {_starter.chestplate} (255, 228, 0)
+						enchant {_starter.chestplate} with unbreaking 1
+						give {_starter.chestplate} named "&eRookie's Chestplate" to {player}
+						set {_starter.leggings} to leather leggings
+						dye {_starter.leggings} (255, 228, 0)
+						enchant {_starter.leggings} with unbreaking 1
+						give {_starter.leggings} named "&eRookie's Leggings" to {player}
+						set {_starter.boots} to leather boots
+						dye {_starter.boots} (255, 228, 0)
+						enchant {_starter.boots} with unbreaking 1
+						give {_starter.boots} named "&eRookie's Boots" to {player}
+						give 16 steak to {player}
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+
+#PEARL
+		else if arg-1 is "pearl":
+			if arg-2 is not set:
+				if player has permission "premiums.pearl.kit":
+					set {_waited.pearl} to difference between {last-use.%player%.pearl} and now
+					if {_waited.pearl} is less than {@pearl_wait_time}:
+						message "&c&l[!] &r&cYou must wait %difference between {_waited.pearl} and {@pearl_wait_time}% &cbefore claiming this kit again."
+						stop
+					player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+						message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+						stop
+					give iron sword named "&f&lPEARL &r&fSword" to player
+
+					give iron pickaxe named "&f&lPEARL &r&fPickaxe" to player
+
+					give iron axe named "&f&lPEARL&r &fAxe" to player
+		
+					give iron shovel named "&f&lPEARL&r &fShovel" to player
+
+					give iron helmet named "&f&lPEARL &r&fHelmet" to player
+
+					give iron chestplate named "&f&lPEARL &r&fChestplate" to player
+
+					give iron leggings named "&f&lPEARL&r &fLeggings" to player
+
+					give iron boots named "&f&lPEARL&r &fBoots" to player
+
+					give 16 steak to player
+					set {last-use.%player%.pearl} to now
+				else if player doesn't have permission "premiums.pearl.kit":
+					send "{@YouDoNotOwnKitMSG}"
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						set {player} to "%arg 2%"
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						give iron sword named "&f&lPEARL &r&fSword" to arg-2
+						give iron pickaxe named "&f&lPEARL &r&fPickaxe" to arg-2
+						give iron axe named "&f&lPEARL&r &fAxe" to arg-2
+						give iron shovel named "&f&lPEARL&r &fShovel" to arg-2
+						give iron helmet named "&f&lPEARL &r&fHelmet" to arg-2
+						give iron chestplate named "&f&lPEARL &r&fChestplate" to arg-2
+						give iron leggings named "&f&lPEARL&r &fLeggings" to arg-2
+						give iron boots named "&f&lPEARL&r &fBoots" to arg-2
+						give 16 steak to arg-2
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+
+#SAPPHIRE	
+		else if arg-1 is "sapphire":
+			if arg-2 is not set:
+				if player has permission "premiums.sapphire.kit":
+					set {_waited.sapphire} to difference between {last-use.%player%.sapphire} and now
+					if {_waited.sapphire} is less than {@sapphire_wait_time}:
+						message "&c&l[!] &r&cYou must wait %difference between {_waited.sapphire} and {@sapphire_wait_time}% &cbefore claiming this kit again."
+						stop
+					player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+						message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+						stop
+
+					set {sapphire.sword} to iron sword
+					enchant {sapphire.sword} with sharpness 2
+					give {sapphire.sword} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Sword" to player
+
+					set {sapphire.pickaxe} to iron pickaxe
+					enchant {sapphire.pickaxe} with efficiency 2
+					give {sapphire.pickaxe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Pickaxe" to player
+
+					set {sapphire.axe} to iron axe
+					enchant {sapphire.axe} with efficiency 2
+					give {sapphire.axe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Axe" to player
+
+					set {sapphire.shovel} to iron shovel
+					enchant {sapphire.shovel} with efficiency 2
+					give {sapphire.shovel} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Shovel" to player
+
+					set {_sapphire.helmet} to iron helmet
+					enchant {_sapphire.helmet} with protection 2
+					give {_sapphire.helmet} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Helmet" to player
+
+					set {_sapphire.chestplate} to iron chestplate
+					enchant {_sapphire.chestplate} with protection 2
+					give {_sapphire.chestplate} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Chestplate" to player
+
+					set {_sapphire.leggings} to iron leggings
+					enchant {_sapphire.leggings} with protection 2
+					give {_sapphire.leggings} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Leggings" to player
+
+					set {_sapphire.boots} to iron boots
+					enchant {_sapphire.boots} with protection 2
+					give {_sapphire.boots} named "<##056AF6>&lSAPPHIRE&r <##056AF6>Boots" to player
+					give 16 steak to player
+					set {last-use.%player%.sapphire} to now
+				else if player doesn't have permission "premiums.sapphire.kit":
+					send "{@YouDoNotOwnKitMSG}"
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						set {player} to "%arg 2%"
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						set {sapphire.sword} to iron sword
+						enchant {sapphire.sword} with sharpness 2
+						give {sapphire.sword} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Sword" to arg-2
+						set {sapphire.pickaxe} to iron pickaxe
+						enchant {sapphire.pickaxe} with efficiency 2
+						give {sapphire.pickaxe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Pickaxe" to arg-2
+						set {sapphire.axe} to iron axe
+						enchant {sapphire.axe} with efficiency 2
+						give {sapphire.axe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Axe" to arg-2
+						set {sapphire.shovel} to iron shovel
+						enchant {sapphire.shovel} with efficiency 2
+						give {sapphire.shovel} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Shovel" to arg-2
+						set {_sapphire.helmet} to iron helmet
+						enchant {_sapphire.helmet} with protection 2
+						give {_sapphire.helmet} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Helmet" to arg-2
+						set {_sapphire.chestplate} to iron chestplate
+						enchant {_sapphire.chestplate} with protection 2
+						give {_sapphire.chestplate} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Chestplate" to arg-2
+						set {_sapphire.leggings} to iron leggings
+						enchant {_sapphire.leggings} with protection 2
+						give {_sapphire.leggings} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Leggings" to arg-2
+						set {_sapphire.boots} to iron boots
+						enchant {_sapphire.boots} with protection 2
+						give {_sapphire.boots} named "<##056AF6>&lSAPPHIRE&r <##056AF6>Boots" to arg-2
+						give 16 steak to arg-2
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+#DIAMOND
+		else if arg-1 is "diamond":
+			if arg-2 is not set:
+				if player has permission "premiums.diamond.kit":
+					set {_waited.diamond} to difference between {last-use.%player%.diamond} and now
+					if {_waited.diamond} is less than {@diamond_wait_time}:
+						message "&c&l[!] &r&cYou must wait %difference between {_waited.diamond} and {@diamond_wait_time}% &cbefore claiming this kit again."
+						stop
+					player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+						message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+						stop
+					give diamond sword named "<##19C8FB>&lDIAMOND &r<##19C8FB>Sword" to player
+
+					give diamond pickaxe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Pickaxe" to player
+
+					give diamond axe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Axe" to player
+
+					give diamond shovel named "<##19C8FB>&lDIAMOND &r<##19C8FB>Shovel" to player
+
+					give diamond helmet named "<##19C8FB>&lDIAMOND &r<##19C8FB>Helmet" to player
+
+					give diamond chestplate named "<##19C8FB>&lDIAMOND &r<##19C8FB>Chestplate" to player
+
+					give diamond leggings named "<##19C8FB>&lDIAMOND &r<##19C8FB>Leggings" to player
+
+					give diamond boots named "<##19C8FB>&lDIAMOND &r<##19C8FB>Boots" to player
+
+					give 16 steak to player
+					set {last-use.%player%.diamond} to now
+				else if player doesn't have permission "premiums.diamond.kit":
+					send "{@YouDoNotOwnKitMSG}"
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						set {player} to "%arg 2%"
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						give diamond sword named "<##19C8FB>&lDIAMOND &r<##19C8FB>Sword" to arg-2
+						give diamond pickaxe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Pickaxe" to arg-2
+						give diamond axe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Axe" to arg-2
+						give diamond shovel named "<##19C8FB>&lDIAMOND &r<##19C8FB>Shovel" to arg-2
+						give diamond helmet named "<##19C8FB>&lDIAMOND &r<##19C8FB>Helmet" to arg-2
+						give diamond chestplate named "<##19C8FB>&lDIAMOND &r<##19C8FB>Chestplate" to arg-2
+						give diamond leggings named "<##19C8FB>&lDIAMOND &r<##19C8FB>Leggings" to arg-2
+						give diamond boots named "<##19C8FB>&lDIAMOND &r<##19C8FB>Boots" to arg-2
+						give 16 steak to arg-2
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+#RUBY
+		else if arg-1 is "ruby":
+			if arg-2 is not set:
+				if player has permission "premiums.ruby.kit":
+					set {_waited.ruby} to difference between {last-use.%player%.ruby} and now
+					if {_waited.ruby} is less than {@ruby_wait_time}:
+						message "&c&l[!] &r&cYou must wait %difference between {_waited.ruby} and {@ruby_wait_time}% &cbefore claiming this kit again."
+						stop
+					player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+						message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+						stop
+
+					set {ruby.sword} to diamond sword
+					enchant {ruby.sword} with sharpness 1
+					give {ruby.sword} named "<##FF6666>&lRUBY &r<##FF6666>Sword" to player
+
+					set {ruby.pickaxe} to diamond pickaxe
+					enchant {ruby.pickaxe} with efficiency 1
+					give {ruby.pickaxe} named "<##FF6666>&lRUBY &r<##FF6666>Pickaxe" to player
+
+					set {ruby.axe} to diamond axe
+					enchant {ruby.axe} with efficiency 1
+					give {ruby.axe} named "<##FF6666>&lRUBY &r<##FF6666>Axe" to player
+
+					set {ruby.shovel} to diamond shovel
+					enchant {ruby.shovel} with efficiency 1
+					give {ruby.shovel} named "<##FF6666>&lRUBY &r<##FF6666>Shovel" to player
+
+					set {_ruby.helmet} to diamond helmet
+					enchant {_ruby.helmet} with protection 2 and unbreaking 1
+					give {_ruby.helmet} named "<##FF6666>&lRUBY &r<##FF6666>Helmet" to player
+
+					set {_ruby.chestplate} to diamond chestplate
+					enchant {_ruby.chestplate} with protection 2 and unbreaking 1
+					give {_ruby.chestplate} named "<##FF6666>&lRUBY &r<##FF6666>Chestplate" to player
+
+					set {_ruby.leggings} to diamond leggings
+					enchant {_ruby.leggings} with protection 2 and unbreaking 1
+					give {_ruby.leggings} named "<##FF6666>&lRUBY &r<##FF6666>Leggings" to player
+
+					set {_ruby.boots} to diamond boots
+					enchant {_ruby.boots} with protection 2 and unbreaking 1
+					give {_ruby.boots} named "<##FF6666>&lRUBY &r<##FF6666>Boots" to player
+			
+					give 16 steak to player
+
+					set {last-use.%player%.ruby} to now
+				else if player doesn't have permission "premiums.ruby.kit":
+					send "{@YouDoNotOwnKitMSG}"
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						set {player} to "%arg 2%"
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						set {ruby.sword} to diamond sword
+						enchant {ruby.sword} with sharpness 1
+						give {ruby.sword} named "<##FF6666>&lRUBY &r<##FF6666>Sword" to arg-2
+						set {ruby.pickaxe} to diamond pickaxe
+						enchant {ruby.pickaxe} with efficiency 1
+						give {ruby.pickaxe} named "<##FF6666>&lRUBY &r<##FF6666>Pickaxe" to arg-2
+						set {ruby.axe} to diamond axe
+						enchant {ruby.axe} with efficiency 1
+						give {ruby.axe} named "<##FF6666>&lRUBY &r<##FF6666>Axe" to arg-2
+						set {ruby.shovel} to diamond shovel
+						enchant {ruby.shovel} with efficiency 1
+						give {ruby.shovel} named "<##FF6666>&lRUBY &r<##FF6666>Shovel" to arg-2
+						set {_ruby.helmet} to diamond helmet
+						enchant {_ruby.helmet} with protection 2 and unbreaking 1
+						give {_ruby.helmet} named "<##FF6666>&lRUBY &r<##FF6666>Helmet" to arg-2
+						set {_ruby.chestplate} to diamond chestplate
+						enchant {_ruby.chestplate} with protection 2 and unbreaking 1
+						give {_ruby.chestplate} named "<##FF6666>&lRUBY &r<##FF6666>Chestplate" to arg-2
+						set {_ruby.leggings} to diamond leggings
+						enchant {_ruby.leggings} with protection 2 and unbreaking 1
+						give {_ruby.leggings} named "<##FF6666>&lRUBY &r<##FF6666>Leggings" to arg-2
+						set {_ruby.boots} to diamond boots
+						enchant {_ruby.boots} with protection 2 and unbreaking 1
+						give {_ruby.boots} named "<##FF6666>&lRUBY &r<##FF6666>Boots" to arg-2
+						give 16 steak to arg-2
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+
+
+#AMETHYST
+		else if arg-1 is "amethyst":
+			if arg-2 is not set:
+				if player has permission "premiums.amethyst.kit":
+					set {_waited.amethyst} to difference between {last-use.%player%.amethyst} and now
+					if {_waited.amethyst} is less than {@amethyst_wait_time}:
+						message "&c&l[!] &r&cYou must wait %difference between {_waited.amethyst} and {@amethyst_wait_time}% &cbefore claiming this kit again."
+						stop
+					player doesn't have space for a bow, bow, bow, bow, bow, bow, bow, bow and bow:
+						message "&c&l[!] &r&cThere isn't enough space in your inventory to claim this kit."
+						stop
+
+					set {amethyst.sword} to diamond sword
+					enchant {amethyst.sword} with sharpness 2 and unbreaking 1
+					give {amethyst.sword} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Sword" to player
+					set {amethyst.pickaxe} to diamond pickaxe
+					enchant {amethyst.pickaxe} with efficiency 2 and unbreaking 1
+					give {amethyst.pickaxe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Pickaxe" to player
+					set {amethyst.axe} to diamond axe
+					enchant {amethyst.axe} with efficiency 2 and unbreaking 1
+					give {amethyst.axe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Axe" to player
+					enchant {amethyst.axe} with efficiency 2 and unbreaking 1
+					set {amethyst.shovel} to diamond shovel
+					enchant {amethyst.shovel} with efficiency 2 and unbreaking 1
+					give {amethyst.shovel} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Shovel" to player
+					set {_amethyst.helmet} to diamond helmet
+					enchant {_amethyst.helmet} with protection 3 and unbreaking 2
+					give {_amethyst.helmet} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Helmet" to player
+					set {_amethyst.chestplate} to diamond chestplate
+					enchant {_amethyst.chestplate} with protection 3 and unbreaking 2
+					give {_amethyst.chestplate} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Chestplate" to player
+					set {_amethyst.leggings} to diamond leggings
+					enchant {_amethyst.leggings} with protection 3 and unbreaking 2
+					give {_amethyst.leggings} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Leggings" to player
+					set {_amethyst.boots} to diamond boots
+					enchant {_amethyst.boots} with protection 3 and unbreaking 2
+					give {_amethyst.boots} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Boots" to player
+		
+					give 16 steak to player
+
+					set {last-use.%player%.amethyst} to now
+				else if player doesn't have permission "premiums.amethyst.kit":
+					send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+			if arg-2 is set:
+				if player has permission "premiums.kits.give":
+					if arg-2 is online:
+						set {player} to "%arg 2%"
+						send "&e&l[!] &r&eYou have forcefully given a kit to %{player}%"
+						set {amethyst.sword} to diamond sword
+						enchant {amethyst.sword} with sharpness 2 and unbreaking 1
+						give {amethyst.sword} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Sword" to arg-2
+						set {amethyst.pickaxe} to diamond pickaxe
+						enchant {amethyst.pickaxe} with efficiency 2 and unbreaking 1
+						give {amethyst.pickaxe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Pickaxe" to arg-2
+						set {amethyst.axe} to diamond axe
+						enchant {amethyst.axe} with efficiency 2 and unbreaking 1
+						give {amethyst.axe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Axe" to arg-2
+						set {amethyst.shovel} to diamond shovel
+						enchant {amethyst.shovel} with efficiency 2 and unbreaking 1
+						give {amethyst.shovel} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Shovel" to arg-2
+						set {_amethyst.helmet} to diamond helmet
+						enchant {_amethyst.helmet} with protection 3 and unbreaking 2
+						give {_amethyst.helmet} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Helmet" to arg-2
+						set {_amethyst.chestplate} to diamond chestplate
+						enchant {_amethyst.chestplate} with protection 3 and unbreaking 2
+						give {_amethyst.chestplate} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Chestplate" to arg-2
+						set {_amethyst.leggings} to diamond leggings
+						enchant {_amethyst.leggings} with protection 3 and unbreaking 2
+						give {_amethyst.leggings} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Leggings" to arg-2
+						set {_amethyst.boots} to diamond boots
+						enchant {_amethyst.boots} with protection 3 and unbreaking 2
+						give {_amethyst.boots} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Boots" to arg-2
+						give 16 steak to arg-2
+					else if arg-2 is not online:
+						send "&c&l[!] &r&cInvalid use! Try /kit [TYPE] [PLAYER] to give someone else a kit."
+				else if player doesn't have permission "premiums.kits.give":
+					send "{@YouDoNotOwnKitMSG}"
+		else if arg-1 is not "amethyst", "rookie", "starter", "ruby", "diamond", "pearl" or "sapphire":
+			send "&c&l[!] &r&cThis kit does not exist, do /kits to preview all the kits!"
+
+
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KITS":
+		if clicked slot is 10:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT ROOKIE PREVIEW" to player
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set {_starter.helmet} to leather helmet
+				dye {_starter.helmet} (25, 200, 251)
+				enchant {_starter.helmet} with unbreaking 1
+				set {_starter.chestplate} to leather chestplate
+				dye {_starter.chestplate} (25, 200, 251)
+				enchant {_starter.chestplate} with unbreaking 1
+				set {_starter.leggings} to leather leggings
+				dye {_starter.leggings} (25, 200, 251)
+				enchant {_starter.leggings} with unbreaking 1
+				set {_starter.boots} to leather boots
+				dye {_starter.boots} (25, 200, 251)
+				enchant {_starter.boots} with unbreaking 1
+				set slot 9 of player's current inventory to stone sword named "&eRookie Sword"
+				set slot 10 of player's current inventory to stone pickaxe named "&eRookie Pickaxe" 
+				set slot 11 of player's current inventory to stone axe named "&eRookie Axe" 
+				set slot 12 of player's current inventory to stone shovel named "&eRookie Shovel" 
+				set slot 13 of player's current inventory to {_starter.helmet} named "&eRookie's Helmet"
+				set slot 14 of player's current inventory to {_starter.chestplate} named "&eRookie's Chestplate" 
+				set slot 15 of player's current inventory to {_starter.leggings} named "&eRookie's Leggings" 
+				set slot 16 of player's current inventory to {_starter.boots} named "&eRookie's Boots"
+				set slot 17 of player's current inventory to 16 steak 
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit starter"
+		if clicked slot is 12:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT PEARL PREVIEW" to player
+				set slot 9 of player's current inventory to iron sword named "&f&lPEARL &r&fSword"
+				set slot 10 of player's current inventory to iron pickaxe named "&f&lPEARL &r&fPickaxe" 
+				set slot 11 of player's current inventory to iron axe named "&f&lPEARL&r &fAxe" 
+				set slot 12 of player's current inventory to iron shovel named "&f&lPEARL&r &fShovel"
+				set slot 13 of player's current inventory to iron helmet named "&f&lPEARL &r&fHelmet"
+				set slot 14 of player's current inventory to iron chestplate named "&f&lPEARL &r&fChestplate"
+				set slot 15 of player's current inventory to iron leggings named "&f&lPEARL&r &fLeggings" 
+				set slot 16 of player's current inventory to iron boots named "&f&lPEARL&r &fBoots"
+				set slot 17 of player's current inventory to 16 steak
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit pearl"
+		if clicked slot is 13:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT SAPPHIRE PREVIEW" to player
+
+
+				set {sapphire.sword} to iron sword
+				enchant {sapphire.sword} with sharpness 2
+				set slot 9 of player's current inventory to {sapphire.sword} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Sword"
+
+				set {sapphire.pickaxe} to iron pickaxe
+				enchant {sapphire.pickaxe} with efficiency 2
+				set slot 10 of player's current inventory to {sapphire.pickaxe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Pickaxe"
+
+				set {sapphire.axe} to iron axe
+				enchant {sapphire.axe} with efficiency 2
+				set slot 11 of player's current inventory to {sapphire.axe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Axe"
+
+				set {sapphire.shovel} to iron shovel
+				enchant {sapphire.shovel} with efficiency 2
+				set slot 12 of player's current inventory to {sapphire.shovel} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Shovel"
+
+				set {_sapphire.helmet} to iron helmet
+				enchant {_sapphire.helmet} with protection 2
+				set slot 13 of player's current inventory to {_sapphire.helmet} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Helmet"
+
+				set {_sapphire.chestplate} to iron chestplate
+				enchant {_sapphire.chestplate} with protection 2
+				set slot 14 of player's current inventory to {_sapphire.chestplate} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Chestplate"
+
+				set {_sapphire.leggings} to iron leggings
+				enchant {_sapphire.leggings} with protection 2
+				set slot 15 of player's current inventory to {_sapphire.leggings} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Leggings"
+
+				set {_sapphire.boots} to iron boots
+				enchant {_sapphire.boots} with protection 2
+				set slot 16 of player's current inventory to {_sapphire.boots} named "<##056AF6>&lSAPPHIRE&r <##056AF6>Boots"
+
+				set slot 17 of player's current inventory to 16 steak
+
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit sapphire"
+		if clicked slot is 14:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT DIAMOND PREVIEW" to player
+
+
+				set slot 9 of player's current inventory to diamond sword named "<##19C8FB>&lDIAMOND &r<##19C8FB>Sword" 
+
+				set slot 10 of player's current inventory to diamond pickaxe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Pickaxe" 
+
+				set slot 11 of player's current inventory to diamond axe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Axe" 
+
+				set slot 12 of player's current inventory to diamond shovel named "<##19C8FB>&lDIAMOND &r<##19C8FB>Shovel" 
+
+				set slot 13 of player's current inventory to diamond helmet named "<##19C8FB>&lDIAMOND &r<##19C8FB>Helmet"
+
+				set slot 14 of player's current inventory to diamond chestplate named "<##19C8FB>&lDIAMOND &r<##19C8FB>Chestplate"
+
+				set slot 15 of player's current inventory to diamond leggings named "<##19C8FB>&lDIAMOND &r<##19C8FB>Leggings" 
+
+				set slot 16 of player's current inventory to diamond boots named "<##19C8FB>&lDIAMOND &r<##19C8FB>Boots"
+
+				set slot 17 of player's current inventory to 16 steak 
+
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit diamond"
+		if clicked slot is 15:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT RUBY PREVIEW" to player
+				set {ruby.sword} to diamond sword
+				enchant {ruby.sword} with sharpness 1
+				set slot 9 of player's current inventory to {ruby.sword} named "<##FF6666>&lRUBY &r<##FF6666>Sword" 
+				set {ruby.pickaxe} to diamond pickaxe
+				enchant {ruby.pickaxe} with efficiency 1
+				set slot 10 of player's current inventory to {ruby.pickaxe} named "<##FF6666>&lRUBY &r<##FF6666>Pickaxe"
+				set {ruby.axe} to diamond axe
+				enchant {ruby.axe} with efficiency 1
+				set slot 11 of player's current inventory to {ruby.axe} named "<##FF6666>&lRUBY &r<##FF6666>Axe" 
+				set {ruby.shovel} to diamond shovel
+				enchant {ruby.shovel} with efficiency 1
+				set slot 12 of player's current inventory to {ruby.shovel} named "<##FF6666>&lRUBY &r<##FF6666>Shovel" 
+				set {_ruby.helmet} to diamond helmet
+				enchant {_ruby.helmet} with protection 2 and unbreaking 1
+				set slot 13 of player's current inventory to {_ruby.helmet} named "<##FF6666>&lRUBY &r<##FF6666>Helmet" 
+				set {_ruby.chestplate} to diamond chestplate
+				enchant {_ruby.chestplate} with protection 2 and unbreaking 1
+				set slot 14 of player's current inventory to {_ruby.chestplate} named "<##FF6666>&lRUBY &r<##FF6666>Chestplate"
+				set {_ruby.leggings} to diamond leggings
+				enchant {_ruby.leggings} with protection 2 and unbreaking 1
+				set slot 15 of player's current inventory to {_ruby.leggings} named "<##FF6666>&lRUBY &r<##FF6666>Leggings"
+				set {_ruby.boots} to diamond boots
+				enchant {_ruby.boots} with protection 2 and unbreaking 1
+				set slot 16 of player's current inventory to {_ruby.boots} named "<##FF6666>&lRUBY &r<##FF6666>Boots" 
+				set slot 17 of player's current inventory to 16 steak
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit ruby"
+		if clicked slot is 16:
+			if clicked type is right mouse button:
+				open virtual chest inventory with size 3 named "&8KIT AMETHYST PREVIEW" to player
+				set {amethyst.sword} to diamond sword
+				enchant {amethyst.sword} with sharpness 2 and unbreaking 1
+				set slot 9 of player's current inventory to {amethyst.sword} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Sword" 
+				set {amethyst.pickaxe} to diamond pickaxe
+				enchant {amethyst.pickaxe} with efficiency 2 and unbreaking 1
+				set slot 10 of player's current inventory to {amethyst.pickaxe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Pickaxe" 
+				set {amethyst.axe} to diamond axe
+				enchant {amethyst.axe} with efficiency 2 and unbreaking 1
+				set slot 11 of player's current inventory to {amethyst.axe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Axe" 
+				set {amethyst.shovel} to diamond shovel
+				enchant {amethyst.shovel} with efficiency 2 and unbreaking 1
+				set slot 12 of player's current inventory to {amethyst.shovel} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Shovel" 
+				set {_amethyst.helmet} to diamond helmet
+				enchant {_amethyst.helmet} with protection 3 and unbreaking 2
+				set slot 13 of player's current inventory to {_amethyst.helmet} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Helmet" 
+				set {_amethyst.chestplate} to diamond chestplate
+				enchant {_amethyst.chestplate} with protection 3 and unbreaking 2
+				set slot 14 of player's current inventory to {_amethyst.chestplate} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Chestplate" 
+				set {_amethyst.leggings} to diamond leggings
+				enchant {_amethyst.leggings} with protection 3 and unbreaking 2
+				set slot 15 of player's current inventory to {_amethyst.leggings} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Leggings"
+				set {_amethyst.boots} to diamond boots
+				enchant {_amethyst.boots} with protection 3 and unbreaking 2
+				set slot 16 of player's current inventory to {_amethyst.boots} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Boots" 
+				set slot 17 of player's current inventory to 16 steak 
+				set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 23, 24, 25, 26 and 27 of player's current inventory to gray stained glass pane
+				set slot 22 of player's current inventory to prismarine shard named "&eBack"
+			else if clicked type is left mouse button:
+				#CLAIM
+				make player execute command "/kit amethyst"
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KITS":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26 or 27:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT ROOKIE PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT PEARL PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT SAPPHIRE PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT DIAMOND PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT RUBY PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+on inventory click:
+	if inventory name of player's current inventory is "&8KIT AMETHYST PREVIEW":
+		if clicked slot is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 17, 18, 19, 20, 21, 23, 24, 25, 26 and 27:
+			cancel event
+		else if clicked slot is 22:
+			make player execute command "/kit"
+		else:
+			cancel event
+
+
+#command debug-ranks:
+#	permission: op
+#	trigger:
+#		send "&f&lPEARL&e, <##056AF6>&lSAPPHIRE&e, <##19C8FB>&lDIAMOND&e, <##FF6666>&lRUBY&e, <##DD04B3>&lAMETHYST"
+#		delete {last-use.%player%.amethyst}
+#		give player 1 book named "<##056AF6>&lSAPPHIRE <##056AF6>Kit Voucher"
+#		give player 1 book named "&f&lPEARL &fKit Voucher"
+#		give player 1 book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+#		give player 1 book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+#		give player 1 book named "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher"
+
+on rightclick with book:
+	if name of tool of player is "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher":
+		remove 1 of tool from tool
+		set {amethyst.sword} to diamond sword
+		enchant {amethyst.sword} with sharpness 2 and unbreaking 1
+		give {amethyst.sword} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Sword" to player
+		set {amethyst.pickaxe} to diamond pickaxe
+		enchant {amethyst.pickaxe} with efficiency 2 and unbreaking 1
+		give {amethyst.pickaxe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Pickaxe" to player
+		set {amethyst.axe} to diamond axe
+		enchant {amethyst.axe} with efficiency 2 and unbreaking 1
+		give {amethyst.axe} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Axe" to player
+		set {amethyst.shovel} to diamond shovel
+		enchant {amethyst.shovel} with efficiency 2 and unbreaking 1
+		give {amethyst.shovel} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Shovel" to player
+		set {_amethyst.helmet} to diamond helmet
+		enchant {_amethyst.helmet} with protection 3 and unbreaking 2
+		give {_amethyst.helmet} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Helmet" to player
+		set {_amethyst.chestplate} to diamond chestplate
+		enchant {_amethyst.chestplate} with protection 3 and unbreaking 2
+		give {_amethyst.chestplate} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Chestplate" to player
+		set {_amethyst.leggings} to diamond leggings
+		enchant {_amethyst.leggings} with protection 3 and unbreaking 2
+		give {_amethyst.leggings} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Leggings" to player
+		set {_amethyst.boots} to diamond boots
+		enchant {_amethyst.boots} with protection 3 and unbreaking 2
+		give {_amethyst.boots} named "<##DD04B3>&lAMETHYST &r<##DD04B3>Boots" to player
+		give 16 steak to player
+
+on rightclick with book:
+	if name of tool of player is "<##FF6666>&lRUBY <##FF6666>Kit Voucher":
+		remove 1 of tool from tool
+		set {ruby.sword} to diamond sword
+		enchant {ruby.sword} with sharpness 1
+		give {ruby.sword} named "<##FF6666>&lRUBY &r<##FF6666>Sword" to player
+		set {ruby.pickaxe} to diamond pickaxe
+		enchant {ruby.pickaxe} with efficiency 1
+		give {ruby.pickaxe} named "<##FF6666>&lRUBY &r<##FF6666>Pickaxe" to player
+		set {ruby.axe} to diamond axe
+		enchant {ruby.axe} with efficiency 1
+		give {ruby.axe} named "<##FF6666>&lRUBY &r<##FF6666>Axe" to player
+		set {ruby.shovel} to diamond shovel
+		enchant {ruby.shovel} with efficiency 1
+		give {ruby.shovel} named "<##FF6666>&lRUBY &r<##FF6666>Shovel" to player
+		set {_ruby.helmet} to diamond helmet
+		enchant {_ruby.helmet} with protection 2 and unbreaking 1
+		give {_ruby.helmet} named "<##FF6666>&lRUBY &r<##FF6666>Helmet" to player
+		set {_ruby.chestplate} to diamond chestplate
+		enchant {_ruby.chestplate} with protection 2 and unbreaking 1
+		give {_ruby.chestplate} named "<##FF6666>&lRUBY &r<##FF6666>Chestplate" to player
+		set {_ruby.leggings} to diamond leggings
+		enchant {_ruby.leggings} with protection 2 and unbreaking 1
+		give {_ruby.leggings} named "<##FF6666>&lRUBY &r<##FF6666>Leggings" to player
+		set {_ruby.boots} to diamond boots
+		enchant {_ruby.boots} with protection 2 and unbreaking 1
+		give {_ruby.boots} named "<##FF6666>&lRUBY &r<##FF6666>Boots" to player
+		give 16 steak to player
+
+on rightclick with book:
+	if name of tool of player is "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher":
+		remove 1 of tool from tool
+		give diamond sword named "<##19C8FB>&lDIAMOND &r<##19C8FB>Sword" to player
+		give diamond pickaxe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Pickaxe" to player
+		give diamond axe named "<##19C8FB>&lDIAMOND &r<##19C8FB>Axe" to player
+		give diamond shovel named "<##19C8FB>&lDIAMOND &r<##19C8FB>Shovel" to player
+		give diamond helmet named "<##19C8FB>&lDIAMOND &r<##19C8FB>Helmet" to player
+		give diamond chestplate named "<##19C8FB>&lDIAMOND &r<##19C8FB>Chestplate" to player
+		give diamond leggings named "<##19C8FB>&lDIAMOND &r<##19C8FB>Leggings" to player
+		give diamond boots named "<##19C8FB>&lDIAMOND &r<##19C8FB>Boots" to player
+		give 16 steak to player
+
+on rightclick with book:
+	if name of tool of player is "<##056AF6>&lSAPPHIRE <##056AF6>Kit Voucher":
+		remove 1 of tool from tool
+		set {sapphire.sword} to iron sword
+		enchant {sapphire.sword} with sharpness 2
+		give {sapphire.sword} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Sword" to player
+		set {sapphire.pickaxe} to iron pickaxe
+		enchant {sapphire.pickaxe} with efficiency 2
+		give {sapphire.pickaxe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Pickaxe" to player
+		set {sapphire.axe} to iron axe
+		enchant {sapphire.axe} with efficiency 2
+		give {sapphire.axe} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Axe" to player
+		set {sapphire.shovel} to iron shovel
+		enchant {sapphire.shovel} with efficiency 2
+		give {sapphire.shovel} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Shovel" to player
+		set {_sapphire.helmet} to iron helmet
+		enchant {_sapphire.helmet} with protection 2
+		give {_sapphire.helmet} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Helmet" to player
+		set {_sapphire.chestplate} to iron chestplate
+		enchant {_sapphire.chestplate} with protection 2
+		give {_sapphire.chestplate} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Chestplate" to player
+		set {_sapphire.leggings} to iron leggings
+		enchant {_sapphire.leggings} with protection 2
+		give {_sapphire.leggings} named "<##056AF6>&lSAPPHIRE &r<##056AF6>Leggings" to player
+		set {_sapphire.boots} to iron boots
+		enchant {_sapphire.boots} with protection 2
+		give {_sapphire.boots} named "<##056AF6>&lSAPPHIRE&r <##056AF6>Boots" to player
+		give 16 steak to player
+
+on rightclick with book:
+	if name of tool of player is "&f&lPEARL &fKit Voucher":
+		remove 1 of tool from tool
+		give iron sword named "&f&lPEARL &r&fSword" to player
+		give iron pickaxe named "&f&lPEARL &r&fPickaxe" to player
+		give iron axe named "&f&lPEARL&r &fAxe" to player
+		give iron shovel named "&f&lPEARL&r &fShovel" to player
+		give iron helmet named "&f&lPEARL &r&fHelmet" to player
+		give iron chestplate named "&f&lPEARL &r&fChestplate" to player
+		give iron leggings named "&f&lPEARL&r &fLeggings" to player
+		give iron boots named "&f&lPEARL&r &fBoots" to player
+		give 16 steak to player

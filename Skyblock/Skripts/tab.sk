@@ -1,0 +1,149 @@
+# SKRIPT
+
+on tab complete of "/sk" or "/skript":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "reload", "enable", "disable", "update", "info", and "help"
+        if tab arg-1 is "reload" or "enable" or "disable":
+            set tab completions for position 2 to "backpacks", "fireworks", "infinitebuckets", "market", "pot", "protection", "quests", "robotc", "robotf", "robotf2", "trade", "ultipets", "chat", "core", "crates", "customobs", "daily", "disky", "donor", "eco", "island", "kits", "leaderboards", "mobkills", "npc", "parkour", "payouts", "portal", "punish", "pv", "rules", "scoreboard", "sell", "sellwand", "shop", "staff", "tab", "tags", "reactions", "gemshop" and "testing"
+
+# ISLAND
+
+on tab complete of "/is" or "/island":
+    if event-player doesn't have permission "premiums.admin":
+        set tab completions for position 1 to "create", "menu", "sethome", "home", "go", "top", "level", "worth", "value", "bank", "upgrade", "upgrades", "visit", "invite", "accept", "members", "kick", "remove", "reset", "delete", "help", "ban", "unban", "lock", and "unlock"
+    else:
+        set tab completions for position 1 to "create", "menu", "sethome", "home", "go", "top", "level", "worth", "value", "bank", "upgrade", "upgrades", "visit", "invite", "accept", "members", "kick", "remove", "reset", "delete", "help", "ban", "unban", "lock", "unlock", and "bypass"
+    if tab arg-1 = "level", "worth", "value" or "visit":
+        set tab completions for position 2 to all players
+    if tab arg-1 = "ban":
+        set {_players::*} to all players
+        remove player from {_players::*}
+        remove {island.bans.%{island.owner::%player%}%::*} from {_players::*}
+        set tab completions for position 2 to {_players::*}
+    if tab arg-1 = "unban":
+        set {_islandbanned::*} to {island.bans.%{island.owner::%player%}%::*}
+        set tab completions for position 2 to {_islandbanned::*}
+    if tab arg-1 = "accept":
+        if {island.inviter::%player%} isn't set:
+            clear tab completions for position 2
+        else:
+            set tab completions for position 2 to "%{island.inviter::%player%}%"
+    if tab arg-1 = "kick" or "remove":
+        set {_members::*} to {island.members.%{island.owner::%player%}%::*}
+        remove {island.owner::%player%} from {_members::*}
+        set tab completions for position 2 to {_members::*}
+    if tab arg-1 = "invite":
+        set {_members::*} to {island.members.%{island.owner::%player%}%::*}
+        set {_players::*} to all players
+        remove {_members::*} from {_players::*}
+        set tab completions for position 2 to {_players::*}
+    if tab arg-1 = "create" or "menu" or "sethome" or "home" or "go" or "top" or "bank" or "upgrade" or "upgrades" or "reset" or "delete" or "help" or "lock" or "unlock":
+        clear tab completions for position 2
+
+
+# ECO
+
+on tab complete of "/eco" or "/economy":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "give", "add", "remove", "take", "reset" and "set"
+        if tab arg-1 = "give", "add", "remove", "take" or "set":
+            set tab completions for position 2 to all players
+        if tab arg-2 is set:
+            if tab arg-1 = "give", "add", "remove", "take" or "set":
+                set tab completions for position 3 to "1", "100", "1000", "100000", "1000000" and "10000000"
+
+# PUNISH
+
+on tab complete of "/mute":
+    if player has permission "premiums.admin":
+        set {_players::*} to all players
+        loop {mutednames::*}:
+            remove loop-value from {_players::*}
+        set tab completions for position 1 to {_players::*}
+        set tab completions for position 2 to "<input reason>"
+
+on tab complete of "/unmute":
+    if player has permission "premiums.admin":
+        loop {mutednames::*}:
+            add loop-value to {_muted::*}
+        set tab completions for position 1 to {_muted::*}
+
+on tab complete of "/tempmute":
+    if player has permission "premiums.admin":
+        set {_players::*} to all players
+        loop {mutednames::*}:
+            remove loop-value from {_players::*}
+        set tab completions for position 1 to {_players::*}
+        set tab completions for position 2 to "<input reason>"
+        set tab completions for position 3 to "<input time, (1s, 1m, 1h, 1d, 1w, 1y)>"
+
+on tab complete of "/ban":
+    if player has permission "premiums.admin":
+        set {_players::*} to all players
+        loop {bannednames::*}:
+            remove loop-value from {_players::*}    
+        set tab completions for position 1 to {_players::*}
+        set tab completions for position 2 to "<input reason>"
+
+on tab complete of "/tempban":
+    if player has permission "premiums.admin":
+        set {_players::*} to all players
+        loop {bannednames::*}:
+            remove loop-value from {_players::*}    
+        set tab completions for position 1 to {_players::*}
+        set tab completions for position 2 to "<input reason>"
+        set tab completions for position 3 to "<input time, (1s, 1m, 1h, 1d, 1w, 1y)>"   
+
+on tab complete of "/unban":
+    if player has permission "premiums.admin":
+        loop {bannednames::*}:
+            add loop-value to {_banned::*}
+        set tab completions for position 1 to {_banned::*}
+
+# WARPS
+
+on tab complete of "/warp":
+    loop {warps::*}:
+        add loop-value to {_warps::*}
+    set tab completions for position 1 to {_warps::*}
+
+# ROBOTS
+
+on tab complete of "/robot":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "give"
+        set tab completions for position 3 to "<amount>"
+        set tab completions for position 4 to "miner", "farmer", and "slayer"
+        set tab completions for position 5 to "red", "black", "blue", "green", "cyan", "purple", "gray", "default", "lightblue", "lime", "magenta", "yellow", "white", "brown", "orange", and "pink"
+        set tab completions for position 6 to "<f ## s ## g ## l##>"
+
+# Daily
+
+on tab complete of "/daily":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "pause" and "unpause" and "clear"
+        set tab completions for position 2 to "streaks" and "daily"
+
+# Crates
+on tab complete of "/crate" or "crates":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "set", "give", and "giveall"
+        if tab arg-1 = "set":
+            set tab completions for position 2 to "daily", "basic", "lucky", "special", "mystic", and "golden"
+        if tab arg-1 = "give":
+            set {_players::*} to all players
+            set tab completions for position 2 to {_players::*}
+            set tab completions for position 3 to "daily", "basic", "lucky", "special", "mystic", and "golden"
+            set tab completions for position 4 to "<amount>"
+        if tab arg-1 = "giveall":
+            set tab completions for position 2 to "daily", "basic", "lucky", "special", "mystic", and "golden"
+            set tab completions for position 3 to "<amount>"            
+
+#Tags
+on tab complete of "/tag" or "/tags":
+    if player has permission "premiums.admin":
+        set tab completions for position 1 to "give" and "delete-all"
+        if tab arg-1 = "give":
+            set tab completions for position 2 to "<tag>"
+            set {_players::*} to all players
+            set tab completions for position 3 to {_players::*}

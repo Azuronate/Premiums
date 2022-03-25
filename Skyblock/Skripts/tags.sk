@@ -1,0 +1,169 @@
+function tag(a:text, p:player, t:text):
+    set {_uuid} to uuid of {_p}
+    if {_a} is "add":
+        add {_t} to {tags.%{_uuid}%::*}
+    if {_a} is "menu":
+        # Main Page
+        set {_uuid} to uuid of {_p}    
+        create a gui with id "Tag/Main" with virtual chest inventory with 6 rows named "Tags":
+
+            format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black glass pane named "&0" 
+            format gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray glass pane named "&7" 
+            format gui slot 49 with barrier named "&cExit" :
+                close inventory for {_p}
+            set {_slot} to 9
+            # If there isn't any tags
+            if {tags.%{_uuid}%::*} isn't set:
+                format gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 24, 25, 28, 29, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray glass pane named "&7" 
+                format gui slot 21, 22, 23, 30, 31, and 32 with red glass pane named "&cYou don't have any tags!" 
+            loop {tags.%{_uuid}%::*}:
+                # Setting up tag loop
+                set {_page} to 1
+                add 1 to {_slot}
+                if {_slot} is 17 or 26 or 35:
+                    add 2 to {_slot}
+                # Page System
+                if {_slot} is 44:
+                    if size of {tags.%{_uuid}%::*} is greater than 28:
+                        format gui slot 50 with arrow named "&eNext Page":
+                            tag("page", {_p}, "2")
+                        exit loop
+                    else:
+                        exit loop
+                set {_tag} to loop-value
+                # Current Tag
+                if "%loop-value%" is {selected.suffix.%{_uuid}%}:
+                    format gui slot {_slot} with shiny name tag named "%{_tag}% &7- &fSuffix" with lore "" and "&7&o(( Right-Click to Unequip ))" :
+                        if clicked type is right mouse button:
+                            clear {selected.suffix.%{_uuid}%}
+                            make console execute "pex user %{_p}% suffix """""
+                            tag("menu", player, "n/a")
+                # Not selected tag
+                else:
+                    format gui slot {_slot} with name tag named "%{_tag}% &7- &fSuffix" with lore "" and "&7&o(( Left-Click to Equip ))" :
+                        if clicked type is left mouse button: 
+                            set {selected.suffix.%{_uuid}%} to "%{_tag}%"
+                            make console execute "pex user %{_p}% suffix "" &7| %{_tag}%"""
+                            tag("menu", player, "n/a")
+        open gui last gui to {_p}
+    if {_a} is "page":
+        if {_t} is set:
+            # Diffrent Tag pages
+            create a gui with id "Tag/%{_t}%" with virtual chest inventory with 6 rows named "Tags [%{_t}%]":
+                format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black glass pane named "&0" 
+                format gui slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray glass pane named "&7" 
+                format gui slot 49 with barrier named "&c&lExit" :
+                    close inventory for {_p}
+                # Page system
+                format gui slot 48 with arrow named "&ePrevious Page" :
+                    if {_t} is "2":
+                        tag("menu", player, "n/a")
+                    else:
+                        set {_page} to {_t} parsed as number
+                        set {_page} to ({_page} - 1)
+                        tag("page", {_p}, "%{_page}%")
+                        clear {_page}
+                # Indexing/Offset tag loop
+                set {_page} to {_t} parsed as number
+                set {_pg} to ({_page} - 1)
+                set {_index} to (28 * {_pg} + 1)
+                if {_page} is greater than or equal to 10:
+                    set {_page} to 10
+                set {_slot} to 9
+                loop {tags.%{_uuid}%::*}: 
+                    add 1 to {_slot}
+                    if {_slot} is 17 or 26 or 35:
+                        add 2 to {_slot}
+                    if {_slot} is 44:
+                        if {_page} is 2:
+                            if size of {tags.%{_uuid}%::*} is greater than 56:
+                                format gui slot 50 with arrow named "&eNext Page" :
+                                    add 1 to {_page}
+                                    tag("page", {_p}, "%{_page}%")
+                        exit loop
+                    if {_index} is greater than size of {tags.%{_uuid}%::*}:
+                        exit loop
+                    set {_tag} to {tags.%{_uuid}%::%{_index}%}
+                    add 1 to {_i} 
+                    # Current Tag
+                    if "%{tags.%{_uuid}%::%{_index}%}%" is {selected.suffix.%{_uuid}%}:
+                        format gui slot {_slot} with shiny name tag named "%{_tag}% &7- &fSuffix" with lore "" and "&7&o(( Right-Click to Unequip ))" :
+                            if clicked type is right mouse button:
+                                clear {selected.suffix.%{_uuid}%}
+                                make console execute "pex user %{_p}% suffix """""
+                                tag("page", {_p}, "%{_t}%")
+                    # Not selected tag
+                    else:
+                        format gui slot {_slot} with name tag named "%{_tag}% &7- &fSuffix" with lore "" and "&7&o(( Left-Click to Equip ))" :
+                            if clicked type is left mouse button: 
+                                set {selected.suffix.%{_uuid}%} to "%{_tag}%"
+                                make console execute "pex user %{_p}% suffix "" &7| %{_tag}%"""
+                                tag("page", {_p}, "%{_t}%")
+            open gui last gui to {_p}
+
+
+command tag [<text>] [<offlineplayer>] [<text>]:
+    aliases: tags
+    trigger:
+        if arg-1 isn't set:
+            tag("menu", player, "n/a")
+        if sender has permission "premiums.admin":
+            if arg-1 is "give":
+                if arg-2 is set:
+                    if arg-3 is set:
+                        set {_name} to formatted arg-3
+                        set {_name} to "%{_name}% &7- &fSuffix"
+                        set {_tag} to name tag named {_name}
+                        set {_player} to "%arg-2%" parsed as offline player
+                        add "" to lore of {_tag}
+                        add colored "&fRedeem this item to be given your" to lore of {_tag}
+                        add colored "&ftag. Manage your tags in &e/tags&f." to lore of {_tag}
+                        add "" to lore of {_tag}
+                        add colored "&7&o(( Right-Click to Redeem ))" to lore of {_tag}
+                        give {_player} 1 of {_tag} with all flags hidden
+                        if {_player} is player:
+                            set {_name} to formatted arg-3
+                            send formatted "&d&lTAGS &7¬ &fYou recived the tag %{_name}%" to player
+                            stop
+                        else:   
+                            set {_name} to formatted arg-3
+                            send formatted "&d&lTAGS &7¬ &fGave %{_player}% the tag %{_name}%" to player
+                            send formatted "&d&lTAGS &7¬ &fYou recived the tag %{_name}%" to {_player}
+                    else:
+                        send "&d&lTAGS &7¬ &fEnter the tag name!"
+                else:
+                    send "&d&lTAGS &7¬ &fThat isn't a player!"
+            if arg-1 is "delete-all":
+                if arg-2 is a player:
+                    set {_uuid} to uuid of arg-2
+                    clear {tags.%{_uuid}%::*}
+                    send "&d&lTAGS &7¬ &fCleared tags of %arg-2%."
+                if arg-2 isn't set:
+                    set {_uuid} to uuid of player
+                    clear {tags.%{_uuid}%::*}
+                    send "&d&lTAGS &7¬ &fCleared your tags."
+        else:
+            send "&d&lTAGS &7¬ &fYou don't have permissions do to this!"
+            stop          
+
+
+on rightclick holding a name tag:
+    if name of player's tool contains "&fSuffix":
+        set {_name} to name of player's tool
+        set {_uuid} to uuid of player
+        replace all " &7- &fSuffix" in {_name} with ""
+        if {tags.%{_uuid}%::*} isn't set:
+            tag("add", player, "%{_name}%")
+            remove held item from player
+            send formatted "&d&lTAGS &7¬ &f%{_name}% &fhas been added to your tags!"
+            stop
+        loop {tags.%{_uuid}%::*}:
+            if {tags.%{_uuid}%::*} contains {_name}:
+                cancel event
+                send formatted "&d&lTAGS &7¬ &fYou already own %{_name}%&f!"
+                stop
+            else:
+                tag("add", player, "%{_name}%")
+                remove 1 of held item from player
+                send formatted "&d&lTAGS &7¬ &f%{_name}% &fhas been added to your tags!"
+                stop

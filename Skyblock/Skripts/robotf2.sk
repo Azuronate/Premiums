@@ -1,0 +1,407 @@
+#(robotf2.sk)
+
+#
+# Updates
+#
+
+on skript load:
+	wait 50 seconds
+	loop all entities where [input is an armor stand]:	
+		if {owner.%loop-entity%} is set:
+			set {_x} to x-coord of loop-entity
+			set {_y} to y-coord of loop-entity + 1.5
+			set {_z} to z-coord of loop-entity
+			create new holo with lines " &7&l%{type.%loop-entity%}%&r&6&l〔%{itemcount::%loop-entity%}%〕" at location at {_x}, {_y}, {_z} of the world "ul_islands" and store it in {hologram::%loop-entity%}
+			set {waiting.%loop-entity%} to false
+
+on skript unload:
+	delete holo {hologram::*}
+
+on quit:
+	loop all entities where [input is an armor stand]:
+		dostuff(player, loop-entity, "disable")
+
+on join:
+	if player is in world "ul_islands":
+		loop all entities where [input is an armor stand]:
+			dostuff(player, loop-entity, "enable")
+	else:
+		loop all entities where [input is an armor stand]:
+			dostuff(player, loop-entity, "disable")
+
+function deleteowner(p:player, e:entity):
+	if {owner.%{_e}%} is {_p}:
+		set {_uuid} to uuid of {_p}
+		clear {owner.%{_e}%}
+		remove {_e}'s location from {locations::%{_uuid}%::*}
+		kill {_e}
+
+function dostuff(p: player, e:entity, n:text):
+	set {_uuid} to uuid of {_p}
+	if {owner.%{_e}%} is {_p}:
+		if {_n} is "disable":
+			set {mining.%{_uuid}%.%{_e}%} to false
+			set {farming.%{_uuid}%.%{_e}%} to false
+			set {slaying.%{_uuid}%.%{_e}%} to false
+		if {_n} is "enable":
+			set {mining.%{_uuid}%.%{_e}%} to true
+			set {farming.%{_uuid}%.%{_e}%} to true
+			set {slaying.%{_uuid}%.%{_e}%} to true	
+
+every 5 seconds in world "ul_islands":
+	loop all entities where [input is an armor stand]:
+		if {waiting.%loop-entity%} is false:
+			robotdo({owner.%loop-entity%}, loop-entity)
+
+function updateholo(e:entity):
+	delete holo {hologram::%{_e}%}
+	set {_x} to x-coord of {location::%{_e}%}
+	set {_y} to y-coord of {location::%{_e}%} + 1.5
+	set {_z} to z-coord of {location::%{_e}%}
+	create new holo with lines " &7&l%{type.%{_e}%}%&r&6&l〔%{itemcount::%{_e}%}%〕" at location at {_x}, {_y}, {_z} of the world "ul_islands" and store it in {hologram::%{_e}%}
+			
+#
+# Robot animation
+#
+
+function applyAnimation(a: entity):
+	add "{Pose:{LeftArm:[],RightArm:[-40.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-43.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-46.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-49.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-52.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-55.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-58.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-61.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-64.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-67.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-70.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-67.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-64.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-61.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-58.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-55.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-52.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-48.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-45.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-42.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-39.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-36.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-33.0f,0.0f,0.0f]}}" to nbt of {_a}
+	wait 1 tick
+	add "{Pose:{LeftArm:[],RightArm:[-30.0f,0.0f,0.0f]}}" to nbt of {_a}
+
+
+#
+# Robots working (Mining, Farming, and Killing)
+#
+
+function caculate(e:entity):
+	set {waiting.%{_e}%} to false
+	set {_direction} to "%facing of {_e}%"
+	if {luck.%{_e}%} is 1 or 2 or 3:
+		add 1 of coal ore to {_o::*}
+		add 1 of lapis lazuli ore to {_o::*}
+		add 1 of redstone ore to {_o::*}
+		add 1 of iron ore to {_o::*}
+		add 1 of gold ore to {_o::*}
+		add 1 of diamond ore to {_o::*}
+		add 1 of emerald ore to {_o::*}
+		if {luck.%{_e}%} is 1:
+			set {_percent} to 7
+		if {luck.%{_e}%} is 2:
+			set {_percent} to 14
+		if {luck.%{_e}%} is 3:
+			set {_percent} to 21
+		chance of {_percent}%:
+			set {_item} to random element out of {_o::*}
+			if {_direction} contains "north":
+				set {_x} to x-coord of {_e} 
+				set {_y} to y-coord of {_e}
+				set {_z} to z-coord of {_e} - 1
+				set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+				set block at location at {_loc} to {_item}
+			if {_direction} contains "south":
+				set {_x} to x-coord of {_e}
+				set {_y} to y-coord of {_e}
+				set {_z} to z-coord of {_e} + 1
+				set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+				set block at location at {_loc} to {_item}
+			if {_direction} contains "west":
+				set {_x} to x-coord of {_e} - 1
+				set {_y} to y-coord of {_e}
+				set {_z} to z-coord of {_e}
+				set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+				set block at location at {_loc} to {_item}
+			if {_direction} contains "east":
+				set {_x} to x-coord of {_e} + 1 
+				set {_y} to y-coord of {_e}
+				set {_z} to z-coord of {_e}
+				set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+				set block at location at {_loc} to {_item}
+		#if {luck.%{_e}%} is 2:
+		#	chance of 20%:
+		#		set {_item} to random element out of {_o::*}
+		#		if {_direction} contains "north":
+		#			set {_x} to x-coord of {_e} 
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e} - 1
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "south":
+		#			set {_x} to x-coord of {_e}
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e} + 1
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "west":
+		#			set {_x} to x-coord of {_e} - 1
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e}
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "east":
+		#			set {_x} to x-coord of {_e} + 1 
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e}
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#if {luck.%{_e}%} is 3:
+		#	chance of 30%:
+		#		set {_item} to random element out of {_o::*}
+		#		if {_direction} contains "north":
+		#			set {_x} to x-coord of {_e} 
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e} - 1
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "south":
+		#			set {_x} to x-coord of {_e}
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e} + 1
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "west":
+		#			set {_x} to x-coord of {_e} - 1
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e}
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		#		if {_direction} contains "east":
+		#			set {_x} to x-coord of {_e} + 1 
+		#			set {_y} to y-coord of {_e}
+		#			set {_z} to z-coord of {_e}
+		#			set {_loc} to location({_x}, {_y}, {_z}, world "ul_islands")
+		#			set block at location at {_loc} to {_item}
+		applyAnimation({_e})
+		wait 25 ticks
+		if {_direction} contains "north":
+			set {_drops::*} to drops of block 1 north of {_e} with {_e}'s tool
+		if {_direction} contains "south":
+			set {_drops::*} to drops of block 1 south of {_e} with {_e}'s tool
+		if {_direction} contains "west":
+			set {_drops::*} to drops of block 1 west of {_e} with {_e}'s tool
+		if {_direction} contains "east":
+			set {_drops::*} to drops of block 1 east of {_e} with {_e}'s tool
+		add {_drops::*} to {inv::%{_e}%::*}
+		add 1 to {itemcount::%{_e}%}
+		updateholo({_e})
+		#drop {_drops::*} at {_e} without velocity
+		if {_direction} contains "north":
+			set block 1 north of {_e} to air 
+		if {_direction} contains "south":
+			set block 1 south of {_e} to air 
+		if {_direction} contains "west":
+			set block 1 west of {_e} to air 
+		if {_direction} contains "east":
+			set block 1 east of {_e} to air 
+		set {is.activly.mineing.%{_e}%} to false
+	else:
+		mine({_e})
+	updateholo({_e})
+
+
+function mine(e:entity):
+	set {waiting.%{_e}%} to false
+	set {_direction} to "%facing of {_e}%"
+	applyAnimation({_e})
+	wait 25 ticks
+	if {_direction} contains "north":
+		set {_drops::*} to drops of block 1 north of {_e} with {_e}'s tool
+	if {_direction} contains "south":
+		set {_drops::*} to drops of block 1 south of {_e} with {_e}'s tool
+	if {_direction} contains "west":
+		set {_drops::*} to drops of block 1 west of {_e} with {_e}'s tool
+	if {_direction} contains "east":
+		set {_drops::*} to drops of block 1 east of {_e} with {_e}'s tool
+	add {_drops::*} to {inv::%{_e}%::*}
+	#drop {_drops::*} at {_e} without velocity
+	if {_direction} contains "north":
+		set block 1 north of {_e} to air 
+	if {_direction} contains "south":
+		set block 1 south of {_e} to air 
+	if {_direction} contains "west":
+		set block 1 west of {_e} to air 
+	if {_direction} contains "east":
+		set block 1 east of {_e} to air 
+	add 1 to {itemcount::%{_e}%}
+	updateholo({_e})
+	set {is.activly.mineing.%{_e}%} to false
+
+function robotdo(p:player, e:entity):
+	set {_uuid} to uuid of {_p}
+	if {mining.%{_uuid}%.%{_e}%} is false:
+		stop
+	if {farming.%{_uuid}%.%{_e}%} is false:
+		stop
+	if {slaying.%{_uuid}%.%{_e}%} is false:
+		stop
+	if {mining.%{_uuid}%.%{_e}%} is true:
+		if {type.%{_e}%} is "MINER":
+			set {is.activly.mineing.%{_e}%} to true
+			set {_l} to {_e}'s location
+			set {_direction} to "%facing of {_e}%"
+			if {itemcount::%{_e}%} is {itemmax::%{_e}%}:
+				stop
+			set {_r} to a random integer between 1 and 25
+			wait "%{_r}% ticks" parsed as timespan
+			set {waiting.%{_e}%} to true
+			if {speed.%{_e}%} is 0: # +5
+				wait 15 seconds
+			if {speed.%{_e}%} is 1:
+				wait 12 seconds
+			if {speed.%{_e}%} is 2:
+				wait 9 seconds	
+			if {speed.%{_e}%} is 2:
+				wait 6 seconds	
+			if {_direction} contains "north":
+				if block 1 north of {_e} is a block:
+					if block 1 north of {_e} is air or barrier or bedrock or command block or end portal frame or beacon or emerald block or diamond block or gold block or iron block or redstone block or lapis block or coal block or spawner or water or lava:
+						set {waiting.%{_e}%} to false
+						stop
+					if block 1 north of {_e} is cobblestone or stone:
+						caculate({_e})
+						stop
+					else:
+						mine({_e})
+						stop
+			if {_direction} contains "south":
+				if block 1 south of {_e} is a block:
+					if block 1 south of {_e} is air or barrier or bedrock or command block or end portal frame or beacon or emerald block or diamond block or gold block or iron block or redstone block or lapis block or coal block or spawner or water or lava:
+						set {waiting.%{_e}%} to false
+						stop
+					if block 1 south of {_e} is cobblestone or stone:
+						caculate({_e})
+						stop
+					else:
+						mine({_e})
+						stop
+			if {_direction} contains "east":
+				if block 1 east of {_e} is a block:
+					if block 1 east of {_e} is air or barrier or bedrock or command block or end portal frame or beacon or emerald block or diamond block or gold block or iron block or redstone block or lapis block or coal block or spawner or water or lava:
+						set {waiting.%{_e}%} to false
+						stop
+					if block 1 east of {_e} is cobblestone or stone:
+						caculate({_e})
+						stop
+					else:
+						mine({_e})
+						stop
+			if {_direction} contains "west":
+				if block 1 west of {_e} is a block:
+					if block 1 west of {_e} is air or barrier or bedrock or command block or end portal frame or beacon or emerald block or diamond block or gold block or iron block or redstone block or lapis block or coal block or spawner or water or lava:
+						set {waiting.%{_e}%} to false
+						stop
+					if block 1 west of {_e} is cobblestone or stone:
+						caculate({_e})
+						stop
+					else:
+						mine({_e})
+						stop
+	#if {farming.%{_uuid}%.%{_e}%} is true:
+	#	if {type.%{_e}%} is "FARMER":
+	#		set {_l} to {_e}'s location
+	#		set {_direction} to "%facing of {_e}%"
+	#		set {_r} to a random integer between 1 and 25
+	#		updateholo({_e})
+	#		wait "%{_r}% ticks" parsed as timespan
+	#		if {_direction} contains "north":
+	#			loop blocks in radius 2 around {_e}:
+	#				if loop-block is ripe wheat plant:
+	#					applyAnimation({_e})
+	#					set {_drops::*} to drops of loop-block with {_e}'s tool
+	#					add {_drops::*} to {inv::%{_e}%::*}
+	#					add 1 to {itemcount::%{_e}%}
+	#					updateholo({_e})
+	#					set block at loop-block to wheat plant
+	#		if {_direction} contains "east":
+	#			loop blocks in radius 2 around {_e}:
+	#				if loop-block is ripe wheat plant:
+	#					applyAnimation({_e})
+	#					set {_drops::*} to drops of loop-block with {_e}'s tool
+	#					add {_drops::*} to {inv::%{_e}%::*}
+	#					add 1 to {itemcount::%{_e}%}
+	#					updateholo({_e})
+	#					set block at loop-block to wheat plant
+	#		if {_direction} contains "south":
+	#			loop blocks in radius 2 around {_e}:
+	#				if loop-block is ripe wheat plant:
+	#					applyAnimation({_e})
+	#					set {_drops::*} to drops of loop-block with {_e}'s tool
+	#					add {_drops::*} to {inv::%{_e}%::*}
+	#					add 1 to {itemcount::%{_e}%}
+	#					updateholo({_e})
+	#					set block at loop-block to wheat plant
+	#		if {_direction} contains "west":
+	#			loop blocks in radius 2 around {_e}:
+	#				if loop-block is ripe wheat plant:
+	#					applyAnimation({_e})
+	#					set {_drops::*} to drops of loop-block with {_e}'s tool
+	#					add {_drops::*} to {inv::%{_e}%::*}
+	#					add 1 to {itemcount::%{_e}%}
+	#					updateholo({_e})
+	#					set block at loop-block to wheat plant	
+
+#
+# Robot color command
+#
+
+command /robotcolortest:
+	permission: op
+	trigger:
+		give player red dye
+		give player black dye
+		give player blue dye
+		give player green dye
+		give player cyan dye
+		give player purple dye
+		give player gray dye
+		give player light blue dye
+		give player lime dye
+		give player magenta dye
+		give player yellow dye
+		give player white dye
+
+		send "<##696969>&lROBOT &7¬ &FYou have recieved all the dye colors for robots!" 

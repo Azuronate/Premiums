@@ -1,0 +1,1260 @@
+options:
+	tag: &e&lSKYBLOCK &7¬&f
+
+function cratenoise(p: player):
+	play sound "minecraft:block.note_block.banjo" at volume 2 at pitch 3 to {_p}
+	wait 0.1 seconds
+	play sound "minecraft:block.note_block.banjo" at volume 2 at pitch 3 to {_p}
+	wait 0.1 seconds
+	play sound "minecraft:block.note_block.banjo" at volume 2 at pitch 3 to {_p}
+	wait 0.1 seconds
+	play sound "minecraft:block.note_block.banjo" at volume 2 at pitch 3 to {_p}
+	wait 0.1 seconds
+	play sound "minecraft:block.note_block.banjo" at volume 2 at pitch 3 to {_p}
+	wait 0.2 seconds
+	play sound "minecraft:entity.chicken.egg" at volume 5 at pitch 3 to {_p}
+
+command /crates [<text>] [<text>] [<text>] [<text>]:
+	aliases: /crate
+	trigger:
+		if sender has permission "premiums.crates":
+			if arg 1 is not set:
+				message "&c/crates [set] [crate]"
+				message "&c/crates [give] [player] [crate] [amount]"
+				message "&c/crates [giveall] [crate] [amount]"
+		else:
+			make player execute "/warp crates"
+		if sender has permission "premiums.casual.crates":
+			if arg 1 is not set:
+				make player execute command "warp crates"
+			else:
+				if arg 1 is "give" or "key":
+					set {_p} to player
+					if arg 2 is set:
+						set {_p} to arg-2 parsed as player
+					if arg 3 is set:
+						set {_i} to 1
+						if arg 4 is set:
+							set {_i} to arg 4 parsed as integer
+						if arg 3 is "basic":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&a&lBASIC &7Crate Key" with lore "&7", "&7Use this ket at /crates", "&7to redeem a random prize" and "&7from a &a&lBASIC &7Crate!" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&a&lBASIC &7Crate Key" with lore "&7", "&7Use this ket at /crates", "&7to redeem a random prize" and "&7from a &a&lBASIC &7Crate!"
+						if arg 3 is "daily":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&d&lDAILY &7Crate Key" with lore "&7&oUse at /warp crates" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&d&lDAILY &7Crate Key" with lore "&7&oUse at /warp crates"
+						if arg 3 is "lucky":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&9&lLUCKY &7Crate Key" with lore "&7&oUse at /warp crates" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&9&lLUCKY &7Crate Key" with lore "&7&oUse at /warp crates"
+						if arg 3 is "special":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&5&lSPECIAL &7Crate Key" with lore "&7&oUse at /warp crates" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&5&lSPECIAL &7Crate Key" with lore "&7&oUse at /warp crates"
+						if arg 3 is "mystic":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&c&lMYSTIC &7Crate Key" with lore "&7&oUse at /warp crates" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&c&lMYSTIC &7Crate Key" with lore "&7&oUse at /warp crates"
+						if arg 3 is "golden":
+							if {_p} cannot hold 1 of stone:
+								drop {_i} of tripwire hook named "&6&lGOLDEN &7Crate Key" with lore "&7&oUse at /warp crates" at {_p}
+								stop
+							give {_p} {_i} of tripwire hook named "&6&lGOLDEN &7Crate Key" with lore "&7&oUse at /warp crates"
+				else if arg 1 is "giveall" or "keyall":
+					if arg 2 is set:
+						set {_i} to 1
+						if arg 3 is set:
+							set {_i} to arg 3 parsed as integer
+						if arg 2 is "basic":
+							give {_i} of tripwire hook named "&a&lBASIC &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &a&lBASIC&f Crate Key(s)." to all players
+						if arg 2 is "daily":
+							give {_i} of tripwire hook named "&d&lDAILY &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &d&lDAILY&f Crate Key(s)." to all players
+						if arg 2 is "lucky":
+							give {_i} of tripwire hook named "&9&lLUCKY &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &9&lLUCKY&f Crate Key(s)." to all players
+						if arg 2 is "special":
+							give {_i} of tripwire hook named "&5&lSPECIAL &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &5&lSPECIAL&f Crate Key(s)." to all players
+						if arg 2 is "mystic":
+							give {_i} of tripwire hook named "&c&lMYSTIC &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &c&lMYSTIC&f Crate Key(s)." to all players
+						if arg 2 is "golden":
+							give {_i} of tripwire hook named "&6&lGOLDEN &7Crate Key" with lore "&7&oUse at /warp crates" to all players
+							send "{@tag} %sender% has given everyone %{_i}%x &6&lGOLDEN&f Crate Key(s)." to all players
+				else if arg 1 is "set":
+					if arg 2 is "basic":
+						set {crate.loc::%player's targeted block%} to "&a&lBASIC"
+					if arg 2 is "daily":
+						set {crate.loc::%player's targeted block%} to "&d&lDAILY"
+					if arg 2 is "lucky":
+						set {crate.loc::%player's targeted block%} to "&9&lLUCKY"
+					if arg 2 is "special":
+						set {crate.loc::%player's targeted block%} to "&5&lSPECIAL"
+					if arg 2 is "mystic":
+						set {crate.loc::%player's targeted block%} to "&c&lMYSTIC"
+					if arg 2 is "golden":
+						set {crate.loc::%player's targeted block%} to "&6&lGOLDEN"
+				else:
+					message "&c/crates [set] [crate]"
+					message "&c/crates [give] [player] [crate] [amount]"
+					message "&c/crates [giveall] [crate] [amount]"
+on left click:
+	if player's world is "ul_spawn":
+		if {crate.loc::%event-block%} is set:
+			cancel event
+			if {crate.loc::%event-block%} is "&a&lBASIC":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with lime glass pane named "&a"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+					format gui slot 9 with spawner named "&e&lx1 &fCow Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fSheep Spawner"
+					format gui slot 11 with spawner named "&e&lx1 &fZombie Spawner"
+					format gui slot 12 with 1 of paper named "&e$10,000"
+					format gui slot 13 with 1 of paper named "&e$25,000"
+					format gui slot 14 with 1 of paper named "&e$50,000"
+					format gui slot 15 with 2 of tripwire hook named "&a&lBASIC &7Crate Key"
+					format gui slot 16 with 1 of tripwire hook named "&9&lLUCKY &7Crate Key"
+					format gui slot 17 with 16 of iron block named "&f16x Iron Blocks"
+					format gui slot 18 with 24 of iron block named "&f24x Iron Blocks"
+					format gui slot 19 with 16 of gold block named "&f16x Gold Blocks"
+					format gui slot 20 with 24 of gold block named "&f24x Gold Blocks"
+					format gui slot 21 with 1 of purple dye named "&f25 Gems"
+					format gui slot 22 with 1 of purple dye named "&f50 Gems"
+					format gui slot 23 with 1 of purple dye named "&f75 Gems"
+					format gui slot 24 with 1 of purple dye named "&f100 Gems"
+					format gui slot 25 with 1 of book named "&f&lPEARL &fKit Voucher"
+					format gui slot 26 with 1 of book named "<##056AF6>&lSAPPHIRE <##056AF6>Kit Voucher"
+					format gui slot 27 with 1 of nether star named "&f&lPEARL RANK"
+
+					#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &7&lGHOUL"
+					#format gui slot 10 with 1 of book named "&7&lKIT &7» &b&lSAGE"
+					#format gui slot 11 with 1 of book named "&7&lKIT &7» &7&lGHOUL"
+					#format gui slot 12 with 4 of emerald block named "&a4x Emerald Blocks"
+					#format gui slot 13 with 4 of diamond block named "&b4x Diamond Blocks"
+					#format gui slot 14 with 4 of gold block named "&e4x Gold Blocks"
+					#format gui slot 15 with 4 of iron block named "&f4x Iron Blocks"
+					#format gui slot 16 with 1 of spawner named "&eCreeper Spawner"
+					#format gui slot 17 with 1 of spawner named "&eSkeleton Spawner"
+					#format gui slot 18 with 1 of spawner named "&eZombie Spawner"
+					#format gui slot 19 with 1 of experience bottle named "&e15 XP Levels"
+					#format gui slot 20 with 1 of experience bottle named "&e10 XP Levels"
+					#format gui slot 21 with 1 of experience bottle named "&e5 XP Levels"
+					#format gui slot 22 with 1 of paper named "&e$5,000"
+					#format gui slot 23 with 1 of paper named "&e$10,000"
+					#format gui slot 24 with 1 of paper named "&e$15,000"
+				open gui last gui to player
+			if {crate.loc::%event-block%} is "&d&lDAILY":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with magenta glass pane named "&d"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+
+					format gui slot 9 with spawner named "&e&lx1 &fChicken Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fPig Spawner"
+					format gui slot 11 with 1 of paper named "&e$5,000"
+					format gui slot 12 with 1 of paper named "&e$10,000"
+					format gui slot 13 with 1 of paper named "&e$25,000"
+					format gui slot 14 with 1 of tripwire hook named "&a&lBASIC &7Crate Key"
+					format gui slot 15 with 2 of tripwire hook named "&d&lDAILY &7Crate Key"
+					format gui slot 16 with 8 of iron block named "&f8x Iron Blocks"
+					format gui slot 17 with 16 of iron block named "&f16x Iron Blocks"
+					format gui slot 18 with 8 of gold block named "&f8x Gold Blocks"
+					format gui slot 19 with 16 of gold block named "&f16x Gold Blocks"
+					format gui slot 20 with 1 of purple dye named "&f25 Gems"
+					format gui slot 21 with 1 of purple dye named "&f50 Gems"
+					format gui slot 22 with 1 of purple dye named "&f75 Gems"
+					format gui slot 23 with 1 of book named "&f&lPEARL &fKit Voucher"
+				open gui last gui to player
+
+				#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &d&lMYTHIC"
+				#format gui slot 10 with 1 of nether star named "&e&lRANK &7» &b&lSAGE"
+				#format gui slot 11 with 1 of book named "&7&lKIT &7» &b&lSAGE"
+				#format gui slot 12 with 1 of book named "&7&lKIT &7» &7&lGHOUL"
+				#format gui slot 13 with 8 of emerald block named "&a8x Emerald Blocks"
+				#format gui slot 14 with 8 of diamond block named "&b8x Diamond Blocks"
+				#format gui slot 15 with 8 of gold block named "&e8x Gold Blocks"
+				#format gui slot 16 with 8 of iron block named "&f8x Iron Blocks"
+				#format gui slot 17 with 1 of spawner named "&eCreeper Spawner"
+				#format gui slot 18 with 1 of spawner named "&eSkeleton Spawner"
+				#format gui slot 19 with 1 of spawner named "&eZombie Spawner"
+				#format gui slot 20 with 1 of experience bottle named "&e25 XP Levels"
+				#format gui slot 21 with 1 of experience bottle named "&e20 XP Levels"
+				#format gui slot 22 with 1 of experience bottle named "&e15 XP Levels"
+				#format gui slot 23 with 1 of paper named "&e$10,000"
+				#format gui slot 24 with 1 of paper named "&e$20,000"
+				#format gui slot 25 with 1 of paper named "&e$30,000"
+			if {crate.loc::%event-block%} is "&9&lLUCKY":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with blue glass pane named "&1"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+
+					format gui slot 9 with spawner named "&e&lx1 &fZombie Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fSkeleton Spawner"
+					format gui slot 11 with spawner named "&e&lx1 &fCreeper Spawner"
+					format gui slot 12 with spawner named "&e&lx1 &fBlaze Spawner"
+					format gui slot 13 with 1 of paper named "&e$25,000"
+					format gui slot 14 with 1 of paper named "&e$50,000"
+					format gui slot 15 with 1 of paper named "&e$75,000"
+					format gui slot 16 with 2 of tripwire hook named "&9&lLUCKY &7Crate Key"
+					format gui slot 17 with 1 of tripwire hook named "&5&lSPECIAL &7Crate Key"
+					format gui slot 18 with 24 of iron block named "&f24x Iron Blocks"
+					format gui slot 19 with 24 of gold block named "&f24x Gold Blocks"
+					format gui slot 20 with 16 of diamond block named "&f16x Diamond Blocks"
+					format gui slot 21 with 16 of emerald block named "&f16x Emerald Blocks"
+					format gui slot 22 with 1 of purple dye named "&f50 Gems"
+					format gui slot 23 with 1 of purple dye named "&f75 Gems"
+					format gui slot 24 with 1 of purple dye named "&f100 Gems"
+					format gui slot 25 with 1 of purple dye named "&f125 Gems"
+					format gui slot 26 with 1 of book named "<##056AF6>&lSAPPHIRE <##19C8FB>Kit Voucher"
+					format gui slot 27 with 1 of book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+					format gui slot 28 with 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 29 with 1 of nether star named "&f&lPEARL RANK"
+					format gui slot 30 with 1 of nether star named "<##056AF6>&lSAPPHIRE RANK"
+				open gui last gui to player
+				#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &d&lMYTHIC"
+				#format gui slot 10 with 1 of nether star named "&e&lRANK &7» &b&lSAGE"
+				#format gui slot 11 with 1 of nether star named "&e&lRANK &7» &7&lGHOUL"
+				#format gui slot 12 with 1 of book named "&7&lKIT &7» &9&lSAPPHIRE"
+				#format gui slot 13 with 1 of book named "&7&lKIT &7» &d&lMYTHIC"
+				#format gui slot 14 with 16 of emerald block named "&a16x Emerald Blocks"
+				#format gui slot 15 with 16 of diamond block named "&b16x Diamond Blocks"
+				#format gui slot 16 with 16 of gold block named "&e16x Gold Blocks"
+				#format gui slot 17 with 16 of iron block named "&f16x Iron Blocks"
+				#format gui slot 18 with 1 of spawner named "&eCreeper Spawner"
+				#format gui slot 19 with 1 of spawner named "&eSkeleton Spawner"
+				#format gui slot 20 with 1 of spawner named "&eZombie Spawner"
+				#format gui slot 21 with 1 of experience bottle named "&e20 XP Levels"
+				#format gui slot 22 with 1 of experience bottle named "&e15 XP Levels"
+				#format gui slot 23 with 1 of experience bottle named "&e10 XP Levels"
+				#format gui slot 24 with 1 of paper named "&e$20,000"
+				#format gui slot 25 with 1 of paper named "&e$30,000"
+				#format gui slot 26 with 1 of paper named "&e$40,000"
+			if {crate.loc::%event-block%} is "&5&lSPECIAL":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with purple glass pane named "&5"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+
+					format gui slot 9 with spawner named "&e&lx1 &fCreeper Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fBlaze Spawner"
+					format gui slot 11 with spawner named "&e&lx1 &fWitch Spawner"
+					format gui slot 12 with 1 of paper named "&e$50,000"
+					format gui slot 13 with 1 of paper named "&e$75,000"
+					format gui slot 14 with 1 of paper named "&e$125,000"
+					format gui slot 15 with 2 of tripwire hook named "&5&lSPECIAL &7Crate Key"
+					format gui slot 16 with 1 of tripwire hook named "&c&lMYSTIC &7Crate Key"
+					format gui slot 17 with 32 of iron block named "&f32x Iron Blocks"
+					format gui slot 18 with 32 of gold block named "&f32x Gold Blocks"
+					format gui slot 19 with 32 of diamond block named "&f32x Diamond Blocks"
+					format gui slot 20 with 32 of emerald block named "&f32x Emerald Blocks"
+					format gui slot 21 with 1 of purple dye named "&f75 Gems"
+					format gui slot 22 with 1 of purple dye named "&f100 Gems"
+					format gui slot 23 with 1 of purple dye named "&f125 Gems"
+					format gui slot 24 with 1 of purple dye named "&f150 Gems"
+					format gui slot 25 with 1 of book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+					format gui slot 26 with 1 of book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+					format gui slot 27 with 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 28 with 1 of nether star named "&f&lPEARL RANK"
+					format gui slot 29 with 1 of nether star named "<##056AF6>&lSAPPHIRE RANK"
+					format gui slot 30 with 1 of nether star named "<##19C8FB>&lDIAMOND <##19C8FB>RANK"
+				open gui last gui to player
+
+				#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &9&lSAPPHIRE"
+				#format gui slot 10 with 1 of nether star named "&e&lRANK &7» &d&lMYTHIC"
+				#format gui slot 11 with 1 of nether star named "&e&lRANK &7» &b&lSAGE"
+				#format gui slot 12 with 1 of nether star named "&e&lRANK &7» &7&lGHOUL"
+				#format gui slot 13 with 1 of book named "&7&lKIT &7» &3&lPEARL"
+				#format gui slot 14 with 1 of book named "&7&lKIT &7» &b&lSAPPHIRE"
+				#format gui slot 15 with 32 of emerald block named "&a32x Emerald Blocks"
+				#format gui slot 16 with 32 of diamond block named "&b32x Diamond Blocks"
+				#format gui slot 17 with 32 of gold block named "&e32x Gold Blocks"
+				#format gui slot 18 with 32 of iron block named "&f32x Iron Blocks"
+				#format gui slot 19 with 1 of spawner named "&eCreeper Spawner"
+				#format gui slot 20 with 1 of spawner named "&eSkeleton Spawner"
+				#format gui slot 21 with 1 of spawner named "&eZombie Spawner"
+				#format gui slot 22 with 1 of experience bottle named "&e25 XP Levels"
+				#format gui slot 23 with 1 of experience bottle named "&e20 XP Levels"
+				#format gui slot 24 with 1 of experience bottle named "&e15 XP Levels"
+				#format gui slot 25 with 1 of paper named "&e$30,000"
+				#format gui slot 26 with 1 of paper named "&e$50,000"
+				#format gui slot 27 with 1 of paper named "&e$75,000"
+			if {crate.loc::%event-block%} is "&c&lMYSTIC":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with red glass pane named "&4"
+					format gui slot 0 with red stained glass pane named "&7"
+					format gui slot 1 with red stained glass pane named "&7"
+					format gui slot 2 with red stained glass pane named "&7"
+					format gui slot 3 with red stained glass pane named "&7"
+					format gui slot 5 with red stained glass pane named "&7"
+					format gui slot 6 with red stained glass pane named "&7"
+					format gui slot 7 with red stained glass pane named "&7"
+					format gui slot 8 with red stained glass pane named "&7"
+					format gui slot 36 with red stained glass pane named "&7"
+					format gui slot 37 with red stained glass pane named "&7"
+					format gui slot 38 with red stained glass pane named "&7"
+					format gui slot 39 with red stained glass pane named "&7"
+					format gui slot 40 with red stained glass pane named "&7"
+					format gui slot 41 with red stained glass pane named "&7"
+					format gui slot 42 with red stained glass pane named "&7"
+					format gui slot 43 with red stained glass pane named "&7"
+					format gui slot 44 with red stained glass pane named "&7"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+
+					format gui slot 9 with spawner named "&e&lx1 &fBlaze Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fWitch Spawner"
+					format gui slot 11 with spawner named "&e&lx1 &fVillager Spawner"
+					format gui slot 12 with 1 of paper named "&e$75,000"
+					format gui slot 13 with 1 of paper named "&e$125,000"
+					format gui slot 14 with 1 of paper named "&e$250,000"
+					format gui slot 15 with 2 of tripwire hook named "&c&lMYSTIC &7Crate Key"
+					format gui slot 16 with 1 of tripwire hook named "&6&lGOLDEN &7Crate Key"
+					format gui slot 17 with 64 of iron block named "&f64x Iron Blocks"
+					format gui slot 18 with 64 of gold block named "&f64x Gold Blocks"
+					format gui slot 19 with 48 of diamond block named "&f48x Diamond Blocks"
+					format gui slot 20 with 48 of emerald block named "&f48x Emerald Blocks"
+					format gui slot 21 with 1 of purple dye named "&f125 Gems"
+					format gui slot 22 with 1 of purple dye named "&f150 Gems"
+					format gui slot 23 with 1 of purple dye named "&f200 Gems"
+					format gui slot 24 with 1 of book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+					format gui slot 25 with 1 of book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+					format gui slot 26 with 1 of book named "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher"
+					format gui slot 27 with 2 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 28 with 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 29 with 1 of nether star named "&f&lPEARL RANK"
+					format gui slot 30 with 1 of nether star named "<##056AF6>&lSAPPHIRE RANK"
+					format gui slot 31 with 1 of nether star named "<##19C8FB>&lDIAMOND RANK"
+					format gui slot 32 with 1 of silverfish spawn egg named "&e&lMINER ROBOT"
+			open gui last gui to player
+
+				#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &3&lPEARL"
+				#format gui slot 10 with 1 of nether star named "&e&lRANK &7» &9&lSAPPHIRE"
+				#format gui slot 11 with 1 of nether star named "&e&lRANK &7» &d&lMYTHIC"
+				#format gui slot 12 with 1 of nether star named "&e&lRANK &7» &3&lPEARL"
+				#format gui slot 13 with 1 of nether star named "&e&lRANK &7» &9&lSAPPHIRE"
+				#format gui slot 14 with 1 of book named "&7&lKIT &7» &c&lRUBY"
+				#format gui slot 15 with 1 of book named "&7&lKIT &7» &3&lPEARL"
+				#format gui slot 16 with 64 of emerald block named "&a64x Emerald Blocks"
+				#format gui slot 17 with 64 of diamond block named "&b64x Diamond Blocks"
+				#format gui slot 18 with 64 of gold block named "&e64x Gold Blocks"
+				#format gui slot 19 with 64 of iron block named "&f64x Iron Blocks"
+				#format gui slot 20 with 1 of spawner named "&eCreeper Spawner"
+				#format gui slot 21 with 1 of spawner named "&eSkeleton Spawner"
+				#format gui slot 22 with 1 of spawner named "&eZombie Spawner"
+				#format gui slot 23 with 1 of experience bottle named "&e30 XP Levels"
+				#format gui slot 24 with 1 of experience bottle named "&e25 XP Levels"
+				#format gui slot 25 with 1 of experience bottle named "&e20 XP Levels"
+				#format gui slot 26 with 1 of paper named "&e$50000"
+				#format gui slot 27 with 1 of paper named "&e$75000"
+				#format gui slot 28 with 1 of paper named "&e$100000"
+			if {crate.loc::%event-block%} is "&6&lGOLDEN":
+				create a gui with virtual chest inventory with 5 rows named "%{crate.loc::%event-block%}% &e&rWinnings":
+					format gui slot 0 with orange stained glass pane named "&7"
+					format gui slot 1 with orange stained glass pane named "&7"
+					format gui slot 2 with orange stained glass pane named "&7"
+					format gui slot 3 with orange stained glass pane named "&7"
+					format gui slot 5 with orange stained glass pane named "&7"
+					format gui slot 6 with orange stained glass pane named "&7"
+					format gui slot 7 with orange stained glass pane named "&7"
+					format gui slot 8 with orange stained glass pane named "&7"
+					format gui slot 45 with orange stained glass pane named "&7"
+					format gui slot 46 with orange stained glass pane named "&7"
+					format gui slot 47 with orange stained glass pane named "&7"
+					format gui slot 48 with orange stained glass pane named "&7"
+					format gui slot 49 with orange stained glass pane named "&7"
+					format gui slot 50 with orange stained glass pane named "&7"
+					format gui slot 51 with orange stained glass pane named "&7"
+					format gui slot 52 with orange stained glass pane named "&7"
+					format gui slot 53 with orange stained glass pane named "&7"
+					set {_q} to "MHF_Chest" parsed as offline player
+					format gui slot 4 with skull of {_q} named "&e&lCRATE WINNINGS" with lore "&7&o(( Possible Winnings Below ))"
+
+					format gui slot 9 with spawner named "&e&lx1 &fBlaze Spawner"
+					format gui slot 10 with spawner named "&e&lx1 &fWitch Spawner"
+					format gui slot 11 with spawner named "&e&lx1 &fVillager Spawner"
+					format gui slot 12 with spawner named "&e&lx1 &fIron Golem Spawner"
+					format gui slot 13 with spawner named "&e&lx1 &fWandering Trader Spawner"
+					format gui slot 14 with 1 of paper named "&e$125,000"
+					format gui slot 15 with 1 of paper named "&e$250,000"
+					format gui slot 16 with 1 of paper named "&e$500,000"
+					format gui slot 17 with 2 of tripwire hook named "&5&lSPECIAL &7Crate Key"
+					format gui slot 18 with 2 of tripwire hook named "&c&lMYSTIC &7Crate Key"
+					format gui slot 19 with 2 of tripwire hook named "&6&lGOLDEN &7Crate Key"
+					format gui slot 20 with 64 of iron block named "&f64x Iron Blocks"
+					format gui slot 21 with 64 of gold block named "&f64x Gold Blocks"
+					format gui slot 22 with 64 of diamond block named "&f64x Diamond Blocks"
+					format gui slot 23 with 64 of emerald block named "&f64x Emerald Blocks"
+					format gui slot 24 with 1 of purple dye named "&f200 Gems"
+					format gui slot 25 with 1 of purple dye named "&f250 Gems"
+					format gui slot 26 with 1 of purple dye named "&f500 Gems"
+					format gui slot 27 with 1 of purple dye named "&f1,000 Gems"
+					format gui slot 28 with 1 of book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+					format gui slot 29 with 1 of book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+					format gui slot 30 with 1 of book named "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher"
+					format gui slot 31 with 2 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 32 with 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO"
+					format gui slot 33 with 1 of nether star named "&f&lPEARL RANK"
+					format gui slot 34 with 1 of nether star named "<##056AF6>&lSAPPHIRE RANK"
+					format gui slot 35 with 1 of nether star named "<##19C8FB>&lDIAMOND RANK"
+					format gui slot 36 with 1 of nether star named "<##FF6666>&lRUBY RANK"
+					format gui slot 37 with 1 of nether star named "<##DD04B3>&lAMETHYST RANK"
+					format gui slot 38 with 1 of silverfish spawn egg named "&e&lMINER ROBOT"
+				open gui last gui to player
+
+				#format gui slot 9 with 1 of nether star named "&e&lRANK &7» &c&lRUBY"
+				#format gui slot 10 with 1 of nether star named "&e&lRANK &7» &3&lPEARL"
+				#format gui slot 11 with 1 of nether star named "&e&lRANK &7» &9&lSAPPHIRE"
+				#format gui slot 12 with 1 of nether star named "&e&lRANK &7» &d&lMYTHIC"
+				#format gui slot 13 with 1 of nether star named "&e&lRANK &7» &c&lRUBY"
+				#format gui slot 14 with 1 of nether star named "&e&lRANK &7» &3&lPEARL"
+				#format gui slot 15 with 1 of book named "&7&lKIT &7» &6&lGLORIOUS"
+				#format gui slot 16 with 1 of book named "&7&lKIT &7» &c&lRUBY"
+				#format gui slot 17 with 1 of end portal frame named "&41x End Portal Frame"
+				#format gui slot 18 with 64 of emerald block named "&a64x Emerald Blocks"
+				#format gui slot 19 with 64 of diamond block named "&b64x Diamond Blocks"
+				#format gui slot 20 with 1 of spawner named "&e&eVillager &7&o(1x)"
+				#format gui slot 21 with 1 of spawner named "&e&eIron Golem &7&o(1x)"
+				#format gui slot 22 with 1 of spawner named "&e&eZombie Pigman &7&o(1x)"
+				#format gui slot 23 with 1 of experience bottle named "&e30 XP Levels"
+				#format gui slot 24 with 1 of experience bottle named "&e25 XP Levels"
+				#format gui slot 25 with 1 of experience bottle named "&e20 XP Levels"
+				#format gui slot 26 with 1 of paper named "&e$75000"
+				#format gui slot 27 with 1 of paper named "&e$125000"
+				#format gui slot 28 with 1 of paper named "&e$175000"
+
+on inventory click:
+	if inventory name of current inventory of player contains "&a&lBASIC":
+		cancel event
+	if inventory name of current inventory of player contains "&d&lDAILY":
+		cancel event
+	if inventory name of current inventory of player contains "&9&lLUCKY":
+		cancel event
+	if inventory name of current inventory of player contains "&5&lSPECIAL":
+		cancel event
+	if inventory name of current inventory of player contains "&c&lMYSTIC":
+		cancel event
+	if inventory name of current inventory of player contains "&6&lGOLDEN":
+		cancel event
+
+on build:
+	if name of player's tool contains "&7Crate Key":
+		cancel event
+
+
+on right click:
+	if player's world is "ul_spawn":
+		if {crate.loc::%event-block%} is set:
+			cancel event
+			if name of player's tool does not contain "%{crate.loc::%event-block%}% &7Crate Key":
+				message "{@tag} You must have a %{crate.loc::%event-block%}% &fCrate key to use this crate!"
+			else:
+				#set {_amount} to 1
+				#if player's inventory contains player skull:
+				#	loop all items in the inventory of player:
+				#		if name of loop-item contains "&d&lCrate Pet":
+				#			set {_item} to loop-item
+				#			set {_slot} to index of loop-item
+				#			set {_name} to name of loop-item
+				#			set {_xp} to line 1 of lore of {_item}
+				#			replace all "&dExperience &f[" with "" in {_xp}
+				#			replace all "/100]" with "" in {_xp}
+				#			set {_newxp} to {_xp} parsed as integer
+				#			add 1 to {_newxp}
+				#			format gui slot {_slot} of player's inventory to {_item} named "%{_name}%" with lore "&dExperience &f[%{_newxp}%/100]", "", "&7&oGives a chance to" and "&7&ogive double crate rewards."
+				#			replace all "&d&lCrate Pet &7[Level " with "" in {_name}
+				#			replace all "]" with "" in {_name}
+				#			set {_level} to {_name} parsed as integer
+				#			chance of {_level}*2.5%:
+				#				set {_amount} to 2
+				#			if {_newxp} is greater than 99:
+				#				format gui slot {_slot} of player's inventory to skull of "MHF_ENDERCHEST" parsed as offline player named "&d&lCrate Pet &7[Level %{_level}+1%]" with lore "&dExperience &f[0/100]", "", "&7&oGives a chance to" and "&7&ogive double crate rewards."
+				if {crate.loc::%event-block%} is "&a&lBASIC":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 15%:
+						give player 16 of iron blocks
+						send title "&a16x Iron Blocks" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 16x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 16 of gold blocks
+						send title "&a16x Gold Blocks" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 16x Gold Blocks!"
+						stop
+					chance of 12%:
+						give player 24 of iron blocks
+						send title "&a24x Iron Blocks" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 24x Iron Blocks!"
+						stop
+					chance of 12%:
+						give player 24 of gold blocks
+						send title "&a24x Gold Blocks" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 24x Gold Blocks!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% cow"
+						send title "&a1x Cow Spawner" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Cow Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% sheep"
+						send title "&a1x Sheep Spawner" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Sheep Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% zombie"
+						send title "&a1x Zombie Spawner" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Zombie Spawner!"
+						stop
+
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$25,000" and "&eSigner &fServer"
+						send title "&a$25,000" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a banknote containing $25,000!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$50,000" and "&eSigner &fServer"
+						send title "&a$50,000" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a banknote containing $50,000!"
+						stop
+					chance of 10%:
+						make console execute command "/crate give %player% basic 2"
+						send title "&a2 Basic Crate Keys" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 2 Basic Crate Keys!"
+						stop
+					chance of 8%:
+						make console execute command "/crate give %player% lucky 1"
+						send title "&aLucky Crate Key" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Lucky Crate Key!"
+						stop
+					chance of 15%:
+						add 25 to {gems::%player's uuid%}
+						send title "&a25 Gems" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 25 Gems!"
+						stop
+					chance of 12%:
+						add 50 to {gems::%player's uuid%}
+						send title "&a50 Gems" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 50 Gems!"
+						stop
+					chance of 7%:
+						add 75 to {gems::%player's uuid%}
+						send title "&a75 Gems" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 75 Gems!"
+						stop
+					chance of 4%:
+						add 100 to {gems::%player's uuid%}
+						send title "&a100 Gems" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won 100 Gems!"
+						stop
+
+
+					chance of 10%:
+						give player 1 book named "&f&lPEARL &fKit Voucher"
+						send title "&aPearl Kit Voucher" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Pearl Kit Voucher!"
+						stop
+					chance of 10%:
+						give player 1 book named "<##056AF6>&lSAPPHIRE <##056AF6>Kit Voucher"
+						send title "&aSapphire Kit Voucher" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won a Sapphire Kit Voucher!"
+						stop
+					chance of 5%:
+						make console execute command "/voucher give %player% pearl" 
+						send title "&aPearl Rank" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+						message "&a&lBASIC CRATE &7¬ &fYou won Pearl Rank!"
+						stop
+
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$10,000" and "&eSigner &fServer"
+					send title "&a$10,000" with subtitle "&ffrom a &a&lBASIC &fCrate" to player for 1.5 seconds
+					message "&a&lBASIC CRATE &7¬ &fYou won a banknote containing $10,000!"
+					stop
+
+				if {crate.loc::%event-block%} is "&d&lDAILY":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 15%:
+						give player 8 of iron blocks
+						send title "&d8x Iron Blocks" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 8x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 8 of gold blocks
+						send title "&d8x Gold Blocks" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 8x Gold Blocks!"
+						stop
+
+					chance of 12%:
+						give player 16 of iron blocks
+						send title "&d16x Iron Blocks" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 16x Iron Blocks!"
+						stop
+					chance of 12%:
+						give player 16 of gold blocks
+						send title "&d16x Gold Blocks" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 16x Gold Blocks!"
+						stop
+
+					chance of 3%:
+						make console execute command "/rosestacker give spawner %player% pig"
+						send title "&d1x Pig Spawner" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a Pig Spawner!"
+						stop
+					chance of 3%:
+						make console execute command "/rosestacker give spawner %player% chicken"
+						send title "&d1x Chicken Spawner" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a Chicken Spawner!"
+						stop
+
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$10,000" and "&eSigner &fServer"
+						send title "&d$10,000" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a banknote containing $10,000!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$15,000" and "&eSigner &fServer"
+						send title "&d$15,000" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a banknote containing $15,000!"
+						stop
+
+					chance of 15%:
+						add 25 to {gems::%player's uuid%}
+						send title "&d25 Gems" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 25 Gems!"
+						stop
+					chance of 12%:
+						add 50 to {gems::%player's uuid%}
+						send title "&d50 Gems" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 50 Gems!"
+						stop
+					chance of 7%:
+						add 75 to {gems::%player's uuid%}
+						send title "&d75 Gems" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 75 Gems!"
+						stop
+
+					chance of 10%:
+						make console execute command "/crate give %player% daily 2"
+						send title "&d2 Daily Crate Keys" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won 2 Daily Crate Keys!"
+						stop
+					chance of 7%:
+						make console execute command "/crate give %player% basic 1"
+						send title "&dBasic Crate Key" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a Basic Crate Key!"
+						stop
+
+					chance of 7%:
+						give player 1 book named "&f&lPEARL &fKit Voucher"
+						send title "&dPearl Kit Voucher" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+						message "&d&lDAILY CRATE &7¬ &fYou won a Pearl Kit Voucher!"
+						stop
+
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$5,000" and "&eSigner &fServer"
+					send title "&d$5,000" with subtitle "&ffrom a &d&lDAILY &fCrate" to player for 1.5 seconds
+					message "&d&lDAILY CRATE &7¬ &fYou won a banknote containing $5,000!"
+					stop
+
+				if {crate.loc::%event-block%} is "&9&lLUCKY":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$50,000" and "&eSigner &fServer"
+						send title "&9$50,000" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a banknote containing $50,000!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$75,000" and "&eSigner &fServer"
+						send title "&9$75,000" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a banknote containing $75,000!"
+						stop
+					chance of 10%:
+						make console execute command "/crate give %player% lucky 2"
+						send title "&92 Lucky Crate Keys" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 2 Lucky Crate Keys!"
+						stop
+					chance of 8%:
+						make console execute command "/crate give %player% special 1"
+						send title "&9Special Crate Key" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Special Crate Key!"
+						stop
+
+					chance of 12%:
+						give player 16 of emerald blocks
+						send title "&916x Emerald Blocks" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 16x Emerald Blocks!"
+						stop
+					chance of 12%:
+						give player 16 of diamond blocks
+						send title "&916x Diamond Blocks" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 16x Diamond Blocks!"
+						stop
+
+					chance of 15%:
+						give player 24 of iron blocks
+						send title "&924x Iron Blocks" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 24x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 24 of gold blocks
+						send title "&924x Gold Blocks" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 24x Gold Blocks!"
+						stop
+
+					chance of 18%:
+						add 50 to {gems::%player's uuid%}
+						send title "&950 Gems" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 50 Gems!"
+						stop
+					chance of 14%:
+						add 75 to {gems::%player's uuid%}
+						send title "&975 Gems" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 75 Gems!"
+						stop
+					chance of 9%:
+						add 100 to {gems::%player's uuid%}
+						send title "&9100 Gems" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 100 Gems!"
+						stop
+					chance of 7%:
+						add 125 to {gems::%player's uuid%}
+						send title "&9125 Gems" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won 125 Gems!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% zombie"
+						send title "&91x Zombie Spawner" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Zombie Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% skeleton"
+						send title "&91x Skeleton Spawner" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Skeleton Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% creeper"
+						send title "&91x Creeper Spawner" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Creeper Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% blaze"
+						send title "&91x Blaze Spawner" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Blaze Spawner!"
+						stop
+
+
+					chance of 6%:
+						give player 1 book named "&f&lPEARL &fKit Voucher"
+						send title "&9Pearl Kit Voucher" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Pearl Kit Voucher!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##056AF6>&lSAPPHIRE <##056AF6>Kit Voucher"
+						send title "&9Sapphire Kit Voucher" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Sapphire Kit Voucher!"
+						stop
+					chance of 16%:
+						give player 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&9Lucky Crystal" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won a Lucky Crystal!"
+						stop
+
+						
+					chance of 5%:
+						make console execute command "/voucher give %player% pearl" 
+						send title "&9Pearl Rank" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won Pearl Rank!"
+						stop
+					chance of 4%:
+						make console execute command "/voucher give %player% sapphire" 
+						send title "&9Sapphire Rank" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+						message "&9&lLUCKY CRATE &7¬ &fYou won Sapphire Rank!"
+						stop
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$25,000" and "&eSigner &fServer"
+					send title "&9$25,000" with subtitle "&ffrom a &9&lLUCKY &fCrate" to player for 1.5 seconds
+					message "&9&lLUCKY CRATE &7¬ &fYou won a banknote containing $25,000!"
+					stop
+
+
+				if {crate.loc::%event-block%} is "&5&lSPECIAL":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$75,000" and "&eSigner &fServer"
+						send title "&5$75,000" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a banknote containing $75,000!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$125,000" and "&eSigner &fServer"
+						send title "&5$125,000" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a banknote containing $125,000!"
+						stop
+					chance of 10%:
+						make console execute command "/crate give %player% special 2"
+						send title "&52 Special Crate Keys" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 2 Special Crate Keys!"
+						stop
+					chance of 8%:
+						make console execute command "/crate give %player% mystic 1"
+						send title "&5Mystic Crate Key" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Mystic Crate Key!"
+						stop
+
+					chance of 12%:
+						give player 32 of emerald blocks
+						send title "&532x Emerald Blocks" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 32x Emerald Blocks!"
+						stop
+					chance of 12%:
+						give player 32 of diamond blocks
+						send title "&532x Diamond Blocks" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 32x Diamond Blocks!"
+						stop
+
+					chance of 15%:
+						give player 32 of iron blocks
+						send title "&532x Iron Blocks" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 32x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 32 of gold blocks
+						send title "&532x Gold Blocks" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 32x Gold Blocks!"
+						stop
+
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% blaze"
+						send title "&51x Blaze Spawner" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Blaze Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% creeper"
+						send title "&51x Creeper Spawner" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Creeper Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% witch"
+						send title "&51x Witch Spawner" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Witch Spawner!"
+						stop
+
+					chance of 18%:
+						add 75 to {gems::%player's uuid%}
+						send title "&575 Gems" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 75 Gems!"
+						stop
+					chance of 14%:
+						add 100 to {gems::%player's uuid%}
+						send title "&5100 Gems" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 100 Gems!"
+						stop
+					chance of 9%:
+						add 125 to {gems::%player's uuid%}
+						send title "&5125 Gems" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 125 Gems!"
+						stop
+					chance of 7%:
+						add 150 to {gems::%player's uuid%}
+						send title "&5150 Gems" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won 150 Gems!"
+						stop
+
+					chance of 6%:
+						give player 1 book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+						send title "&5Diamond Kit Voucher" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Diamond Kit Voucher!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+						send title "&5Ruby Kit Voucher" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Ruby Kit Voucher!"
+						stop
+					chance of 16%:
+						give player 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&5Lucky Crystal" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won a Lucky Crystal!"
+						stop
+
+						
+					chance of 5%:
+						make console execute command "/voucher give %player% pearl" 
+						send title "&5Pearl Rank" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won Pearl Rank!"
+						stop
+					chance of 4%:
+						make console execute command "/voucher give %player% sapphire" 
+						send title "&5Sapphire Rank" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won Sapphire Rank!"
+						stop
+					chance of 3%:
+						make console execute command "/voucher give %player% diamond" 
+						send title "&5Diamond Rank" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+						message "&5&lSPECIAL CRATE &7¬ &fYou won Diamond Rank!"
+						stop
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$50,000" and "&eSigner &fServer"
+					send title "&9$50,000" with subtitle "&ffrom a &5&lSPECIAL &fCrate" to player for 1.5 seconds
+					message "&5&lSPECIAL CRATE &7¬ &fYou won a banknote containing $50,000!"
+					stop
+
+				if {crate.loc::%event-block%} is "&c&lMYSTIC":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% blaze"
+						send title "&c1x Blaze Spawner" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Blaze Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% villager"
+						send title "&c1x Villager Spawner" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Villager Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% witch"
+						send title "&c1x Witch Spawner" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Witch Spawner!"
+						stop
+
+
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$125,000" and "&eSigner &fServer"
+						send title "&c$125,000" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a banknote containing $125,000!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$250,000" and "&eSigner &fServer"
+						send title "&c$250,000" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a banknote containing $250,000!"
+						stop
+					chance of 10%:
+						make console execute command "/crate give %player% mystic 2"
+						send title "&c2 Mystic Crate Keys" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 2 Mystic Crate Keys!"
+						stop
+					chance of 8%:
+						make console execute command "/crate give %player% golden 1"
+						send title "&cGolden Crate Key" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Golden Crate Key!"
+						stop
+
+					chance of 15%:
+						give player 64 of iron blocks
+						send title "&c64x Iron Blocks" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 64x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 64 of gold blocks
+						send title "&c64x Gold Blocks" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 64x Gold Blocks!"
+						stop
+
+
+					chance of 12%:
+						give player 48 of emerald blocks
+						send title "&c48x Emerald Blocks" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 48x Emerald Blocks!"
+						stop
+					chance of 12%:
+						give player 48 of diamond blocks
+						send title "&c48x Diamond Blocks" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 48x Diamond Blocks!"
+						stop
+
+
+					chance of 18%:
+						add 125 to {gems::%player's uuid%}
+						send title "&c125 Gems" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 125 Gems!"
+						stop
+					chance of 14%:
+						add 150 to {gems::%player's uuid%}
+						send title "&c150 Gems" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 150 Gems!"
+						stop
+					chance of 9%:
+						add 200 to {gems::%player's uuid%}
+						send title "&c200 Gems" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 200 Gems!"
+						stop
+
+					chance of 6%:
+						give player 1 book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+						send title "&cDiamond Kit Voucher" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Diamond Kit Voucher!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+						send title "&cRuby Kit Voucher" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Ruby Kit Voucher!"
+						stop
+
+					chance of 6%:
+						give player 1 book named "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher"
+						send title "&cAmethyst Kit Voucher" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Amethyst Kit Voucher!"
+						stop
+
+					chance of 16%:
+						give player 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&cLucky Crystal" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Lucky Crystal!"
+						stop
+
+					chance of 16%:
+						give player 2 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&c2x Lucky Crystals" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won 2x Lucky Crystals!"
+						stop
+
+						
+					chance of 5%:
+						make console execute command "/voucher give %player% pearl" 
+						send title "&cPearl Rank" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won Pearl Rank!"
+						stop
+					chance of 4%:
+						make console execute command "/voucher give %player% sapphire" 
+						send title "&cSapphire Rank" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won Sapphire Rank!"
+						stop
+					chance of 3%:
+						make console execute command "/voucher give %player% diamond" 
+						send title "&cDiamond Rank" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won Diamond Rank!"
+						stop
+					chance of 3%:
+						make console execute command "/robot give %player% 1 miner default" 
+						send title "&cMiner Robot" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+						message "&c&lMYSTIC CRATE &7¬ &fYou won a Miner Robot!"
+						stop
+
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$75,000" and "&eSigner &fServer"
+					send title "&9$75,000" with subtitle "&ffrom a &c&lMYSTIC &fCrate" to player for 1.5 seconds
+					message "&c&lMYSTIC CRATE &7¬ &fYou won a banknote containing $75,000!"
+					stop
+
+				if {crate.loc::%event-block%} is "&6&lGOLDEN":
+					remove 1 of player's tool from player's tool
+					cratenoise(player)
+					WAIT 0.6 SECONDS
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% blaze"
+						send title "&61x Blaze Spawner" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Blaze Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% villager"
+						send title "&61x Villager Spawner" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Villager Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% witch"
+						send title "&61x Witch Spawner" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Witch Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% wandering_trader"
+						send title "&61x Wandering Trader Spawner" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Wandering Trader Spawner!"
+						stop
+					chance of 8%:
+						make console execute command "/rosestacker give spawner %player% iron_golem"
+						send title "&61x Iron Golem Spawner" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Iron Golem Spawner!"
+						stop
+					chance of 7%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$500,000" and "&eSigner &fServer"
+						send title "&6$500,000" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a banknote containing $500,000!"
+						stop
+					chance of 12%:
+						give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$250,000" and "&eSigner &fServer"
+						send title "&6$250,000" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a banknote containing $250,000!"
+						stop
+					chance of 12%:
+						make console execute command "/crate give %player% special 2"
+						send title "&62 Special Crate Keys" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 2 Special Crate Keys!"
+						stop
+					chance of 10%:
+						make console execute command "/crate give %player% mystic 2"
+						send title "&62 Mystic Crate Keys" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 2 Mystic Crate Keys!"
+						stop
+					chance of 8%:
+						make console execute command "/crate give %player% golden 2"
+						send title "&62 Golden Crate Keys" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a 2 Golden Crate Keys!"
+						stop
+					chance of 15%:
+						give player 64 of iron blocks
+						send title "&664x Iron Blocks" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 64x Iron Blocks!"
+						stop
+					chance of 15%:
+						give player 64 of gold blocks
+						send title "&664x Gold Blocks" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 64x Gold Blocks!"
+						stop
+					chance of 15%:
+						give player 64 of emerald blocks
+						send title "&664x Emerald Blocks" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 64x Emerald Blocks!"
+						stop
+					chance of 12%:
+						give player 64 of diamond blocks
+						send title "&664x Diamond Blocks" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 64x Diamond Blocks!"
+						stop
+					chance of 18%:
+						add 200 to {gems::%player's uuid%}
+						send title "&6200 Gems" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 200 Gems!"
+						stop
+					chance of 14%:
+						add 250 to {gems::%player's uuid%}
+						send title "&6250 Gems" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 250 Gems!"
+						stop
+					chance of 7%:
+						add 500 to {gems::%player's uuid%}
+						send title "&6500 Gems" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 500 Gems!"
+						stop
+					chance of 4%:
+						add 1000 to {gems::%player's uuid%}
+						send title "&61,000 Gems" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 1,000 Gems!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##19C8FB>&lDIAMOND <##19C8FB>Kit Voucher"
+						send title "&6Diamond Kit Voucher" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Diamond Kit Voucher!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##FF6666>&lRUBY <##FF6666>Kit Voucher"
+						send title "&6Ruby Kit Voucher" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Ruby Kit Voucher!"
+						stop
+					chance of 6%:
+						give player 1 book named "<##DD04B3>&lAMETHYST <##DD04B3>Kit Voucher"
+						send title "&6Amethyst Kit Voucher" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Amethyst Kit Voucher!"
+						stop
+
+					chance of 16%:
+						give player 1 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&6Lucky Crystal" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Lucky Crystal!"
+						stop
+
+					chance of 16%:
+						give player 2 end crystal named "&3&l&kO &b&lLucky Crystal &3&l&kO" with lore "&7", "&7&oOoooh, shiny! Right click on", "&7&othis item to recieve a random" and "&7&oamount of gems or cash."
+						send title "&62x Lucky Crystals" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won 2x Lucky Crystals!"
+						stop
+
+						
+					chance of 5%:
+						make console execute command "/voucher give %player% pearl" 
+						send title "&6Pearl Rank" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won Pearl Rank!"
+						stop
+					chance of 3%:
+						make console execute command "/voucher give %player% sapphire" 
+						send title "&6Sapphire Rank" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won Sapphire Rank!"
+						stop
+					chance of 4%:
+						make console execute command "/voucher give %player% diamond" 
+						send title "&6Diamond Rank" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won Diamond Rank!"
+						stop
+					chance of 2%:
+						make console execute command "/voucher give %player% ruby" 
+						send title "&6Ruby Rank" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won Ruby Rank!"
+						stop
+					chance of 1%:
+						make console execute command "/voucher give %player% amethyst" 
+						send title "&6Amethyst Rank" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won Amethyst Rank!"
+						stop
+					chance of 3%:
+						make console execute command "/robot give %player% 1 miner default" 
+						send title "&6Miner Robot" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+						message "&6&lGOLDEN CRATE &7¬ &fYou won a Miner Robot!"
+						stop
+
+					give player 1 of paper named "&6Banknote &7(Right Click)" with lore "&eValue &f$125,000" and "&eSigner &fServer"
+					send title "&6$125,000" with subtitle "&ffrom a &6&lGOLDEN &fCrate" to player for 1.5 seconds
+					message "&6&lGOLDEN CRATE &7¬ &fYou won a banknote containing $125,000!"
+					stop
+
+
+command /voucher [<text>] [<player>] [<text>] [<integer>]:
+	permission: premiums.voucher
+	permission message: {@tag} You do not have permission to use this command.
+	trigger:
+		if arg 1 is set:
+			if arg 1 is "give":
+				if arg 2 is set:
+					if arg 2 is online:
+						if arg 3 is set:
+							set {_amt} to 1
+							if arg 4 is set:
+								set {_amt} to arg 4
+							if arg 3 is "pearl":
+								give arg-2 {_amt} of nether star named "&eRank Voucher &7» &f&lPEARL &7(Right Click)" with lore "", "&7&oRight click this voucher to", "&7&orecieve &f&lPEARL &7&orank.", "" and "&c&lWARNING: &cThis will override your current rank."
+							else if arg 3 is "sapphire":
+								give arg-2 {_amt} of nether star named "&eRank Voucher &7» <##056AF6>&lSAPPHIRE &7(Right Click)" with lore "", "&7&oRight click this voucher to", "&7&orecieve <##056AF6>&lSAPPHIRE &7&orank.", "" and "&c&lWARNING: &cThis will override your current rank."
+							else if arg 3 is "diamond":
+								give arg-2 {_amt} of nether star named "&eRank Voucher &7» <##19C8FB>&lDIAMOND &7(Right Click)" with lore "", "&7&oRight click this voucher to", "&7&orecieve <##19C8FB>&lDIAMOND &7&orank.", "" and "&c&lWARNING: &cThis will override your current rank."
+							else if arg 3 is "ruby":
+								give arg-2 {_amt} of nether star named "&eRank Voucher &7» <##FF6666>&lRUBY &7(Right Click)" with lore "", "&7&oRight click this voucher to", "&7&orecieve <##FF6666>&lRUBY  &7&orank.", "" and "&c&lWARNING: &cThis will override your current rank."
+							else if arg 3 is "amethyst":
+								give arg-2 {_amt} of nether star named "&eRank Voucher &7» <##DD04B3>&lAMETHYST &7(Right Click)" with lore "", "&7&oRight click this voucher to", "&7&orecieve <##DD04B3>&lAMETHYST &7&orank.", "" and "&c&lWARNING: &cThis will override your current rank."
+							else if arg 3 is "kit_pearl":
+								give arg-2 {_amt} of book named "&eKit Voucher &7» &f&lPEARL &7(Right Click)" with lore "", "&7&oRight click this voucher to" and "&7&orecieve &f&lPEARL &7&okit."
+							else:
+								send "{@tag} Unknown voucher ""%arg 3%""." to player
+						else:
+							send "{@tag} You must specify a voucher." to player
+					else:
+						send "{@tag} That player is not online." to player
+				else:
+					send "{@tag} That player is not online." to player
+			else:
+				send "{@tag} /voucher give <player> <voucher> [amount]" to player
+		else:
+			send "{@tag} /voucher give <player> <voucher> [amount]" to player
+
+on right click with nether star:
+	name of player's tool contains "&eRank Voucher"
+	set {_r} to name of player's held item
+	remove 1 of held item of player from held item of player
+	replace all "&eRank Voucher &7» " with "" in {_r}
+	replace all " &7(Right Click)" with "" in {_r}
+	make console execute "/lp user %player% parent set %unformatted {_r}%"
+	send formatted "&6&l[!] &6You redeemed &6a %{_r}% &6rank voucher!" to player
+	summon firework at player's location
+
+
+
+

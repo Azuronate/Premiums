@@ -1,8 +1,0 @@
-options:
-	tag: &e&lSKYBLOCK &7¬&f
-
-on rightclick on a obsidian with a bucket:
-  set block to air
-  give lava bucket to player
-  remove a bucket from the player
-  send "{@tag} Obsidian was removed! Lava was returned to your inventory." to player

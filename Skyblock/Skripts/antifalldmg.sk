@@ -1,4 +1,0 @@
-on damage:
-	damage cause is fall:
-		victim is offlineplayer:
-			cancel the event

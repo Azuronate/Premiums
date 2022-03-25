@@ -1,0 +1,844 @@
+#                                    ____    __  __  _____   ____    
+#                                   /\  _`\ /\ \/\ \/\  __`\/\  _`\  
+#                                   \ \,\L\_\ \ \_\ \ \ \/\ \ \ \L\ \
+#                                    \/_\__ \\ \  _  \ \ \ \ \ \ ,__/
+#                                      /\ \L\ \ \ \ \ \ \ \_\ \ \ \/ 
+#                                      \ `\____\ \_\ \_\ \_____\ \_\ 
+#                                       \/_____/\/_/\/_/\/_____/\/_/ 
+
+#                                           (Made by KingPr0o7)                           
+
+#
+# Custimization
+#
+
+options:
+  tag: &e&lSKYBLOCK &7¬&f
+
+function format(n: number) :: text:
+  set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
+  loop split {_data} at "|":
+    set {_s::*} to split loop-value at ","
+    {_n} >= 10 ^ {_s::2} parsed as number
+    return "%{_n} / 10 ^ {_s::2} parsed as number%%{_s::1}%"
+  return "%{_n}%"
+
+#
+# Confirming and Resting items for shop/sell
+#
+
+function star(s:number, i:item, p:player, n:text, n2:text, cost:number, cc:number):
+  set {_uuid} to uuid of {_p}
+  set {_cc} to {costcount::%{_uuid}%}
+  set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with nether star named "%{_n2}%" with lore "" and "&fCost: $%format({costtotal::%{_uuid}%})%":
+      if clicked type is left mouse button:
+        if {balance::%{_uuid}%} is less than or equal to 0:
+          cancel event
+          message "{@tag} &fSorry but you dont have $%format({costtotal::%{_uuid}%})% to purchase this item."
+          stop
+        if {balance::%{_uuid}%} is less than {costtotal::%{_uuid}%}:
+          cancel event
+          message "{@tag} &fSorry but you dont have $%format({costtotal::%{_uuid}%})% to purchase this item."
+          stop
+        if {balance::%{_uuid}%} is greater than or equal to {costtotal::%{_uuid}%}:
+          if player doesn't have enough space for {costcount::%{_uuid}%} of {_i}:
+            cancel event 
+            message "{@tag} &fYou do not have enough inventory space available to purchase this item."
+          else:
+            remove {costtotal::%{_uuid}%} from {balance::%{_uuid}%}
+            send "&c&l$-%format({costtotal::%{_uuid}%})%"
+            give player {costcount::%{_uuid}%} of {_i}
+            set {_item} to "%{_i}%" 
+            if {_item} contains " ":
+              replace " " with "_" in {_item}
+            make embed:
+              set author of embed to "Shop Purchase" 
+              set author icon of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+              set description of embed to "**Player** %{_p}%%nl%**Amount** x%{costcount::%{_uuid}%}%%nl%**Item** %{_i}%%nl%**Total** $%regex({costtotal::%{_uuid}%})%%nl%"
+              set thumbnail of embed to "https://www.deadmap.com/resources/Minecraft%%20Blocks/%{_item}%.png"
+              set {_fetched} to now
+              set footer of embed to "Bought on %{_fetched}%" 
+              set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/861446068055441448/Premiums_blue.gif"
+            send last embed to channel with id "859631335391494205"
+            stop
+      if clicked type is right mouse button:
+        set {costcount::%{_uuid}%} to 1
+        set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        star(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%}) 
+
+function starsell(s:number, i:item, p:player, n:text, n2:text, cost:number, cc:number):
+  set {_uuid} to uuid of {_p}
+  set {_cc} to {costcount::%{_uuid}%}
+  set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with nether star named "%{_n2}%" with lore "" and "&fSell: $%format({costtotal::%{_uuid}%})%":
+      if clicked type is left mouse button:
+        if {balance::%{_uuid}%} is less than 0:
+          cancel event
+          message "{@tag} &fSorry but you dont have $%format({costtotal::%{_uuid}%})% to purchase this item." 
+          stop
+        if {balance::%{_uuid}%} is greater than or equal to 0:
+          if player doesn't have {_i}:
+            cancel event
+            message "{@tag} &fSorry you don't have that item to sell."
+            stop
+          if player has {_i}:
+            if amount of {_i} in player's inventory is less than {costcount::%{_uuid}%}:
+              message "{@tag} &fSorry you don't have enough items to sell."
+            if amount of {_i} in player's inventory is more than or equal to {costcount::%{_uuid}%}:
+              add {costtotal::%{_uuid}%} to {balance::%{_uuid}%}
+              remove {costcount::%{_uuid}%} of {_i} from player's inventory
+              send "&a&l+$&a&l%format({costtotal::%{_uuid}%})%" to {_p}
+              set {_item} to "%{_i}%" 
+              if {_item} contains " ":
+                replace " " with "_" in {_item}
+              make embed:
+                set author of embed to "Shop Return" 
+                set author icon of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+                set description of embed to "**Player** %{_p}%%nl%**Amount** x%{costcount::%{_uuid}%}%%nl%**Item** %{_i}%%nl%**Total** $%regex({costtotal::%{_uuid}%})%%nl%"
+                set thumbnail of embed to "https://www.deadmap.com/resources/Minecraft%%20Blocks/%{_item}%.png"
+                set {_fetched} to now
+                set footer of embed to "Sold on %{_fetched}%" 
+                set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/861446068055441448/Premiums_blue.gif"
+              send last embed to channel with id "859631335391494205"
+              stop
+      if clicked type is right mouse button:
+        set {costcount::%{_uuid}%} to 1
+        set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        starsell(31, {_i}, {_p}, "%{_n}%", "&fConfirm Sale!", {_cost}, {costcount::%{_uuid}%}) 
+#
+# Adding items and Removing items
+#
+
+#
+# REG ITEMS
+#
+
+function removesell(i: item, s:number, num:number, p:player, cost:number, n:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of red glass pane named "&c- %{_num}%&cx":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          remove {_num} from {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%}) 
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        starsell(31, {_i}, {_p}, "%{_n}%", "&fConfirm Sale!", {_cost}, {costcount::%{_uuid}%})
+
+function remove(i: item, s:number, num:number, p:player, cost:number, n:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of red glass pane named "&c- %{_num}%&cx":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          remove {_num} from {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%}) 
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        star(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%})
+
+function item(i: item, s:number, num:number, p:player, cost:number, n:text, cc:number):
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_cc} of {_i} named "%{_n}%" with lore "" and "&fQuantity: %{_cc}%"
+
+function add(i: item, s:number, num:number, p:player, cost:number, n:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of lime glass pane named "&a+ %{_num}%&ax":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          add {_num} to {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        star(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%})
+
+function addsell(i: item, s:number, num:number, p:player, cost:number, n:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of lime glass pane named "&a+ %{_num}%&ax":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          add {_num} to {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        starsell(31, {_i}, {_p}, "%{_n}%", "&fConfirm Sale!", {_cost}, {costcount::%{_uuid}%})
+  
+#
+# SPAWNERS
+#
+
+function starspawner(s:number, i:item, p:player, n:text, n2:text, cost:number, cc:number, st:text):
+  set {_uuid} to uuid of {_p}
+  set {_cc} to {costcount::%{_uuid}%}
+  set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with nether star named "%{_n2}%" with lore "" and "&fCost: $%format({costtotal::%{_uuid}%})%":
+      if clicked type is left mouse button:
+        if {balance::%{_uuid}%} is less than or equal to 0:
+          cancel event
+          message "{@tag} &fSorry but you dont have $%format({costtotal::%{_uuid}%})% to purchase this item."
+          stop
+        if {balance::%{_uuid}%} is less than {costtotal::%{_uuid}%}:
+          cancel event
+          message "{@tag} &fSorry but you dont have $%format({costtotal::%{_uuid}%})% to purchase this item."
+          stop
+        if {balance::%{_uuid}%} is greater than or equal to {costtotal::%{_uuid}%}:
+          if player doesn't have enough space for {costcount::%{_uuid}%} of {_i}:
+            cancel event 
+            message "{@tag} &fYou do not have enough inventory space available to purchase this item."
+          else:
+            remove {costtotal::%{_uuid}%} from {balance::%{_uuid}%}
+            send "&c&l$-%format({costtotal::%{_uuid}%})%"
+            make console execute "rosestacker give spawner %{_p}% %{_st}% %{costcount::%{_uuid}%}%"
+            make embed:
+              set author of embed to "Shop Purchase" 
+              set author icon of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+              set description of embed to "**Player** %{_p}%%nl%**Amount** x%{costcount::%{_uuid}%}%%nl%**Item** %{_st}% spawner%nl%**Total** $%regex({costtotal::%{_uuid}%})%"
+              set thumbnail of embed to "https://www.deadmap.com/resources/Minecraft%%20Blocks/mob_spawner.png"
+              set timestamp of embed to now
+              set {_fetched} to now
+              set footer of embed to "Bought on %{_fetched}%" 
+              set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/861446068055441448/Premiums_blue.gif"
+            send last embed to channel with id "859631335391494205"
+            stop
+      if clicked type is right mouse button:
+        set {costcount::%{_uuid}%} to 1
+        set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        starspawner(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%}, "%{_st}%")
+
+function setupshopguispawner(p:player, i:item, n:text, cost:number, st:text, gui:text):
+  close inventory for {_p}
+  wait 3 ticks
+  create a gui with id "%{_i}%.%{_p}%" with virtual chest inventory with 6 rows named "&e&lBUY &7» %{_n}%":
+    make gui slot 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 18 and 27 and 36 and 17 and 26 and 35 and 44 and 37 and 48 and 39 and 41 and 42 and 38 and 43 and 10 and 11 and 12 and 14 and 15 and 16 and 19 and 20 and 21 and 22 and 23 and 24 and 25 and 45 and 46 and 47 and 48 and 50 and 51 and 52 and 53 and 40 with gray stained glass pane named "&0"
+    set {costcount::%{_uuid}%} to 1
+    set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+    make gui slot 13 with {costcount::%{_uuid}%} of {_i} named "%{_n}%" with lore "" and "&fQuantity: %{costcount::%{_uuid}%}%"
+    removespawner({_i}, 28, 1, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    removespawner({_i}, 29, 10, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    removespawner({_i}, 30, 64, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    addspawner({_i}, 32, 1, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    addspawner({_i}, 33, 10, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    addspawner({_i}, 34, 64, {_p}, {_cost}, "%{_n}%", "%{_st}%")
+    starspawner(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%}, "%{_st}%")
+    format gui slot 49 with barrier named "&cBack":
+      open gui (gui with id "%{_gui}%") for {_p}
+  open gui last gui to {_p}
+
+function removespawner(i: item, s:number, num:number, p:player, cost:number, n:text, st:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of red glass pane named "&c- %{_num}%&cx":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          remove {_num} from {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%}) 
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_i}%.%{_p}%", {costcount::%{_uuid}%})
+        starspawner(31, {_i}, {_p}, "%{_i}%.%{_p}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%}, "%{_st}%")
+
+function addspawner(i: item, s:number, num:number, p:player, cost:number, n:text, st:text):
+  set {_uuid} to uuid of {_p}
+  set {costcount::%{_uuid}%} to 1
+  edit gui with id "%{_i}%.%{_p}%":
+    make gui slot {_s} with {_num} of lime glass pane named "&a+ %{_num}%&ax":
+      if clicked type is left mouse button:
+        if {costcount::%{_uuid}%} is less than or equal to 0:
+          set {costcount::%{_uuid}%} to 1
+        if {costcount::%{_uuid}%} is more than or equal to 1:
+          add {_num} to {costcount::%{_uuid}%}
+          if {costcount::%{_uuid}%} is less than or equal to 0:
+            set {costcount::%{_uuid}%} to 1
+          set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+        item({_i}, 13, {_num}, {_p}, {_cost}, "%{_n}%", {costcount::%{_uuid}%})
+        starspawner(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%}, "%{_st}%")
+
+#
+# Setting up GUIS shop/sell
+#
+
+function setupshopgui(p:player, i:item, n:text, cost:number, gui:text):
+  close inventory for {_p}
+  wait 2 ticks
+  create a gui with id "%{_i}%.%{_p}%" with virtual chest inventory with 6 rows named "&e&lBUY &7» %{_n}%":
+    make gui slot 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 18 and 27 and 36 and 17 and 26 and 35 and 44 and 37 and 48 and 39 and 41 and 42 and 38 and 43 and 10 and 11 and 12 and 14 and 15 and 16 and 19 and 20 and 21 and 22 and 23 and 24 and 25 and 45 and 46 and 47 and 48 and 50 and 51 and 52 and 53 and 40 with gray stained glass pane named "&0"
+    set {costcount::%{_uuid}%} to 1
+    set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+    make gui slot 13 with {costcount::%{_uuid}%} of {_i} named "%{_n}%" with lore "" and "&fQuantity: %{costcount::%{_uuid}%}%"
+    remove({_i}, 28, 1, {_p}, {_cost}, "%{_n}%")
+    remove({_i}, 29, 10, {_p}, {_cost}, "%{_n}%")
+    remove({_i}, 30, 64, {_p}, {_cost}, "%{_n}%")
+    add({_i}, 32, 1, {_p}, {_cost}, "%{_n}%")
+    add({_i}, 33, 10, {_p}, {_cost}, "%{_n}%")
+    add({_i}, 34, 64, {_p}, {_cost}, "%{_n}%")
+    star(31, {_i}, {_p}, "%{_n}%", "&fConfirm Purchase!", {_cost}, {costcount::%{_uuid}%})
+    format gui slot 49 with barrier named "&cBack":
+      open gui (gui with id "%{_gui}%") for {_p}
+  open gui last gui to {_p}
+
+function setupshopguisell(p:player, i:item, n:text, cost:number, gui:text):
+  close inventory for {_p}
+  wait 3 ticks
+  create a gui with id "%{_i}%.%{_p}%" with virtual chest inventory with 6 rows named "&e&lSELL &7» %{_n}%":
+    make gui slot 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 18 and 27 and 36 and 17 and 26 and 35 and 44 and 37 and 48 and 39 and 41 and 42 and 38 and 43 and 10 and 11 and 12 and 14 and 15 and 16 and 19 and 20 and 21 and 22 and 23 and 24 and 25 and 45 and 46 and 47 and 48 and 50 and 51 and 52 and 53 and 40 with gray stained glass pane named "&0"
+    set {costcount::%{_uuid}%} to 1
+    set {costtotal::%{_uuid}%} to ({_cost} * {costcount::%{_uuid}%})
+    make gui slot 13 with {costcount::%{_uuid}%} of {_i} named "%{_n}%" with lore "" and "&fQuantity: %{costcount::%{_uuid}%}%"
+    removesell({_i}, 28, 1, {_p}, {_cost}, "%{_n}%")
+    removesell({_i}, 29, 10, {_p}, {_cost}, "%{_n}%")
+    removesell({_i}, 30, 64, {_p}, {_cost}, "%{_n}%")
+    addsell({_i}, 32, 1, {_p}, {_cost}, "%{_n}%")
+    addsell({_i}, 33, 10, {_p}, {_cost}, "%{_n}%")
+    addsell({_i}, 34, 64, {_p}, {_cost}, "%{_n}%")
+    starsell(31, {_i}, {_p}, "%{_n}%", "&fConfirm Sale!", {_cost}, {costcount::%{_uuid}%})
+    format gui slot 49 with barrier named "&cBack":
+      open gui (gui with id "%{_gui}%") for {_p}
+  open gui last gui to {_p}
+
+#
+# The GUIs
+#
+
+#with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))"
+#with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))"
+#with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))"
+#with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))"
+
+function buyinvBuilding(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    edit gui with id "%{_p}%":
+      if {_sell} isn't equal to 0:
+        make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+          if clicked type is left mouse button:
+            setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+            wait 3 ticks
+          if clicked type is right mouse button:
+            setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+            wait 3 ticks
+      if {_sell} is equal to 0:
+        make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+          if clicked type is left mouse button:
+            setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+            wait 3 ticks
+      if {_cost} is equal to 0:
+        make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+          if clicked type is left mouse button:
+            setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+      if {_cost} and {_sell} are equal to 0:
+        make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+          if clicked type is left mouse button:
+            setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+  
+function buyinvores(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+
+function buyinvfarming(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+
+function buyinvmobdrops(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+
+function buyinvRedstone(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+  
+function buyinvspawners(s:number, p:player, i:item, n:text, cost:number, st:text):
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+      if clicked type is left mouse button:
+        setupshopguispawner({_p}, {_i}, "%{_n}%", {_cost}, "%{_st}%", "%{_p}%")
+
+function buyinvPotionsmisc(s:number, p:player, i:item, n:text, cost:number, sell:number) :: number:
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_p}%":
+    if {_sell} isn't equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "&fSell: $%format({_sell})%" and "" and "&7&o(( Left-Click to Buy ))" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+        if clicked type is right mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_sell} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: $%format({_cost})%" and "" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+    if {_cost} is equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fSell: $%format({_sell})%" and "&7&o(( Right-Click to Sell ))":
+        if clicked type is left mouse button:
+          setupshopguisell({_p}, {_i}, "%{_n}%", {_sell}, "%{_p}%")
+    if {_cost} and {_sell} are equal to 0:
+      make gui slot {_s} with {_i} named "%{_n}%" with lore "" and "&fPrice: Free" and "&7&o(( Left-Click to Buy ))":
+        if clicked type is left mouse button:
+          setupshopgui({_p}, {_i}, "%{_n}%", {_cost}, "%{_p}%")
+
+#
+# The categorys
+#
+
+function openmenuBuilding(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;1724038063,-341553876,-1869082885,-171504088],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWIwZTExMzcwNGZjMjdjODhmOWU1MWFlODJlN2IwNWY3MDExYzQxMGYyMWUxOTEyMDViZWYyNTVhYTBkNmYzMSJ9fX0=""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvBuilding(10, {_p}, grass block, "&fGrass Block", 40, 1)
+    buyinvBuilding(11, {_p}, coarse dirt, "&fCoarse Dirt", 25, 1)
+    buyinvBuilding(12, {_p}, mycelium, "&fMycelium", 150, 3)
+    buyinvBuilding(13, {_p}, podzol, "&fPodzol", 150, 3)
+    buyinvBuilding(14, {_p}, dirt, "&fDirt", 25, 1)
+    buyinvBuilding(15, {_p}, cobblestone, "&fCobblestone", 5, 1)
+    buyinvBuilding(16, {_p}, mossy cobblestone, "&fMossy Cobblestone", 5, 1)
+    buyinvBuilding(19, {_p}, stone, "&fStone", 20, 1)
+    buyinvBuilding(20, {_p}, stone bricks, "&fStone Bricks", 80, 3)
+    buyinvBuilding(21, {_p}, oak log, "&fOak Log", 75, 3)
+    buyinvBuilding(22, {_p}, spruce log, "&fSpruce Log", 75, 3)
+    buyinvBuilding(23, {_p}, birch log, "&fBirch Log", 75, 3)
+    buyinvBuilding(24, {_p}, jungle log, "&fJungle Log", 75, 3)
+    buyinvBuilding(25, {_p}, dark oak log, "&fDark Oak Log", 75, 3)
+    buyinvBuilding(28, {_p}, acacia log, "&fAcacia Log", 75, 3)
+    buyinvBuilding(29, {_p}, brick block, "&fBrick Block", 75, 1)
+    buyinvBuilding(30, {_p}, sand, "&fSand", 25, 1)
+    buyinvBuilding(31, {_p}, sandstone, "&fSandstone", 25, 1)
+    buyinvBuilding(32, {_p}, chiseled sandstone, "&fChiseled Sandstone", 25, 1)
+    buyinvBuilding(33, {_p}, cut sandstone, "&fCut Sandstone", 25, 1)
+    buyinvBuilding(34, {_p}, end stone, "&fEnd Stone", 20, 1)
+    buyinvBuilding(37, {_p}, end stone bricks, "&fEnd Stone Bricks", 20, 1)
+    buyinvBuilding(38, {_p}, red sand, "&fRed Sand", 25, 1)
+    buyinvBuilding(39, {_p}, red sandstone, "&fRed Sandstone", 25, 1)
+    buyinvBuilding(40, {_p}, red chiseled sandstone, "&fRed Chiseled Sandstone", 25, 1)
+    buyinvBuilding(41, {_p}, cut red sandstone, "&fCut Red Sandstone", 25, 1)
+    buyinvBuilding(42, {_p}, prismarine, "&fPrismarine", 75, 3)
+    buyinvBuilding(43, {_p}, prismarine bricks, "&fPrismarine Bricks", 80, 3)
+    
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 51, 52, and 53 with black stained glass pane named "&7"
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+    
+    make gui slot 50 with arrow named "&eNext Page":
+      create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+        buyinvBuilding(10, {_p}, dark prismarine, "&fDark Prismarine", 80, 1)
+        buyinvBuilding(11, {_p}, purpur block, "&fPurpur Block", 250, 0)
+        buyinvBuilding(12, {_p}, purpur pillar, "&fPurpur Pillar", 250, 0)
+        buyinvBuilding(13, {_p}, nether bricks, "&fNether Bricks", 75, 0)
+        buyinvBuilding(14, {_p}, red nether bricks, "&fRed Nether Bricks", 75, 0)
+        buyinvBuilding(15, {_p}, netherrack, "&fNetherrack", 25, 1)
+        buyinvBuilding(16, {_p}, magma block, "&fMagma Block", 60, 0)
+        buyinvBuilding(19, {_p}, obsidian, "&fObsidian", 200, 0)
+        buyinvBuilding(20, {_p}, gravel, "&fGravel", 30, 2)
+        buyinvBuilding(21, {_p}, soul sand, "&fSoul Sand", 30, 1)
+        buyinvBuilding(22, {_p}, glowstone, "&fGlowstone", 20, 0)
+        buyinvBuilding(23, {_p}, block of quartz, "&fQuartz", 140, 48)
+        buyinvBuilding(24, {_p}, smooth quartz, "&fSmooth Quartz", 140, 48)
+        buyinvBuilding(25, {_p}, chiseled quartz block, "&fChiseled Quartz", 140, 48)
+        buyinvBuilding(28, {_p}, quartz bricks, "&fQuartz Bricks", 140, 48)
+        buyinvBuilding(29, {_p}, quartz pillar, "&fQuartz Pillar", 140, 4)
+        make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 50, 51, 52, and 53 with black stained glass pane
+        make gui slot 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 42, and 43 with gray stained glass pane named "&7"    
+        make gui slot 48 with arrow named "&ePrevious Page":
+          openmenuBuilding(19, {_p}, tnt, "&e&lBuilding", "&e&lBuilding")
+        shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+      open gui last gui to {_p}
+  open gui last gui to {_p}
+
+function openmenuOres(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;-536950829,1153387601,-1366182693,-117869249],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTFlZDlhYmY1MWZlNGVhODRjZmNiMjcyOTdmMWJjNTRjZDM4MmVkZjg1ZTdiZDZlNzVlY2NhMmI4MDY2MTEifX19""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvores(10, {_p}, coal, "&fCoal", 35, 7)
+    buyinvores(19, {_p}, block of coal, "&fBlock of Coal", 315, 63)
+    buyinvores(11, {_p}, lapis lazuli, "&fLapis Lazuli", 45, 7)
+    buyinvores(20, {_p}, lapis lazuli block, "&fLapis Lazuli Block", 450, 67)
+    buyinvores(12, {_p}, redstone dust, "&fRedstone", 75, 10)
+    buyinvores(21, {_p}, block of redstone, "&fRedstone Block", 675, 90)
+    buyinvores(13, {_p}, iron ingot, "&fIron Ingot", 275, 68)
+    buyinvores(22, {_p}, block of iron, "&fBlock of Iron", 2475, 616)
+    buyinvores(14, {_p}, gold ingot, "&fGold Ingot", 375, 93)
+    buyinvores(23, {_p}, block of gold, "&fBlock of Gold", 3375, 841)
+    buyinvores(15, {_p}, diamond, "&fDiamond", 1000, 250)
+    buyinvores(24, {_p}, block of diamond, "&fBlock of Diamond", 9000, 2250)
+    buyinvores(16, {_p}, emerald, "&fEmerald", 2250, 562)
+    buyinvores(25, {_p}, block of emerald, "&fBlock of Emerald", 20250, 5062)
+    buyinvores(30, {_p}, beacon, "&fBeacon", 202500, 0)
+    buyinvores(31, {_p}, end portal frame, "&fEnd Portal Frame", 2025000, 0)
+    buyinvores(32, {_p}, command block, "&fCommand Block", 20250000, 0)
+
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane
+    make gui slot 28, 29, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray stained glass pane named "&7"
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+  open gui last gui to {_p}
+
+function openmenuFarming(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;377992018,-729264445,-1317804499,-554713638],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVhMjMxNjhjNmM5NDk5ZDI2ZDM0MTZlNzVjNDFiNTZkNjY5YTcyMGQ1ZWViYTdlNTJhYjJiNDViMjRhOCJ9fX0=""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #if {_i} is arrow:
+  #  set {_head} to "arrow" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvfarming(10, {_p}, cactus, "&fCactus", 75, 15)
+    buyinvfarming(11, {_p}, sugar cane, "&fSugar Cane", 60, 12)
+    buyinvfarming(12, {_p}, wheat seeds, "&fWheat Seeds", 10, 2)
+    buyinvfarming(13, {_p}, raw porkchop, "&fRaw Porkchop", 10, 5)
+    buyinvfarming(14, {_p}, raw beef, "&fRaw Beef", 25, 12.5)
+    buyinvfarming(15, {_p}, raw mutton, "&fRaw Mutton", 33, 16.5)
+    buyinvfarming(16, {_p}, raw chicken, "&fRaw Chicken", 5, 2.5)
+    buyinvfarming(19, {_p}, raw rabbit, "&fRaw Rabbit", 20, 10)
+    buyinvfarming(20, {_p}, potato, "&fPotato", 10, 2)
+    buyinvfarming(21, {_p}, raw cod, "&fRaw Cod", 20, 10)
+    buyinvfarming(22, {_p}, melon slice, "&fMelon Slice", 10, 5)
+    buyinvfarming(23, {_p}, apple, "&fApple", 15, 7.5)
+    buyinvfarming(24, {_p}, cooked porkchop, "&fCooked Porkchop", 12, 6)
+    buyinvfarming(25, {_p}, steak, "&fSteak", 27, 13.5)
+    buyinvfarming(28, {_p}, cooked mutton, "&fCooked Mutton", 35, 17.5)
+    buyinvfarming(29, {_p}, cooked chicken, "&fCooked Chicken", 7, 3.75)
+    buyinvfarming(30, {_p}, cooked rabbit, "&fCooked Rabbit", 25, 12.5)
+    buyinvfarming(31, {_p}, baked potato, "&fBaked Potato", 40, 20)
+    buyinvfarming(32, {_p}, cooked cod, "&fCooked Cod", 25, 12.5)
+    buyinvfarming(33, {_p}, beetroot, "&fBeetroot", 35, 17.5)
+    buyinvfarming(34, {_p}, bread, "&fBread", 15, 7.5)
+    buyinvfarming(37, {_p}, cookie, "&fCookie", 7, 3.5)
+    buyinvfarming(38, {_p}, carrot, "&fCarrot", 10, 2)
+    buyinvfarming(39, {_p}, raw salmon, "&fRaw Salmon", 15, 7.5)
+    buyinvfarming(40, {_p}, cooked salmon, "&fCooked Salmon", 20, 10)
+    buyinvfarming(41, {_p}, tropical fish, "&fTropical Fish", 15, 7.5)
+    buyinvfarming(42, {_p}, oak sapling, "&fOak Sapling", 1000, 0)
+    buyinvfarming(43, {_p}, birch sapling, "&fBirch Sapling", 1000, 0)
+    
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 51, 52, and 53 with black stained glass pane
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+    
+    make gui slot 50 with arrow named "&eNext Page":
+      create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":  
+        buyinvfarming(10, {_p}, spruce sapling, "&fSpruce Sapling", 1000, 0)
+        buyinvfarming(11, {_p}, jungle sapling, "&fJungle Sapling", 1000, 0)
+        buyinvfarming(12, {_p}, acacia sapling, "&fAcacia Sapling", 1000, 0)
+        buyinvfarming(13, {_p}, dark oak sapling, "&fDark Oak Sapling", 1000, 0)
+        buyinvfarming(14, {_p}, nether wart, "&fNether Wart", 75, 10)
+        buyinvfarming(15, {_p}, cocoa beans, "&fCocoa Beans", 10, 2)
+        buyinvfarming(16, {_p}, beetroot seeds, "&fBeetroot Seeds", 10, 2)
+        buyinvfarming(19, {_p}, wheat, "&fWheat", 40, 6)
+        buyinvfarming(20, {_p}, pumpkin, "&fPumpkin", 100, 11)
+        buyinvfarming(21, {_p}, melon seeds, "&fMelon Seeds", 10, 2)
+
+        make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 50, 51, 52, and 53 with black stained glass pane
+        make gui slot 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray stained glass pane named "&7"
+        make gui slot 48 with arrow named "&ePrevious Page":
+          openmenuFarming(21, {_p}, tnt, "&e&lFarming", "&e&lFarming")
+        shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+      open gui last gui to {_p}
+  open gui last gui to {_p}
+
+
+function openmenuSpawners(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;-967817278,1169703498,-2073986520,-317679994],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjQ3ZTJlNWQ1NWI2ZDA0OTQzNTE5YmVkMjU1N2M2MzI5ZTMzYjYwYjkwOWRlZTg5MjNjZDg4YjExNTIxMCJ9fX0=""}]}}}" to nbt of {_head}  
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+  
+    buyinvspawners(13, {_p}, spawner, "&fCow Spawner", 80000, "cow")
+    buyinvspawners(10, {_p}, spawner, "&fChicken Spawner", 50000, "chicken")
+    buyinvspawners(11, {_p}, spawner, "&fPig Spawner", 55000, "pig")
+    buyinvspawners(12, {_p}, spawner, "&fSheep Spawner", 65000, "sheep")
+    buyinvspawners(14, {_p}, spawner, "&fZombie Spawner", 100000, "zombie")
+    buyinvspawners(15, {_p}, spawner, "&fSkeleton Spawner", 125000, "skeleton")
+    buyinvspawners(16, {_p}, spawner, "&fCreeper Spawner", 250000, "creeper")
+    buyinvspawners(22, {_p}, spawner, "&fIron Golem Spawner", 12000000, "iron_golem")
+    buyinvspawners(20, {_p}, spawner, "&fWitch Spawner", 750000, "witch")
+    buyinvspawners(23, {_p}, spawner, "&fWandering Villager Spawner", 80000000, "wandering_trader")
+    buyinvspawners(19, {_p}, spawner, "&fBlaze Spawner", 335000, "blaze")
+    buyinvspawners(21, {_p}, spawner, "&fVillager Spawner", 40000000, "villager")
+
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane
+    make gui slot 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray stained glass pane named "&7"
+
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+  open gui last gui to {_p}
+
+function openmenuRedstone(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;-1832636564,1684357208,-1287967297,830383421],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2NhNGQyMThkZjlkMzJjZDQ3ZDljMWQyOTQ4NzcxMjJiZTU5MTliNDE4YTZjYzNkMDg5MTYyYjEzM2YyZGIifX19""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvRedstone(10, {_p}, redstone dust, "&fRedstone Dust", 75, 20)
+    buyinvRedstone(11, {_p}, redstone block, "&fRedstone Block", 675, 180)
+    buyinvRedstone(12, {_p}, redstone torch, "&fRedstone Torch", 12, 0)
+    buyinvRedstone(13, {_p}, redstone comparator, "&fRedstone Comparator", 65, 0)
+    buyinvRedstone(14, {_p}, redstone repeater, "&fRedstone Repeater", 60, 0)
+    buyinvRedstone(15, {_p}, piston, "&fPiston", 50, 0)
+    buyinvRedstone(16, {_p}, sticky piston, "&fSticky Piston", 50, 0)
+    buyinvRedstone(19, {_p}, observer, "&fObserver", 225, 0)
+    buyinvRedstone(20, {_p}, dispenser, "&fDispenser", 50, 0)
+    buyinvRedstone(21, {_p}, dropper, "&fDropper", 75, 0)
+    buyinvRedstone(22, {_p}, hopper, "&fHopper", 5500, 0)
+    buyinvRedstone(23, {_p}, iron trapdoor, "&fIron Trapdoor", 1350, 0)
+    buyinvRedstone(24, {_p}, daylight detector, "&fDaylight Detector", 300, 0)
+    buyinvRedstone(25, {_p}, light weighted pressure plate, "&fLight Weighted Pressure Plate", 50, 0)
+    buyinvRedstone(28, {_p}, heavy weighted pressure plate, "&fHeavy Weighted Pressure Plate", 50, 0)
+    buyinvRedstone(29, {_p}, oak pressure plate, "&fOak Pressure Plate", 10, 0)
+    buyinvRedstone(30, {_p}, tripwire hook, "&fTripwire Hook", 5, 0)
+    buyinvRedstone(31, {_p}, redstone lamp, "&fRedstone Lamp", 75, 0)
+    buyinvRedstone(32, {_p}, note block, "&fNote Block", 250, 0)
+    buyinvRedstone(33, {_p}, lever, "&fLever", 5, 0)
+    buyinvRedstone(34, {_p}, stone button, "&fStone Button", 8, 0)
+    buyinvRedstone(37, {_p}, oak button, "&fOak Button", 8, 0)
+    buyinvRedstone(38, {_p}, trapped chest, "&fTrapped Chest", 70, 0)
+    buyinvRedstone(39, {_p}, iron door, "&fIron Door", 1350, 0)
+
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane
+    make gui slot 40, 41, 42, and 43 with gray stained glass pane named "&7"
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+  open gui last gui to {_p}
+
+function openmenuMobdrops(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;-1722163816,-273461527,-1459933222,35179936],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTZmYzg1NGJiODRjZjRiNzY5NzI5Nzk3M2UwMmI3OWJjMTA2OTg0NjBiNTFhNjM5YzYwZTVlNDE3NzM0ZTExIn19fQ==""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype  
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvmobdrops(10, {_p}, gunpowder, "&fGunpowder", 25, 10)
+    buyinvmobdrops(11, {_p}, gold nugget, "&fGold Nugget", 42, 5)
+    buyinvmobdrops(12, {_p}, leather, "&fLeather", 12, 6)
+    buyinvmobdrops(13, {_p}, bone, "&fBone", 25, 4)
+    buyinvmobdrops(14, {_p}, bone meal, "&fBone Meal", 6, 1)
+    buyinvmobdrops(15, {_p}, string, "&fString", 16, 8)
+    buyinvmobdrops(16, {_p}, feather, "&fFeather", 8, 4)
+    buyinvmobdrops(19, {_p}, rotten flesh, "&fRotten Flesh", 16, 8)
+    buyinvmobdrops(20, {_p}, spider eye, "&fSpider Eye", 20, 2)
+    buyinvmobdrops(21, {_p}, fermented spider eye, "&fFermented Spider Eye", 25, 5)
+    buyinvmobdrops(22, {_p}, slimeball, "&fSlimeball", 30, 14)
+    buyinvmobdrops(23, {_p}, ender pearl, "&fEnder Pearl", 0, 14)
+    buyinvmobdrops(24, {_p}, blaze rod, "&fBlaze Rod", 0, 50)
+    buyinvmobdrops(25, {_p}, magma cream, "&fMagma Cream", 35, 14)
+    buyinvmobdrops(28, {_p}, stick, "&fStick", 7, 5)
+    buyinvmobdrops(29, {_p}, glass bottle, "&fGlass Bottle", 5, 3)
+    buyinvmobdrops(30, {_p}, arrow, "&fArrow", 7, 5)
+
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane
+    make gui slot 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray stained glass pane named "&7"
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+  open gui last gui to {_p}
+
+function openMenuPotionsMisc(s: number, p: player, i:item, n:text, n2: text):
+  #set {_head} to player head
+  #add "{SkullOwner:{Id:[I;-19056178,1576616548,-1553260818,-720007008],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTA2NGU1MDQzNGJiNzMyZGRjMThiNTc5NTYxYTdjYWJlYTAxMDdkZDE4NTg1OGZhYjZiOTQ5MDVkNzA2M2I2YiJ9fX0=""}]}}}" to nbt of {_head}
+  #if {_i} is barrier:
+  #  set {_head} to "barrier" parsed as itemtype
+  #make gui slot {_s} with {_head} named "%{_n}%":
+  create a gui with id "%{_p}%" with virtual chest inventory with 6 rows named "%{_n2}%":
+
+    buyinvPotionsmisc(10, {_p}, sugar, "&fSugar", 15, 5)
+    buyinvPotionsmisc(11, {_p}, golden carrot, "&fGolden Carrot", 20, 5)
+    buyinvPotionsmisc(12, {_p}, lectern, "&fLectern", 15, 5)
+    buyinvPotionsmisc(13, {_p}, grindstone, "&fGrindstone", 50, 10)
+    buyinvPotionsmisc(14, {_p}, water bucket, "&fWater Bucket", 75, 5)
+    buyinvPotionsmisc(15, {_p}, packed ice, "&fPacked Ice", 15, 3)
+    buyinvPotionsmisc(16, {_p}, lava bucket, "&fLava Bucket", 100, 20)
+    buyinvPotionsmisc(19, {_p}, ink sac, "&fInk Sac", 30, 5)
+
+    make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 50, 51, 52, and 53 with black stained glass pane
+    make gui slot 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, and 43 with gray stained glass pane named "&7"
+
+    shopback(49, {_p}, barrier, "&cMain Menu", "%{_p}%")
+  open gui last gui to {_p}
+
+#
+# Shop back
+#
+
+function shopback(s: number, p:player, i: item, n:text, n2:text):
+  set {_uuid} to uuid of {_p}
+  edit gui with id "%{_n2}%":
+    make gui slot {_s} with {_i} named "%{_n}%":
+      close inventory for {_p}
+      wait 1 tick 
+      openshop({_p})
+
+function openshop(p:player):
+  set {_uuid} to uuid of {_p}
+  create a gui with id "%{_p}%" with virtual chest inventory with 5 rows named "              &7« &6&lSHOP &7»":
+    make gui slot 4 with skull of {_p} named "&e&l%{_p}%" with lore "" and "&fBalance: &f$%regex({balance::%{_uuid}%})%"
+    make gui slot 0, 1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with black stained glass pane named "&0"
+    make gui slot 10, 11, 12, 13, 14, 15, 16, 28, 29, 30, 31, 32, 33, and 34 with gray stained glass pane named "&7"
+    set {_head} to player head
+    add "{SkullOwner:{Id:[I;1724038063,-341553876,-1869082885,-171504088],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWIwZTExMzcwNGZjMjdjODhmOWU1MWFlODJlN2IwNWY3MDExYzQxMGYyMWUxOTEyMDViZWYyNTVhYTBkNmYzMSJ9fX0=""}]}}}" to nbt of {_head}
+    make gui slot 19 with {_head} named "&e&lBUILDING" with lore "" and "&fFind all of your building" and "&fnecessities here!" and "" and "&7&o(( Click to view ))":
+      openmenuBuilding(19, {_p}, tnt, "&e&lBuilding", "&e&lBuilding")
+    add "{SkullOwner:{Id:[I;-536950829,1153387601,-1366182693,-117869249],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTFlZDlhYmY1MWZlNGVhODRjZmNiMjcyOTdmMWJjNTRjZDM4MmVkZjg1ZTdiZDZlNzVlY2NhMmI4MDY2MTEifX19""}]}}}" to nbt of {_head}
+    make gui slot 20 with {_head} named "&e&lVALUE BLOCKS" with lore "" and "&fGet your island worth blocks" and "&fhere along with your ores!" and "" and "&7&o(( Click to view ))":
+      openmenuOres(20, {_p}, tnt, "&e&lOres", "&e&lOres")
+    add "{SkullOwner:{Id:[I;377992018,-729264445,-1317804499,-554713638],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVhMjMxNjhjNmM5NDk5ZDI2ZDM0MTZlNzVjNDFiNTZkNjY5YTcyMGQ1ZWViYTdlNTJhYjJiNDViMjRhOCJ9fX0=""}]}}}" to nbt of {_head}
+    make gui slot 21 with {_head} named "&e&lFARMING" with lore "" and "&fStart creating money off of" and "&fyour farms and start new" and "&fones!" and "" and "&7&o(( Click to view ))":
+      openmenuFarming(21, {_p}, tnt, "&e&lFarming", "&e&lFarming")
+    add "{SkullOwner:{Id:[I;-967817278,1169703498,-2073986520,-317679994],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjQ3ZTJlNWQ1NWI2ZDA0OTQzNTE5YmVkMjU1N2M2MzI5ZTMzYjYwYjkwOWRlZTg5MjNjZDg4YjExNTIxMCJ9fX0=""}]}}}" to nbt of {_head}
+    make gui slot 22 with {_head} named "&e&lSPAWNERS" with lore "" and "&fGrind mobs and buy spawners" and "&fto make some quick cash!" and "" and "&7&o(( Click to view ))":
+      openmenuSpawners(22, {_p}, tnt, "&e&lSpawners", "&e&lSpawners")
+    add "{SkullOwner:{Id:[I;-1832636564,1684357208,-1287967297,830383421],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2NhNGQyMThkZjlkMzJjZDQ3ZDljMWQyOTQ4NzcxMjJiZTU5MTliNDE4YTZjYzNkMDg5MTYyYjEzM2YyZGIifX19""}]}}}" to nbt of {_head}
+    make gui slot 23 with {_head} named "&e&lREDSTONE" with lore "" and "&fCreate large mechanisms" and "&fand efficiently farm." and "" and "&7&o(( Click to view ))":
+      openmenuRedstone(23, {_p}, tnt, "&e&lRedstone", "&e&lRedstone")
+    add "{SkullOwner:{Id:[I;-1722163816,-273461527,-1459933222,35179936],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTZmYzg1NGJiODRjZjRiNzY5NzI5Nzk3M2UwMmI3OWJjMTA2OTg0NjBiNTFhNjM5YzYwZTVlNDE3NzM0ZTExIn19fQ==""}]}}}" to nbt of {_head}
+    make gui slot 24 with {_head} named "&e&lMOB DROPS" with lore "" and "&fSell the drops of mobs" and "&fhere and earn cash!" and "" and "&7&o(( Click to view ))":
+      openmenuMobdrops(24, {_p}, tnt, "&e&lMob Drops", "&e&lMob Drops")
+    add "{SkullOwner:{Id:[I;-19056178,1576616548,-1553260818,-720007008],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTA2NGU1MDQzNGJiNzMyZGRjMThiNTc5NTYxYTdjYWJlYTAxMDdkZDE4NTg1OGZhYjZiOTQ5MDVkNzA2M2I2YiJ9fX0=""}]}}}" to nbt of {_head}
+    make gui slot 25 with {_head} named "&e&lMISCELLANEOUS" with lore "" and "&fFind random yet useful" and "&fitems here!" and "" and "&7&o(( Click to view ))":
+      openMenuPotionsMisc(25, {_p}, tnt, "&e&lPotions/Misc", "&e&lPotions/Misc")
+  open gui last gui to {_p}
+
+
+command /shop:
+  trigger:
+    openshop(player)

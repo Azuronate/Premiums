@@ -1,0 +1,248 @@
+options:
+    is-top-loc: 363.5, 162.3, 89.5
+    bal-top-loc: 363.5, 162.3, 85.5
+    reaction-top-loc: 363.5, 162.3, 81.5
+    world: ul_spawn
+    tag: &e&lSKYBLOCK &7¬&f
+
+every 15 minutes:
+    send "lbholo update-all" to channel with id "904056496709599268"
+    broadcast "{@tag} &fLeaderboards have been automatically updated!"
+
+
+command lbholo [<text>] [<text>]:
+    trigger:
+        if command sender is the console:
+            if arg-1 is "update":
+                if arg-2 is "istop":
+                    create new holo with lines "&e&lISLAND TOP" at location at {@is-top-loc} of the world "{@world}"
+                    set {islandtop} to the created hologram
+                    set {_topnumber} to 1
+                    loop {island.level::*}:
+                        set {_sorted::*} to sort((indices of {island.level::*}), {island.level::*})
+                        loop {_sorted::*}:
+                            set {_player} to "%loop-value-2%" parsed as offline player
+                            set {_check} to "%{_player}%"
+                            if {_check} contains "null" or "none":
+                                set {_null} to true
+                            set {_value::%{_player}%} to "%{island.level::%{_player}%}%" parsed as a number
+                            if {_value::*} is 0:
+                                append line "&fBe the first to appear here!" to {islandtop}
+                                #exit loop
+                                stop  
+                            if {_value::%{_player}%} is less than or equal to 0:
+                                exit loop
+                            else:
+                                set {istop.player%{_topnumber}%} to {_player}
+                                set {istop.value%{_topnumber}%} to {_value::%{_player}%}
+                                if {_topnumber} is 1:
+                                    set {_slot} to 13
+                                    set {_place::%{_player}%} to "&6(##1)"
+                                if {_topnumber} is 2:
+                                    set {_slot} to 21
+                                    set {_place::%{_player}%} to "&6(##2)"
+                                if {_topnumber} is 3:
+                                    set {_slot} to 23
+                                    set {_place::%{_player}%} to "&6(##3)"
+                                if {_topnumber} is 4:
+                                    set {_slot} to 29
+                                    set {_place::%{_player}%} to "&6(##4)"
+                                if {_topnumber} is 5:
+                                    set {_slot} to 31
+                                    set {_place::%{_player}%} to "&6(##5)"
+                                if {_topnumber} is 6:
+                                    set {_slot} to 33
+                                    set {_place::%{_player}%} to "&6(##6)"
+                                if {_topnumber} is 7:
+                                    set {_slot} to 37
+                                    set {_place::%{_player}%} to "&6(##7)"
+                                if {_topnumber} is 8:
+                                    set {_slot} to 39    
+                                    set {_place::%{_player}%} to "&6(##8)"
+                                if {_topnumber} is 9:
+                                    set {_slot} to 41
+                                    set {_place::%{_player}%} to "&6(##9)"
+                                if {_topnumber} is 10:
+                                    set {_slot} to 43
+                                    set {_place::%{_player}%} to "&6(##10)"         
+                                if {_topnumber} is greater than 10:
+                                    exit loop    
+                                    stop
+                                if {_null} isn't set:
+                                    append line "%{_place::%{_player}%}% &f%{_player}% - $%format({_value::%{_player}%})%" to {islandtop}                              
+                                    add 1 to {_topnumber}   
+                        append line "&7&oUpdates every 15 minutes." to {islandtop}
+                        stop     
+                if arg-2 is "baltop":
+                    create new holo with lines "&e&lBALANCE TOP" at location at {@bal-top-loc} of the world "{@world}"
+                    set {balancetop} to the created hologram
+                    set {_topnumber} to 1
+                    loop {balance::*}:
+                        set {_sorted::*} to sort((indices of {balance::*}), {balance::*})
+                        loop {_sorted::*}:
+                            set {_player} to "%loop-value-2%" parsed as offline player
+                            set {_check} to "%{_player}%"
+                            if {_check} contains "null" or "none":
+                                set {_null} to true
+                            set {_uuid} to uuid of {_player}
+                            set {_value::%{_player}%} to {balance::%{_uuid}%}
+                            if {_value::*} is 0:
+                                append line "&fBe the first to appear here!" to {balancetop}
+                                #exit loop
+                                stop  
+                            if {_value::%{_player}%} is less than or equal to 0:
+                                exit loop
+                            else:
+                                set {baltop.player%{_topnumber}%} to {_player}
+                                set {baltop.value%{_topnumber}%} to {balance::%{_uuid}%}
+                                if {_topnumber} is 1:
+                                    set {_slot} to 13
+                                    set {_place::%{_player}%} to "&6(##1)"
+                                if {_topnumber} is 2:
+                                    set {_slot} to 21
+                                    set {_place::%{_player}%} to "&6(##2)"
+                                if {_topnumber} is 3:
+                                    set {_slot} to 23
+                                    set {_place::%{_player}%} to "&6(##3)"
+                                if {_topnumber} is 4:
+                                    set {_slot} to 29
+                                    set {_place::%{_player}%} to "&6(##4)"
+                                if {_topnumber} is 5:
+                                    set {_slot} to 31
+                                    set {_place::%{_player}%} to "&6(##5)"
+                                if {_topnumber} is 6:
+                                    set {_slot} to 33
+                                    set {_place::%{_player}%} to "&6(##6)"
+                                if {_topnumber} is 7:
+                                    set {_slot} to 37
+                                    set {_place::%{_player}%} to "&6(##7)"
+                                if {_topnumber} is 8:
+                                    set {_slot} to 39    
+                                    set {_place::%{_player}%} to "&6(##8)"
+                                if {_topnumber} is 9:
+                                    set {_slot} to 41
+                                    set {_place::%{_player}%} to "&6(##9)"
+                                if {_topnumber} is 10:
+                                    set {_slot} to 43
+                                    set {_place::%{_player}%} to "&6(##10)"                   
+                                if {_topnumber} is greater than 10:
+                                    exit loop
+                                if {_null} isn't set:
+                                    append line "%{_place::%{_player}%}% &f%{_player}% - $%format({_value::%{_player}%})%" to {balancetop}
+                                    add 1 to {_topnumber} 
+                        append line "&7&oUpdates every 15 minutes." to {balancetop}
+                        stop   
+                if arg-2 is "reactiontop": #{reaction.solved::%player's uuid%}
+                    create new holo with lines "&e&lREACTION TOP" at location at {@reaction-top-loc} of the world "{@world}"
+                    set {reactiontop} to the created hologram
+                    set {_topnumber} to 1
+                    loop {reaction.solved::*}:
+                        set {_sorted::*} to sort((indices of {reaction.solved::*}), {reaction.solved::*})
+                        loop {_sorted::*}:
+                            set {_player} to "%loop-value-2%" parsed as offline player
+                            set {_check} to "%{_player}%"
+                            if {_check} contains "null" or "none":
+                                set {_null} to true
+                            set {_uuid} to uuid of {_player}
+                            set {_value::%{_player}%} to {reaction.solved::%{_uuid}%}
+                            if {_value::*} is 0:
+                                append line "&fBe the first to appear here!" to {reactiontop}
+                                #exit loop
+                                stop  
+                            if {_value::%{_player}%} is less than or equal to 0:
+                                exit loop
+                            else:
+                                set {reacttop.player%{_topnumber}%} to {_player}
+                                set {reacttop.value%{_topnumber}%} to {reaction.solved::%{_uuid}%}
+                                if {_topnumber} is 1:
+                                    set {_slot} to 13
+                                    set {_place::%{_player}%} to "&6(##1)"
+                                if {_topnumber} is 2:
+                                    set {_slot} to 21
+                                    set {_place::%{_player}%} to "&6(##2)"
+                                if {_topnumber} is 3:
+                                    set {_slot} to 23
+                                    set {_place::%{_player}%} to "&6(##3)"
+                                if {_topnumber} is 4:
+                                    set {_slot} to 29
+                                    set {_place::%{_player}%} to "&6(##4)"
+                                if {_topnumber} is 5:
+                                    set {_slot} to 31
+                                    set {_place::%{_player}%} to "&6(##5)"
+                                if {_topnumber} is 6:
+                                    set {_slot} to 33
+                                    set {_place::%{_player}%} to "&6(##6)"
+                                if {_topnumber} is 7:
+                                    set {_slot} to 37
+                                    set {_place::%{_player}%} to "&6(##7)"
+                                if {_topnumber} is 8:
+                                    set {_slot} to 39    
+                                    set {_place::%{_player}%} to "&6(##8)"
+                                if {_topnumber} is 9:
+                                    set {_slot} to 41
+                                    set {_place::%{_player}%} to "&6(##9)"
+                                if {_topnumber} is 10:
+                                    set {_slot} to 43
+                                    set {_place::%{_player}%} to "&6(##10)"                
+                                if {_topnumber} is greater than 10:
+                                    exit loop
+                                if {_null} isn't set:
+                                    append line "%{_place::%{_player}%}% &f%{_player}% - %format({_value::%{_player}%})%" to {reactiontop}
+                                    add 1 to {_topnumber} 
+                        append line "&7&oUpdates every 15 minutes." to {reactiontop}
+                        stop
+            if arg-1 is "update-all":
+                delete holo {islandtop}
+                delete {islandtop}
+                delete holo {balancetop}
+                delete {balancetop}
+                delete holo {reactiontop}
+                delete {reactiontop}
+                make console execute "/lbholo update istop"
+                make console execute "/lbholo update baltop"
+                make console execute "/lbholo update reactiontop"
+
+
+command clearvar:
+    permission: *
+    trigger:
+        loop 10 times:
+            set {_index} to loop-number
+            clear {istop.player%{_index}%}
+        loop 10 times:
+            set {_index} to loop-number
+            clear {baltop.player%{_index}%}      
+        loop 10 times:
+            set {_index} to loop-number
+            clear {reacttop.player%{_index}%}    
+        loop 10 times:
+            set {_index} to loop-number
+            clear {istop.value%{_index}%}  
+        loop 10 times:
+            set {_index} to loop-number
+            clear {baltop.value%{_index}%}  
+        loop 10 times:
+            set {_index} to loop-number
+            clear {reacttop.value%{_index}%}  
+        loop {island.level::*}:
+            set {_sorted::*} to sort((indices of {island.level::*}), {island.level::*})
+            loop {_sorted::*}:
+                set {_player} to loop-value-2 parsed as offline player
+                set {island.level::%{_player}%} to 0
+                if {island.level::%{_player}%} isn't set:
+                    set {island.level::%{_player}%} to 0
+       #broadcast "%{island.level::*}%"
+        loop {balance::*}:
+            set {_sorted::*} to sort((indices of {balance::*}), {balance::*})
+            loop {_sorted::*}:
+                set {_player} to loop-value-2 parsed as offline player
+                set {_uuid} to uuid of {_player}
+                set {balance::%{_uuid}%} to 0
+                if {balance::%{_uuid}%} isn't set:
+                    set {balance::%{_uuid}%} to 0
+        #broadcast "%{balance::*}%"
+
+command reactionrest [<offlineplayer>] [<number>]:
+    permission: *
+    trigger:
+        set {reaction.solved::%arg-1's uuid%} to arg-2

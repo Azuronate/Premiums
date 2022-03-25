@@ -1,0 +1,154 @@
+options:
+    tag: &e&lSKYBLOCK &7¬&f
+
+function casino(p:player):
+	set {_uuid} to uuid of {_p}
+	create gui with virtual chest inventory with 5 rows named "Casino":
+		set {_stock-beer} to {casino.stock::beer}
+		set {_stock-wine} to {casino.stock::wine}
+		set {_stock-vodka} to {casino.stock::vodka}
+		set {_stock-gin} to {casino.stock::gin}
+		set {_stock-rum} to {casino.stock::rum}
+		if {_stock-beer} is 0:
+			set {_stock-beer} to 1
+		if {_stock-wine} is 0:
+			set {_stock-wine} to 1
+		if {_stock-vodka} is 0:
+			set {_stock-vodka} to 1
+		if {_stock-gin} is 0:
+			set {_stock-gin} to 1
+		if {_stock-rum} is 0:
+			set {_stock-rum} to 1			
+		make gui slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 40, 41, 42, 43, and 44 with black glass pane named "&0"
+		make gui slot 10, 11, 12, 13, 14, 15, 16, 19, 25, 28, 29, 30, 31, 32, 33, and 34 with gray glass pane named "&7"
+		make gui slot 20 with {_stock-beer} of potions of leaping with all flags hidden named "&aApple Juice" with lore "" and "&fPrice: $1,000" and "&fChance 65%%" and "&fStock: %{casino.stock::beer}%" and "" and "&7&o(( Left-Click to buy ))":
+			if {casino.stock::beer} is less than 1:
+				message "{@tag} &fPlease wait for the casino to restock on that drink!"
+				stop
+			if {balance::%{_uuid}%} is greater than or equal to 1000:
+				remove 1 from {casino.stock::beer}
+				give {_p} 1 potions of leaping with all flags hidden named "&aApple Juice" with lore "&fChance: 65%%"
+				remove 1000 from {balance::%{_uuid}%}
+				casino({_p})
+			else:
+				message "{@tag} &fYou do not have enough money to purchase this drink."
+				close {_p}'s inventory   
+		make gui slot 21 with {_stock-wine} of potions of fire resistance with all flags hidden named "&6Orange Juice" with lore "" and "&fPrice: $5,000" and "&fChance 60%%" and "&fStock: %{casino.stock::wine}%" and "" and "&7&o(( Left-Click to buy ))":
+			if {casino.stock::wine} is less than 1:
+				message "{@tag} &fPlease wait for the casino to restock on that drink!"
+				stop
+			if {balance::%{_uuid}%} is greater than or equal to 5000:
+				remove 1 from {casino.stock::wine}
+				give {_p} 1 potion of fire resistance with all flags hidden named "&6Orange Juice" with lore "&f:Chance 60%%"
+				remove 5000 from {balance::%{_uuid}%}
+				casino({_p})
+			else:
+				message "{@tag} &fYou do not have enough money to purchase this drink."
+				close {_p}'s inventory   
+		make gui slot 22 with {_stock-vodka} of potions of regeneration with all flags hidden named "&dGrape Juice" with lore "" and "&fPrice: $20,000" and "&fChance 55%%" and "&fStock: %{casino.stock::vodka}%" and "" and "&7&o(( Left-Click to buy ))":
+			if {casino.stock::vodka} is less than 1:
+				message "{@tag} &fPlease wait for the casino to restock on that drink!"
+				stop
+			if {balance::%{_uuid}%} is greater than or equal to 20000:
+				remove 1 from {casino.stock::vodka}
+				give {_p} 1 potion of regeneration with all flags hidden named "&dGrape Juice" with lore "&fChance: 55%%"
+				remove 20000 from {balance::%{_uuid}%}
+				casino({_p})
+			else:
+				message "{@tag} &fYou do not have enough money to purchase this drink."
+				close {_p}'s inventory
+		make gui slot 23 with {_stock-gin} of potions of turtle master with all flags hidden named "&5Cranberry Juice" with lore "" and "&fPrice: $50,000" and "&fChance 50%%" and "&fStock: %{casino.stock::gin}%" and "" and "&7&o(( Left-Click to buy ))":
+			if {casino.stock::gin} is less than 1:
+				message "{@tag} &fPlease wait for the casino to restock on that drink!"
+				stop
+			if {balance::%{_uuid}%} is greater than or equal to 50000:
+				remove 1 from {casino.stock::gin}
+				give {_p} 1 potion of turtle master with all flags hidden named "&5Cranberry Juice" with lore "&fChance 50%%"
+				remove 50000 from {balance::%{_uuid}%}
+				casino({_p})
+			else:
+				message "{@tag} &fYou do not have enough money to purchase this drink."
+				close {_p}'s inventory
+		make gui slot 24 with {_stock-rum} of potions of health with all flags hidden named "&cFruit Punch" with lore "" and "&fPrice: $125,000" and "&fChance 45%%" and "&fStock: %{casino.stock::rum}%" and "" and "&7&o(( Left-Click to buy ))":
+			if {casino.stock::rum} is less than 1:
+				message "{@tag} &fPlease wait for the casino to restock on that drink!"
+				stop
+			if {balance::%{_uuid}%} is greater than or equal to 125000:
+				remove 1 from {casino.stock::rum}
+				give {_p} 1 potions of health with all flags hidden named "&cFruit Punch" with lore "&fChance 45%%"
+				remove 125000 from {balance::%{_uuid}%}
+				casino({_p})
+			else:
+				message "{@tag} &fYou do not have enough money to purchase this drink."
+				close {_p}'s inventory
+	open gui last gui to {_p}
+
+on npc right click:
+	set {_p} to player
+	set {_uuid} to uuid of {_p}
+	if citizen's name is "islandnpc":
+		make player execute "/is"
+	if citizen's name is "shopnpc":
+		make player execute "/shop"
+	if citizen's name is "storenpc":
+		make player execute "/buy"
+	if citizen's name is "gamblenpc":
+		casino({_p})
+
+every 30 minutes:
+	set {casino.stock::beer} to 25
+	set {casino.stock::wine} to 25
+	set {casino.stock::vodka} to 25
+	set {casino.stock::gin} to 25
+	set {casino.stock::rum} to 25
+	broadcast "{@tag} &fThe casino has been restocked!"
+
+on consume of potion:
+	make console execute "/effect clear %player%"
+	set {_p} to player
+	set {_uuid} to uuid of {_p}
+	if name of event-item is "&aApple Juice":
+		cancel event
+		remove 1 of player's tool from player's tool
+		set {_chance} to 65
+		chance of {_chance}%:
+			add 2000 to {balance::%{_uuid}%}
+			message "{@tag} &fYou won $2,000 from the Apple Juice!"
+			stop
+		message "{@tag} &fYou lost the gamble!"
+	if name of event-item is "&6Orange Juice":
+		cancel event
+		remove 1 of player's tool from player's tool
+		set {_chance} to 60
+		chance of {_chance}%:
+			add 10000 to {balance::%{_uuid}%}
+			message "{@tag} &fYou won $10,000 from the Orange Juice!"
+			stop
+		message "{@tag} &fYou lost the gamble!"
+	if name of event-item is "&dGrape Juice":
+		cancel event
+		remove 1 of player's tool from player's tool
+		set {_chance} to 55
+		chance of {_chance}%:
+			add 40000 to {balance::%{_uuid}%}
+			message "{@tag} &fYou won $40,000 from the Grape Juice!"
+			stop
+		message "{@tag} &fYou lost the gamble!"
+	if name of event-item is "&5Cranberry Juice":
+		cancel event
+		remove 1 of player's tool from player's tool
+		set {_chance} to 50
+		chance of {_chance}%:
+			add 100000 to {balance::%{_uuid}%}
+			message "{@tag} &fYou won $100,000 from the Cranberry Juice!"
+			stop
+		message "{@tag} &fYou lost the gamble!"
+	if name of event-item is "&cFruit Punch":
+		cancel event
+		remove 1 of player's tool from player's tool
+		set {_chance} to 45
+		chance of {_chance}%:
+			add 250000 to {balance::%{_uuid}%}
+			message "{@tag} &fYou won $250,000 from the Fruit Punch!"
+			stop
+		message "{@tag} &fYou lost the gamble!"

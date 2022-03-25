@@ -1,0 +1,605 @@
+# 
+# Bot Login
+#
+
+
+
+on load:
+	login to "OTAzODQ0OTcxNzc2NDcxMDkw.YXy5OQ.PqRdlaVqH3qQ8kfgSXS3zNlyBnM" with name "Skyblock"
+	make console execute command "/papi ecloud download Server"
+	make console execute command "/papi reload"
+	wait 3 seconds
+	health_refresh("start")
+	send "ALL->set_proxy.skyblock_Online" to channel with id "904057382362034228"
+	set {_maxPlayers} to placeholder "%%server_max_players%%" 
+	send "ALL->set_proxy.skyblock.playercap_%{_maxPlayers}%" to channel with id "904057382362034228"
+	send "lbholo update-all" to channel with id "904056496709599268"
+	set {server.health.stopping} to false
+
+on guild message receive:
+	if event-channel is text channel with id "913143092692013097":
+		if "%event-message%" doesn't contain ".s":
+			if event-member doesn't have role with id "904058348842909757":
+				delete event-message
+
+on guild message receive:
+	if event-channel is text channel with id "904056496562782258":
+		if "%event-message%" doesn't contain ".link":
+			if event-member doesn't have role with id "904058348842909757":
+				delete event-message
+
+on reaction add:
+	if event-channel is text channel with id "913143092692013097":
+		if event-member doesn't have role with id "904058348842909757":
+			if id of event-emote isn't "913145935012433930" or "913145948228702269":
+				remove event-emote added by event-user from event-message
+
+on guild message receive:
+	if event-channel is text channel with id "904057382362034228" or "908150654864875541" or "908150706962305025" or "908150742924296213" or "908150815070511105":
+		if "%event-message%" contains "SB->" or "ALL->":
+			set {_exe} to "%event-message%"
+			if {_exe} contains "_":
+				set {_sections::*} to {_exe} split at "_"
+			if {_sections::1} contains "set":
+				if {_sections::2} is set:
+					if {_sections::3} contains "true":
+						set {%{_sections::2}%} to true
+					if {_sections::3} contains "false":
+						set {%{_sections::2}%} to false
+					if {_sections::3} contains "0" or "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9":
+						set {_int} to "%{_sections::3}%" parsed as integer
+						set {%{_sections::2}%} to {_int}	
+					else if {_sections::3} doesn't contain "true" or "false" or "0" or "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9":
+						set {%{_sections::2}%} to "%{_sections::3}%"					
+			if {_sections::1} contains "delete":
+				if {_sections::2} is set:
+					delete {%{_sections::2}%}
+			if {_sections::1} contains "cmd":
+				set {_size} to "%size of {_sections::*}%"
+				set {_size} to "%{_size}%" parsed as integer
+				set {_size} to ({_size} - 1)
+				set {_index} to 2
+				loop {_size} times:
+					add "%{_sections::%{_index}%}%" to {_cmd::*}
+					add 1 to {_index}
+				set {_cmd} to "%{_cmd::*}%"
+				replace all " and " or ", " in {_cmd} with " "
+				make console execute "/%{_cmd}%"
+				broadcast "%{_cmd}%"
+
+on guild message receive:
+	if event-channel is text channel with id "904056496709599268":
+		set {_exe} to "%event-message%"
+		make console execute "/%{_exe}%"
+
+on command:
+	if command is "stop" or "restart" or "stop_button":
+		if sender is console:
+			cancel event
+			set {skyblock.status} to "&c&lOFFLINE"
+			set variable "skyblock.status" in channel "hub" to {skyblock.status}
+			send redis message "%{skyblock.status}%" to channel "hub"    
+			set {server.health.stopping} to true
+			set {status.premiums.bot} to "OFFLINE"
+			send "***OFFLINE***" to channel with id "904056496709599265"
+			purge last 2 messages from channel with id "904056496709599265"
+			make embed:
+				set author of embed to "Premiums Server (%{status.premiums.bot}%)"
+				set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"
+				set color of embed to red
+				set {_fetched} to now
+				set {last.restart} to now
+				set the description of embed to "• **Online Players** ?%nl%• **TPS** ?%nl%• **All Entites** ?%nl%• **RAM Usage** ?%nl%%nl% **Last Restarted** %{last.restart}% UTC%nl% "
+				set the thumbnail of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879528454339592202/noun_heart_beat_3451562.png"
+				set footer of embed to "Fetched on %{_fetched}% UTC"	   
+				set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879529302662717480/noun_Settings_2894556.png"
+			edit {server.health} to show last embed	 
+			send "ALL->set_proxy.skyblock_Offline" to channel with id "904057382362034228"
+			wait 5 seconds
+			stop server			
+		if player has permission "premiums.admin":
+			cancel event
+			set {skyblock.status} to "&c&lOFFLINE"
+			set variable "skyblock.status" in channel "hub" to {skyblock.status}
+			send redis message "%{skyblock.status}%" to channel "hub"    
+			set {server.health.stopping} to true
+			set {status.premiums.bot} to "OFFLINE"
+			send "***OFFLINE***" to channel with id "904056496709599265"
+			purge last 2 messages from channel with id "904056496709599265"
+			make embed:
+				set author of embed to "Premiums Server (%{status.premiums.bot}%)"
+				set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"
+				set color of embed to red
+				set {_fetched} to now
+				set {last.restart} to now
+				set the description of embed to "• **Online Players** ?%nl%• **TPS** ?%nl%• **All Entites** ?%nl%• **RAM Usage** ?%nl%%nl% **Last Restarted** %{last.restart}% UTC%nl% "
+				set the thumbnail of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879528454339592202/noun_heart_beat_3451562.png"
+				set footer of embed to "Fetched on %{_fetched}% UTC"	   
+				set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879529302662717480/noun_Settings_2894556.png"
+			edit {server.health} to show last embed	 
+			send "ALL->set_proxy.skyblock_Offline" to channel with id "904057382362034228"
+			wait 5 seconds
+			stop server
+
+command /unlink-all:
+	permission: premiums.admin
+	trigger:
+		loop all players:
+			if {discord.verified::%loop-player's uuid%} is set:
+				clear {discord.verified::%loop-player's uuid%}
+
+#
+# Linking
+#
+
+command /link:
+	trigger:
+		if {discord.verified::%player's uuid%} is set:
+			send "&b&lDISCORD &7¬ &fYou're already linked!"
+			stop
+		add "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","e","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9" and "0" to {_charset::*}
+		loop 5 times:
+			set {_e} to random element out of {_charset::*}
+			set {_code} to join {_code} and {_e}
+		set {code::%{_code}%} to player
+		send formatted "<tooltip:&f&oTo verify do ""&f.link %{_code}%&f&o"" in the botcmds channel. >&b&lDISCORD &7¬ &fYour account verification code is ""%{_code}%""" to player
+
+#command /unlink:
+#	trigger:
+#		if {discord.verified::%player's uuid%} is set:
+#			set {_uuid} to uuid of player
+#			#%{_uuid}%
+#			#set {_id} to discord id of event-user
+#			remove role with id "904056495598096432" from roles of {discord.name::%{discord.id::%{_uuid}%}%}
+#			#set discord nickname of event-member to "%event-user%"
+#			clear {discord.verified::%{_uuid}%}
+#			clear {discord.ingame-name.formatted::%{_uuid}%}
+#			clear {discord.ingame-name::%{_uuid}%}
+#			clear {discord.name::%{discord.id::%{_uuid}%}%}
+#			clear {discord.ingame-uuid::%{_uuid}%}
+#			#clear {discord.id::%{_id}%}				
+
+discord command link [<text>]:
+	prefixes: .
+	trigger:
+		if discord id of event-channel is "904056496562782258":
+			if arg 1 is not set:
+				delete event-message
+				reply with "Please input your verification code, if you do not have one type ""/link"" ingame."
+			else if {code::%arg-1%} is not set:
+				delete event-message
+				reply with "Please type ""/link"" ingame to get your verification code"
+			else if {code::%arg-1%} is set:
+				delete event-message
+				set {_id} to discord id of event-user 
+				set {discord.id::%{_id}%} to {_id}
+				set {discord.ingame-name::%{discord.id::%{_id}%}%} to {code::%arg-1%} # Fetch & Set Player-name
+				set {discord.ingame-uuid::%{_id}%} to uuid of {discord.ingame-name::%{_id}%}
+				set {discord.name::%{discord.ingame-uuid::%{_id}%}%} to event-user # Set Discord name
+				set {code::%{_id}%} to arg-1 
+				set {discord.ingame-name.formatted::%{discord.ingame-uuid::%{_id}%}%} to "%{discord.name::%{discord.ingame-uuid::%{_id}%}%}%##%tag of {discord.name::%{discord.ingame-uuid::%{_id}%}%}%"
+				set {discord.verified::%{discord.ingame-uuid::%{_id}%}%} to true
+				#set discord nickname of event-member to "%{discord.ingame-name::%{_id}%}%"	
+				add role with id "904056495598096432" to roles of event-member	
+				#set {_row} to new buttons row
+				#add new disabled button with url "disabled" with style secondary with content "Linked" with emoji "🔗" to buttons of {_row}
+				#set row of event-message to {_row}		
+				#make embed:
+				#	set the description of embed to "**Discord User** %event-user% %nl%**Discord User ID** %{_owner}%% nl%**Minecraft Username** %{discord.ingame-name::%{_id}%}%"
+				#	set author of embed to "VERIFIED ACCOUNT"
+				#	set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879526818586173500/noun_lock_check_885647.png"
+				#	set the colour of the embed to color from rgb 122, 192, 67
+				#	set thumbnail of embed to "https://cravatar.eu/helmavatar/%{discord.ingame-name::%{_id}%}%/190.png"
+				#reply with personal message last created embed
+				delete {code::%{_id}%}
+				#set {_row} to new buttons row
+				#add new button with url "%{_id}%" with style success with content "Link" with emoji "🔗" to buttons of {_row} 
+				reply with "Hello, %mention tag of event-user%, you've now linked your Minecraft Account to your Discord Account!"# and store it in {verify.%{_id}%}
+				#set row of {verify.%{_id}%} to {_row}
+				delete {code::%arg-1%}
+		else:
+			delete event-message
+
+discord command unlink:
+	prefixes: .
+	trigger:
+		if discord id of event-channel is "904056496562782258":
+			delete event-message
+			set {_id} to discord id of event-user
+			remove role with id "904056495598096432" from roles of event-member
+			#set discord nickname of event-member to "%event-user%"
+			clear {discord.verified::%{discord.ingame-uuid::%{_id}%}%}
+			clear {discord.ingame-name.formatted::%{discord.ingame-uuid::%{_id}%}%}
+			clear {discord.ingame-name::%{_id}%}
+			clear {discord.name::%{discord.id::%{_id}%}%}
+			clear {discord.ingame-uuid::%{_id}%}
+			clear {discord.id::%{_id}%}	
+			#set {_row} to new buttons row
+			#add new disabled button with url "disabled" with style secondary with content "Unlinked" with emoji "🔗" to buttons of {_row}
+			#set row of {verify.%{_id}%} to {_row}
+			send "%mention tag of event-user%, You've successfully unliked your Discord Account from your Minecraft Account." to event-channel 
+		else:
+			delete event-message
+
+#
+# Server Health/Stats
+#
+
+function health_refresh(t:text):
+	set online status of bot "Skyblock" to online
+	set {status.premiums.bot} to "ONLINE"
+	make embed:
+		set author of embed to "Premiums Server (%{status.premiums.bot}%)"
+		set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879530206719782912/Premiums_blue.gif"
+		set color of embed to color from hex "00ff00"
+		set {_online} to number of all players
+		set {_tps} to placeholder "%%server_tps_1%%"
+		set {_entities} to placeholder "%%server_total_living_entities%%"
+		set {_ram.used} to placeholder "%%server_ram_used%%"
+		set {_ram.total} to placeholder "%%server_ram_total%%"
+		set {_ram} to "%{_ram.used}%/%{_ram.total}%mb"
+		if {last.restart} isn't set:
+			set the description of embed to "• **Online Players** %{_online}%%nl%• **TPS** %{_tps}%%nl%• **All Entites** %{_entities}%%nl%• **RAM Usage** %{_ram}%%nl%"
+		else: 
+			set the description of embed to "• **Online Players** %{_online}%%nl%• **TPS** %{_tps}%%nl%• **All Entites** %{_entities}%%nl%• **RAM Usage** %{_ram}%%nl%%nl%**Last Restarted** %{last.restart}% UTC%nl%"
+		set the thumbnail of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879528454339592202/noun_heart_beat_3451562.png"
+		set {_fetched} to now
+		set footer of embed to "Fetched on %{_fetched}% UTC"	   
+		set footer icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879529302662717480/noun_Settings_2894556.png"
+		if {_t} is "start":
+			send "***ONLINE***" to channel with id "904056496709599265"
+			send "***ONLINE***" to channel with id "904056496709599265"
+			purge last 4 messages from channel with id "904056496709599265"
+			#edit {server.health} to show last embed	
+			send last embed to channel with id "904056496709599265" and store it in {server.health}   
+			set {_row} to new buttons row
+			add new button with url "stop_server" with style danger with content "Stop Server" to buttons of {_row}
+			add new button with url "blacklist_server" with style danger with content "Blacklist" to buttons of {_row}
+			send "***SETTINGS***" to channel with id "904056496709599265" with rows {_row}	
+		if {_t} is "refresh":
+			edit {server.health} to show last embed	
+
+#every 5 seconds:
+#	if {server.health.stopping} is true:
+#		stop
+#	else:
+#		health_refresh("refresh")
+
+discord command health:
+	prefixes: !
+	trigger:
+		if event-member has permission administrator:
+			delete event-message
+			health_refresh("start")
+
+
+#
+# Admin Commands
+#
+
+discord command reactions:
+	prefixes: !
+	trigger:
+		if event-member has permission administrator:
+			delete event-message
+			make embed:
+				set the description of embed to "*Want to stay updated on a topic and be mentioned each time we post in these categories?*%nl%%nl%__**REACT** with the following to recieve updates on a topic.__%nl%:loudspeaker: - Announcements%nl%:notepad_spiral: - Changelog%nl%:sparkles: - Teasers%nl%:gem: - Polls"
+				set author of embed to "Reaction Roles"
+				set the colour of the embed to yellow
+				set the thumbnail of embed to "https://i.imgur.com/GvHSV6f.png"
+			send last embed to event-channel and store it in {reactions}
+			set {_row} to new buttons row
+			set {discord.role.announcements.amount} to 0
+			set {discord.role.changelog.amount} to 0
+			set {discord.role.teasers.amount} to 0
+			set {discord.role.polls.amount} to 0	
+			add new button with url "announcements" with style primary with content " %{discord.role.announcements.amount}%" with emoji "📢" to buttons of {_row}
+			add new button with url "changelog" with style primary with content " %{discord.role.changelog.amount}%" with emoji "🗒️" to buttons of {_row}
+			add new button with url "teasers" with style primary with content " %{discord.role.teasers.amount}%" with emoji "✨" to buttons of {_row}
+			add new button with url "polls" with style primary with content " %{discord.role.polls.amount}%" with emoji "💎" to buttons of {_row}
+			add row {_row} to {reactions} 
+
+discord command rules:
+	prefixes: !
+	trigger:
+		if event-member has permission administrator:
+			delete event-message
+			make embed:
+				set the description of embed to "**Rules**:%nl%%nl%**-** Do not swear excessively%nl%**-** No offensive, blank or inappropriate nicknames.%nl%**-** Any NSFW, pornographic or sexual content is prohibited.%nl%**-** Do not harass/bully any members or staff.%nl%**-** Use the appropriate channels.%nl%**-** No spam, This includes but is not limited to: loud/obnoxious%nl%*noises in voice, @mention spam, character spam, image spam, and message spam.*%nl%%nl%*Failure to comply with these rules will result in a punishment.*"
+				set author of embed to "Discord Rules"
+				set the colour of the embed to yellow
+				set the thumbnail of embed to "https://i.imgur.com/GvHSV6f.png"
+			send last embed to event-channel			
+
+discord command purge <number>:
+	prefixes: !
+	executable in: guild
+	trigger:
+		if event-member has permission administrator:
+			delete event-message
+			purge last arg messages from event-channel
+
+#
+# Community Commands
+#
+
+# Suggestions (.s <suggestion>):
+
+discord command suggestion <text>:
+	prefixes: .
+	aliases: s, suggest
+	trigger:
+		set {_id} to discord id of event-user
+		if {discord.verified::%{discord.ingame-uuid::%{_id}%}%} is true:
+			if arg-1 is set:
+				if discord id of event-channel is "913143092692013097":
+					delete event-message		   
+					make embed:
+						set thumbnail of embed to discord avatar of event-user
+						set author of embed to "Suggestion"
+						set description of embed to arg-1
+						set timestamp of embed to now
+					send last embed to event-channel and store it in {_embed}   
+					add reaction "<:agree:913145935012433930>" and "<:disagree:913145948228702269>" to message {_embed}
+					#add reaction "<:agree:913146587444817950>" and "<:disagree:913146021884887141>" to message {_embed}
+
+# Island Top
+
+discord command istop:
+	prefixes: .
+	aliases: islandtop, islandleaderboards
+	trigger:
+		make embed:
+			set author of embed to "Island Leaderboards"		
+			set the thumbnail of embed to "https://i.imgur.com/GvHSV6f.png"
+			if {istop.player1} is set:
+				add "(##1) %{istop.player1}% - $%format({istop.value1})%" to {_p::*} 
+			if {istop.player2} is set:
+				add "(##2) %{istop.player2}% - $%format({istop.value2})%" to {_p::*} 
+			if {istop.player3} is set:
+				add "(##3) %{istop.player3}% - $%format({istop.value3})%" to {_p::*} 
+			if {istop.player4} is set:
+				add "(##4) %{istop.player4}% - $%format({istop.value4})%" to {_p::*} 
+			if {istop.player5} is set:
+				add "(##5) %{istop.player5}% - $%format({istop.value5})%" to {_p::*} 
+			if {istop.player6} is set:
+				add "(##6) %{istop.player6}% - $%format({istop.value6})%" to {_p::*} 
+			if {istop.player7} is set:
+				add "(##7) %{istop.player7}% - $%format({istop.value7})%" to {_p::*} 
+			if {istop.player8} is set:
+				add "(##8) %{istop.player8}% - $%format({istop.value8})%" to {_p::*} 
+			if {istop.player9} is set:
+				add "(##9) %{istop.player9}% - $%format({istop.value9})%" to {_p::*} 
+			if {istop.player10} is set:
+				add "(##10) %{istop.player10}% - $%format({istop.value10})%" to {_p::*}		
+			if {_p::*} isn't set:
+				add "Be the first to appear here!" to {_p::*}
+		if {_d} is set:
+			set description of embed to {_d}
+		else:
+			set description of embed to join {_p::*} by nl
+		delete event-message
+		send last embed to event-channel 
+		stop
+
+# Balance Top
+
+discord command baltop:
+	prefixes: .
+	aliases: balancetop, balanceleaderboards, balleaderboards
+	trigger:
+		make embed:
+			set author of embed to "Balance Leaderboards"		
+			set the thumbnail of embed to "https://i.imgur.com/GvHSV6f.png"		
+			if {baltop.player1} is set:
+				add "(##1) %{baltop.player1}% - $%format({baltop.value1})%" to {_p::*} 
+			if {baltop.player2} is set:
+				add "(##2) %{baltop.player2}% - $%format({baltop.value2})%" to {_p::*} 
+			if {baltop.player3} is set:
+				add "(##3) %{baltop.player3}% - $%format({baltop.value3})%" to {_p::*} 
+			if {baltop.player4} is set:
+				add "(##4) %{baltop.player4}% - $%format({baltop.value4})%" to {_p::*} 
+			if {baltop.player5} is set:
+				add "(##5) %{baltop.player5}% - $%format({baltop.value5})%" to {_p::*} 
+			if {baltop.player6} is set:
+				add "(##6) %{baltop.player6}% - $%format({baltop.value6})%" to {_p::*} 
+			if {baltop.player7} is set:
+				add "(##7) %{baltop.player7}% - $%format({baltop.value7})%" to {_p::*} 
+			if {baltop.player8} is set:
+				add "(##8) %{baltop.player8}% - $%format({baltop.value8})%" to {_p::*} 
+			if {baltop.player9} is set:
+				add "(##9) %{baltop.player9}% - $%format({baltop.value9})%" to {_p::*} 
+			if {baltop.player10} is set:
+				add "(##10) %{baltop.player10}% - $%format({baltop.value10})%" to {_p::*}
+			if {_p::*} isn't set:
+				add "Be the first to appear here!" to {_p::*}
+			#add "%{_place::%{_player}%}% %{_player}% - $%format({_value::%{_player}%})%" to {_p::*} 
+		if {_d} is set:
+			set description of embed to {_d}
+		else:
+			set description of embed to join {_p::*} by nl
+		delete event-message
+		send last embed to event-channel 
+		stop
+
+# Stats
+
+#discord command stats [<offline player>]:
+#	prefixes: .
+#	aliases: statistics
+#	trigger:
+#		delete event-message
+#		if arg-1 isn't set:
+#			set {_id} to id of event-user
+#			if {discord.ingame-name::%{_id}%} isn't set:
+#				make embed:
+#					set author of embed to "Error"
+#					set the description of embed to "You're account isn't linked, to get stats for yourself do "".stats <ingame name>""%nl%*To link your account do /link ingame.*"
+#					set footer of embed to "To %event-user%"
+#					set footer icon of embed to "https://cravatar.eu/helmavatar/%event-user%/190.png"
+#				send last embed to event-channel
+#				stop
+#			set {_p} to "%{discord.ingame-name::%{_id}%}%" parsed as offline player
+#		if arg-1 is set:
+#			set {_id} to id of {_p}
+#			set {_p} to "%arg-1%" parsed as offline player
+#		set {_uuid} to uuid of {_p}
+#		if {discord.verified::%{_uuid}%} isn't set:
+#			set {_account} to "Unlinked"
+#		else:
+#			set {_account} to "%{discord.ingame-name.formatted::%{discord.ingame-uuid::%{_id}%}%}%"
+#		set {_o} to {island.owner::%{_p}%}
+#		set {_uuid} to uuid of {_p}
+#		make embed:
+#			set author of embed to "Stats of %{_p}%"
+#			set description of embed to "Balance: <a:loading:896232022706626570>%nl%Gems: <a:loading:896232022706626570>%nl%Island Owner: <a:loading:896232022706626570>%nl%Island Level: <a:loading:896232022706626570>%nl%Playtime: <a:loading:896232022706626570>%nl%%nl%Join date: <a:loading:896232022706626570>%nl%Discord Account: <a:loading:896232022706626570>"
+#		send last embed to event-channel and store it in {_stats}  
+#		wait 1 seconds
+#		if {island.owner::%{_p}%} isn't set:
+#			set {_o} to "N/A"
+#		if {island.level::%{_o}%} isn't set:
+#			set {_lvl} to "N/A"
+#		else:
+#			set {_lvl} to "$%format({island.level::%{_o}%})%"
+#		make embed:
+#			set author of embed to "Stats of %{_p}%"
+#			set description of embed to "Balance: $%format({balance::%{_uuid}%})%%nl%Gems: %format({gems::%{_uuid}%})%%nl%Island Owner: %{_o}%%nl%Island Level: %{_lvl}%%nl%Playtime: %{playtime::%{_p}%}%%nl%%nl%Join date: %{joined.date.%{_uuid}%}%%nl%Discord Account: %{_account}%"
+#			set thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+#			set footer of embed to "Requested by %event-user%"
+#			set footer icon of embed to "https://cravatar.eu/helmavatar/%event-user%/190.png"
+#		edit {_stats} to show last embed
+		#send "<a:loading:896232022706626570>" to event-channel
+
+# Island worth 
+
+#discord command is-worth [<text>]:
+#	prefixes: .
+#	trigger:
+#		if arg-1 isn't set:
+#			set {_id} to id of event-user
+#			if {discord.ingame-name::%{_id}%} isn't set:
+#				make embed:
+#					set author of embed to "Error"
+#					set the description of embed to "You're account isn't linked, to get stats for yourself do "".stats <ingame name>""%nl%*To link your account do /link ingame.*"
+#					set footer of embed to "To %event-user%"
+#					set footer icon of embed to "https://cravatar.eu/helmavatar/%event-user%/190.png"
+#				send last embed to event-channel
+#				stop
+#			set {_p} to "%{discord.ingame-name::%{_id}%}%" parsed as offline player
+#		if arg-1 is set:
+#			set {_id} to id of {_p}
+#			set {_p} to "%arg-1%" parsed as offline player
+#		set {_o} to {island.owner::%{_p}%}
+#		make embed:
+#			set author of embed to "Island Worth of %{_p}%"
+#			set description of embed to "Command Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%End Portal Frame (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Beacon (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Emerald Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Diamond Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Gold Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Iron Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Redstone Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Lapis Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%Coal Block (<a:loading:896232022706626570>): <a:loading:896232022706626570>%nl%%nl%Total: <a:loading:896232022706626570>"
+#		send last embed to event-channel and store it in {_worth}  
+#		wait 1 second
+#		set {_value} to "%{island.level::%{_p}%}%" parsed as a number
+#		make embed:
+#			set author of embed to "Island Worth of %{_p}%"
+#			set description of embed to "Command Block (%{island.stack.commandblock.amount::%{_o}%}%x): $%format({island.stack.commandblock.amount::%{_o}%}*5062500)%%nl%End Portal Frame (%{island.stack.endportalframe.amount::%{_o}%}%x): $%format({island.stack.endportalframe.amount::%{_o}%}*506250)%%nl%Beacon (%{island.stack.beacon.amount::%{_o}%}%x): $%format({island.stack.beacon.amount::%{_o}%}*50625)%%nl%Emerald Block (%{island.stack.emerald.amount::%{_o}%}%x): $%format({island.stack.emerald.amount::%{_o}%}*5062)%%nl%Diamond Block (%{island.stack.diamond.amount::%{_o}%}%x): $%format({island.stack.diamond.amount::%{_o}%}*2250)%%nl%Gold Block (%{island.stack.gold.amount::%{_o}%}%): $%format({island.stack.gold.amount::%{_o}%}*841)%%nl%Iron Block (%{island.stack.iron.amount::%{_o}%}%x): $%format({island.stack.iron.amount::%{_o}%}*616)%%nl%Redstone Block (%{island.stack.redstone.amount::%{_o}%}%x): $%format({island.stack.redstone.amount::%{_o}%}*90)%%nl%Lapis Block (%{island.stack.lapis.amount::%{_o}%}%x): $%format({island.stack.lapis.amount::%{_o}%}*67)%%nl%Coal Block (%{island.stack.coal.amount::%{_o}%}%x): $%format({island.stack.redstone.coal::%{_o}%}*63)%%nl%%nl%Total: $%format({_value})%"	
+#			set thumbnail of embed to "https://cravatar.eu/helmavatar/%{_p}%/190.png"
+#			set footer of embed to "Requested by %event-user%"
+#			set footer icon of embed to "https://cravatar.eu/helmavatar/%event-user%/190.png"
+#		edit {_worth} to show last embed
+
+#
+# Button Click Events
+#
+
+on button click:
+	set {_id} to discord id of event-button
+	set {_owner} to discord id of event-user
+	# Reactions
+	if {_id} is "announcements":
+		if event-member has role with id "904056495598096428":
+			remove role with id "904056495598096428" from roles of event-member
+			remove 1 from {discord.role.announcements.amount}
+			if {discord.role.announcements.amount} is less than 0:
+				set {discord.role.announcements.amount} to 0
+		else:
+			add role with id "904056495598096428" to roles of event-member
+			add 1 to {discord.role.announcements.amount}
+		set {_row} to new buttons row
+		add new button with url "announcements" with style primary with content " %{discord.role.announcements.amount}%" with emoji "📢" to buttons of {_row}
+		add new button with url "changelog" with style primary with content " %{discord.role.changelog.amount}%" with emoji "🗒️" to buttons of {_row}
+		add new button with url "teasers" with style primary with content " %{discord.role.teasers.amount}%" with emoji "✨" to buttons of {_row}
+		add new button with url "polls" with style primary with content " %{discord.role.polls.amount}%" with emoji "💎" to buttons of {_row}
+		set row of event-message to {_row}
+	if {_id} is "changelog":
+		if event-member has role with id "904056495598096429":
+			remove role with id "904056495598096429" from roles of event-member
+			remove 1 from {discord.role.changelog.amount}
+			if {discord.role.changelog.amount} is less than 0:
+				set {discord.role.changelog.amount} to 0
+		else:
+			add role with id "904056495598096429" to roles of event-member
+			add 1 to {discord.role.changelog.amount}
+		set {_row} to new buttons row
+		add new button with url "announcements" with style primary with content " %{discord.role.announcements.amount}%" with emoji "📢" to buttons of {_row}
+		add new button with url "changelog" with style primary with content " %{discord.role.changelog.amount}%" with emoji "🗒️" to buttons of {_row}
+		add new button with url "teasers" with style primary with content " %{discord.role.teasers.amount}%" with emoji "✨" to buttons of {_row}
+		add new button with url "polls" with style primary with content " %{discord.role.polls.amount}%" with emoji "💎" to buttons of {_row}
+		set row of event-message to {_row}
+	if {_id} is "teasers":
+		if event-member has role with id "904056495598096430":
+			remove role with id "904056495598096430" from roles of event-member
+			remove 1 from {discord.role.teasers.amount}
+			if {discord.role.teasers.amount} is less than 0:
+				set {discord.role.teasers.amount} to 0
+		else:
+			add role with id "904056495598096430" to roles of event-member
+			add 1 to {discord.role.teasers.amount}
+		set {_row} to new buttons row
+		add new button with url "announcements" with style primary with content " %{discord.role.announcements.amount}%" with emoji "📢" to buttons of {_row}
+		add new button with url "changelog" with style primary with content " %{discord.role.changelog.amount}%" with emoji "🗒️" to buttons of {_row}
+		add new button with url "teasers" with style primary with content " %{discord.role.teasers.amount}%" with emoji "✨" to buttons of {_row}
+		add new button with url "polls" with style primary with content " %{discord.role.polls.amount}%" with emoji "💎" to buttons of {_row}
+		set row of event-message to {_row}
+	if {_id} is "polls":
+		if event-member has role with id "904056495598096431":
+			remove role with id "904056495598096431" from roles of event-member
+			remove 1 from {discord.role.polls.amount}
+			if {discord.role.polls.amount} is less than 0:
+				set {discord.role.polls.amount} to 0
+		else:
+			add role with id "904056495598096431" to roles of event-member
+			add 1 to {discord.role.polls.amount}
+		set {_row} to new buttons row
+		add new button with url "announcements" with style primary with content " %{discord.role.announcements.amount}%" with emoji "📢" to buttons of {_row}
+		add new button with url "changelog" with style primary with content " %{discord.role.changelog.amount}%" with emoji "🗒️" to buttons of {_row}
+		add new button with url "teasers" with style primary with content " %{discord.role.teasers.amount}%" with emoji "✨" to buttons of {_row}
+		add new button with url "polls" with style primary with content " %{discord.role.polls.amount}%" with emoji "💎" to buttons of {_row}
+		set row of event-message to {_row}
+	# Server Health/Stats Buttons
+	if {_id} is "stop_server":
+		make console execute "stop_button"
+	if {_id} is "blacklist_server":
+		make console execute "kickall"
+		make console execute "whitelist on"
+		make embed:
+			set author of embed to "Premiums Server"
+			set the description of embed to "The Server is now on __***LOCKDOWN***__"
+			set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879526818586173500/noun_lock_check_885647.png"
+		reply with personal message last created embed
+	# Linking Button
+	#if {_id} is "%{_owner}%":
+	#	set {discord.ingame-uuid::%{_id}%} to uuid of {discord.ingame-name::%{_id}%}
+	#	set {discord.ingame-name.formatted::%{discord.ingame-uuid::%{_id}%}%} to "%{discord.name::%{_id}%}%##%tag of {discord.name::%{_id}%}%"
+	#	set {discord.verified::%{discord.ingame-uuid::%{_id}%}%} to true
+	#	#set discord nickname of event-member to "%{discord.ingame-name::%{_id}%}%"	
+	#	add role with id "827656452038459412" to roles of event-member	
+	#	set {_row} to new buttons row
+	#	add new disabled button with url "disabled" with style secondary with content "Linked" with emoji "🔗" to buttons of {_row}
+	#	set row of event-message to {_row}		
+	#	make embed:
+	#		set the description of embed to "**Discord User** %event-user% %nl%**Discord User ID** %{_owner}%% nl%**Minecraft Username** %{discord.ingame-name::%{_id}%}%"
+	#		set author of embed to "VERIFIED ACCOUNT"
+	#		set author icon of embed to "https://cdn.discordapp.com/attachments/861444633212485704/879526818586173500/noun_lock_check_885647.png"
+	#		set the colour of the embed to color from rgb 122, 192, 67
+	#		set thumbnail of embed to "https://cravatar.eu/helmavatar/%{discord.ingame-name::%{_id}%}%/190.png"
+	#	reply with personal message last created embed
+	#	delete {code::%{_id}%}
+	defer interaction
+

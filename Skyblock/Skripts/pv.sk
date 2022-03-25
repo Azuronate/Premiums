@@ -1,0 +1,87 @@
+options:
+    tag: &e&lSKYBLOCK &7¬ &f
+    symbol: &7¬
+
+on load:
+	execute console command "sk reload tab"
+
+function pv(p:player, target:player, n:number):
+    if {_target} is "%{_p}%":
+        if {_p} has permission "premiums.pv.%{_n}%":
+            set {owner.vault.%{_p}%} to {_target}
+            set {pv.number.%{owner.vault.%{_target}%}%} to {_n}
+            set {pv.%{_target}%} to "player"
+            create a gui with id "%{_p}%.vault.%{_n}%" with virtual chest inventory named "&6&lVAULT {@symbol} &f%{_n}%":
+                set the gui-lock-status to false
+                run on gui close:
+                    clear {vault.is.open.%{_p}%}
+                #        loop {pv::%{owner.vault.%{_target}%}%::%{_n}%::*}:
+                #            add 1 to {_num}
+                #            set slot ({_num}-1) of {_p}'s current inventory to loop-value-2
+            open gui last gui to {_p}
+            set {vault.is.open.%{_p}%} to true
+            play sound "minecraft:block.chest.open" with volume 0.5 for {_p}
+        else:
+            send "{@tag}You don't have that private vault!" to {_p}
+    else:
+        set {owner.vault.%{_p}%} to {_target}
+        if {_target} has permission "premiums.pv.%{_n}%":
+            set {pv.number.%{owner.vault.%{_target}%}%} to {_n}
+            set {pv.%{_target}%} to "view"
+            create a gui with id "%{_target}%.vault.%{_n}%" with virtual chest inventory named "&6&lVAULT {@symbol} &7(%{_target}%)":
+                set the gui-lock-status to false
+                run on gui close:
+                    clear {vault.is.open.%{_p}%}
+                #    loop 54 times:
+                #        loop {pv::%{owner.vault.%{_target}%}%::%{_n}%::*}:
+                #            add 1 to {_num}
+                #            set slot ({_num}-1) of {_p}'s current inventory to loop-value-2
+            open gui last gui to {_p}
+            #open virtual chest inventory with size 6 named "&6&lVAULT {@symbol} &7(%{_target}%)" to {_p}
+            set {vault.is.open.%{_p}%} to true
+            play sound "minecraft:block.chest.open" with volume 0.5 for {_p}
+        else:
+            send "{@tag}%{_target}% doesn't have that private vault!" to {_p}
+
+command /pvadmin <offlineplayer>:
+    trigger:
+        clear {vault.is.open.%arg-1%}
+
+command /pv <number> [<offlineplayer>]:
+    trigger:
+        send "{@tag} This feature is temporary for now."
+        #if {vault.is.open.%player%} is true:
+        #    stop
+        #if {vault.is.open.%arg-2%} is true:
+        #    send "{@tag}%arg-2% is currently in their vault!"
+        #    stop       
+        #else:
+        #    if arg-1 is set:
+        #        if arg-1 < 26:
+        #            if arg-2 isn't set:
+        #                pv(player, player, arg-1)
+        #            else:
+        #                if arg-2 is set:
+        #                    if player has permission "pv.edit":
+        #                        pv(player, arg-2, arg-1)             
+        #        else:
+        #            send "{@tag}You cannot have more than 25 vaults!"                
+
+
+#on inventory close:
+#    set {_pvnumber} to {pv.number.%{owner.vault.%player%}%}
+#    if {owner.vault.%player%} is set:
+#        if {pv.%{owner.vault.%player%}%} is "player":
+#            clear {vault.is.open.%{owner.vault.%player%}%}
+#            play sound "minecraft:block.chest.close" with volume 0.5 for player
+#            loop 54 times:
+#                add 1 to {_num}
+#                set {pv::%{owner.vault.%player%}%::%{_pvnumber}%::%{_num}%} to slot ({_num}-1) of player's current inventory
+#            clear {pv.%{owner.vault.%player%}%}
+#        if {pv.%{owner.vault.%player%}%} is "view":
+#            clear {vault.is.open.%{owner.vault.%player%}%}
+#            play sound "minecraft:block.chest.close" with volume 0.5 for player
+#            loop 54 times:
+#                add 1 to {_num}
+#                set {pv::%{owner.vault.%player%}%::%{_pvnumber}%::%{_num}%} to slot ({_num}-1) of player's current inventory
+#            clear {pv.%{owner.vault.%player%}%}    

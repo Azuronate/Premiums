@@ -1,0 +1,101 @@
+#on load:
+#	{parkour.best} is not set:
+#		set {parkour.best} to 60 minutes
+
+on load:
+	if {parkour.bestplayer} is not set:
+		set {parkour.bestplayer} to "None"
+	if {parkour.best} is not set:
+		set {parkour.best} to "N/A"
+On load:
+	delete holo {parkourtime}
+#	if {parkour.bestplayer} is set:
+	create new holo with lines "&e&lPARKOUR TOP" and "&f%{parkour.bestplayer} parsed as offline player% - %{parkour.best}%" at location at -60, 94, -1 of the world "ul_spawn"
+	set {parkourtime} to the created hologram
+#	if {parkour.bestplayer} isn't set:
+#		create new holo with lines "&e&lPARKOUR TOP" and "&fBe the first to appear here!" at location at -60, 94, -1 of the world "ul_spawn"
+	#	set {parkourtime} to the created hologram
+
+
+command parkourtop:
+	trigger:
+		broadcast "%{parkour.bestplayer}% - %{parkour.best}%"
+
+command parkour [<text>]:
+	trigger:
+		if arg-1 is not set:
+			set {_loc} to location(-58.5, 92, 2.5, world "ul_spawn")
+			set yaw of {_loc} to 89
+			set pitch of {_loc} to 0.9
+			teleport player to {_loc}
+			delete {parkour.time::%event-player%}
+		if arg-1 is "reset" or "restart":
+			set {_loc} to location(-58.5, 92, 2.5, world "ul_spawn")
+			set yaw of {_loc} to 89
+			set pitch of {_loc} to 0.9
+			teleport player to {_loc}
+			delete {parkour.time::%event-player%}
+			reset the title of player
+			send title "&e&lParkour Reset!" to player for 1 seconds
+		if arg-1 is "start":
+			set {_loc} to location(-58.5, 92, 2.5, world "ul_spawn")
+			set yaw of {_loc} to 89
+			set pitch of {_loc} to 0.9
+			teleport player to {_loc}
+			delete {parkour.time::%event-player%}
+		if arg-1 is "resettop":
+			if player has permission "*":
+				set {parkour.best} to 60 minutes
+				set {parkour.bestplayer} to "none"
+				delete holo {parkourtime}
+				delete {parkour.completed}
+
+on stepping on a pressure plate:
+	event-block is a gold pressure plate
+	player's world is "ul_spawn"
+	send title "&e&lParkour Started" with subtitle "&fIf you fall do /parkour reset" to player for 5 seconds
+	if {parkour.time::%event-player%} is set:
+		message "&6&lPARKOUR &7¬ &eReset your parkour time!"
+		delete {parkour.time::%event-player%}
+		stop
+		set {_loc} to location(-58.5, 92, 2.5, world "ul_spawn")
+		set yaw of {_loc} to 89
+		set pitch of {_loc} to 0.9
+		teleport player to {_loc}
+		delete {parkour.time::%event-player%}
+
+	else:
+		delete {parkour.time::%event-player%}
+		message "&6&lPARKOUR &7¬ &eYou have started the parkour!"
+	set {parkour.time::%event-player%} to now
+	while {parkour.time::%event-player%} is set:
+		if distance between event-block and event-player is less than 150:
+			send action bar "&6&lPARKOUR &f%difference between {parkour.time::%event-player%} and now%" to event-player
+			wait 1 tick
+		else:
+			stop
+	message "&6&lPARKOUR &7¬ &eParkour time stopped!"
+	stop
+	set {_loc} to location(-58.5, 92, 2.5, world "ul_spawn")
+	set yaw of {_loc} to 89
+	set pitch of {_loc} to 0.9
+	teleport player to {_loc}
+	delete {parkour.time::%event-player%}
+
+
+on stepping on a pressure plate:
+	event-block is a iron pressure plate
+	player's world is "ul_spawn"
+	{parkour.time::%event-player%} is set:
+		message "&6&lPARKOUR &7¬ &fYou finished the parkour!"
+		send action bar "&6&lPARKOUR &e%difference between {parkour.time::%event-player%} and now%" to event-player
+		difference between {parkour.time::%event-player%} and now is less than {parkour.best}:
+			set {parkour.best} to difference between {parkour.time::%event-player%} and now
+			set {parkour.bestplayer} to event-player
+			send "&6&lPARKOUR &7¬ &e%player% &fgot the record to player for the parkour! (%difference between {parkour.time::%event-player%} and now%&f)" to all players
+			delete holo {parkourtime}
+			wait 5 ticks
+			create new holo with lines "&e&lPARKOUR TOP" and "&f%{parkour.bestplayer}% - %{parkour.best}%" at location at -60, 94, -1 of the world "ul_spawn"
+			set {parkourtime} to the created hologram
+			set {parkour.completed} to true
+		delete {parkour.time::%event-player%}

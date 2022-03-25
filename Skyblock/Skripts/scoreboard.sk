@@ -1,0 +1,87 @@
+every second:
+    loop all players:
+        if loop-player's group is "owner":
+            set loop-player's tab name to "&6&lOWNER&6 %loop-player%"
+        if loop-player's group is "admin":
+            set loop-player's tab name to "<##F32121>&lADMIN<##F32121> %loop-player%"
+        if loop-player's group is "mod":
+            set loop-player's tab name to "&d&lMOD&d %loop-player%"
+        if loop-player's group is "helper":
+            set loop-player's tab name to "&a&lHELPER&a %loop-player%"
+        if loop-player's group is "amethyst":
+            set loop-player's tab name to "<##DA04B1>&lAMETHYST<##DA04B1> %loop-player%"
+        if loop-player's group is "ruby":
+            set loop-player's tab name to "<##FF6666>&lRUBY<##FF6666> %loop-player%"
+        if loop-player's group is "diamond":
+            set loop-player's tab name to "<##19C8FB>&lDIAMOND<##19C8FB> %loop-player%"
+        if loop-player's group is "sapphire":
+            set loop-player's tab name to "<##056AF6>&lSAPPHIRE<##056AF6> %loop-player%"
+        if loop-player's group is "pearl":
+            set loop-player's tab name to "&f&lPEARL&f %loop-player%"
+        if loop-player's group is "default":
+            set loop-player's tab name to "&7%loop-player%"
+
+
+
+every 5 seconds:
+	loop all players:
+		set {sb_player_count} to placeholder "%%bungee_sbP1%%"
+		set {hub1_player_count} to placeholder "%%bungee_hubP1%%"
+		set {hub2_player_count} to placeholder "%%bungee_hubP2%%"
+		set {gens_player_count} to placeholder "%%bungee_gensP1%%" 
+		set {network_player_count} to placeholder "%%bungee_total%%"
+		set tab list header of loop-player to "%nl%&6✦&e✦&f✦ &e&l&nPREMIUMS NETWORK&r &f✦&e✦&6✦%nl%%nl%&fYou are connect to Skyblock!%nl%"
+		set loop-player's tab list footer to "%nl%&e&lSERVER           NETWORK%nl%&f&f%number of online players%/75                   %{network_player_count}%/210%nl%%nl%&7(( Support the Network! /buy ))"
+		Scoreboard(loop-player)
+
+
+function Scoreboard(p: player):
+    set {_uuid} to uuid of {_p}
+    set title of {_p}'s scoreboard to "&e&lPREMIUMS &f&lS2"
+    set line 15 of {_p}'s scoreboard to "&0"
+    set line 14 of {_p}'s scoreboard to "&e&lPLAYER"
+    set line 12 of {_p}'s scoreboard to "&6&l  &fBalance &e$%format({balance::%{_uuid}%})%"
+
+    #set line 6 of {_p}'s scoreboard to "&2"
+    set line 5 of {_p}'s scoreboard to "&1"
+    set line 4 of {_p}'s scoreboard to "&e&lSERVER"
+    set line 3 of {_p}'s scoreboard to "&6&l  &fOnline &e%number of online players%/%max players%"
+    set line 2 of {_p}'s scoreboard to "&6&l  &fTotal Joins &e%{joins}%"
+    set line 1 of {_p}'s scoreboard to "&6&l  &fTPS &e%tps from last 1 minute%"
+    set line 13 of {_p}'s scoreboard to "&6&l  &fName &e%{_p}%"
+    set {_uuid} to uuid of {_p}
+    set line 11 of {_p}'s scoreboard to "&6&l  &fGems &e%format({gems::%{_uuid}%})%"
+    set line 10 of {_p}'s scoreboard to "&1"
+    set line 9 of {_p}'s scoreboard to "&e&lISLAND"
+    if {island.owner::%{_p}%} is set:
+        set line 8 of {_p}'s scoreboard to "&6&l  &fOwner &e%{island.owner::%{_p}%}%"
+        set line 7 of {_p}'s scoreboard to "&6&l  &fLevel &e%format({island.level::%{island.owner::%{_p}%}%})%"    
+        set line 6 of {_p}'s scoreboard to "&6&l  &fMembers &e%amount of {island.members.%{island.owner::%{_p}%}%::*}%"
+    else:
+        set line 8 of {_p}'s scoreboard to "&6&l  &fOwner &e/start"
+        set line 7 of {_p}'s scoreboard to "&6&l  &fLevel &e0"
+        set line 6 of {_p}'s scoreboard to "&6&l  &fMembers &e0"
+
+#function format(n: number) :: text:
+#	set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
+#	loop split {_data} at "|":
+#		set {_s::*} to split loop-value at ","
+#		{_n} >= 10 ^ {_s::2} parsed as number
+#		return "%{_n} / 10 ^ {_s::2} parsed as number%%{_s::1}%"
+#	return "%{_n}%"
+
+on join:
+    toggle player's scoreboard to on
+    set {show_info::%player%} to true
+
+
+command /toggle [<text>]:
+    trigger:
+        if {show_info::%player%} is not set:
+            set {show_info::%player%} to true
+            toggle player's scoreboard to on
+            send "&7Enabled your scoreboard." to player
+        else:
+            delete {show_info::%player%}
+            toggle player's scoreboard to off
+            send "&7Disabled your scoreboard." to player

@@ -1,0 +1,88 @@
+options:
+	permission: merchant.admin
+	no-permission: &7You must be &c&lADMIN &7or higher to use this command!
+command /backpack [<text>] [<offlineplayer>] [<text>]:
+	permission: {@permission}
+	permission message: {@no-permission}
+	trigger:
+		if arg 1 is set:
+			if arg 1 is "give":
+				if arg 3 is set:
+					if arg 3 is "Small":					
+						set {_bp.rows} to 1
+						add 1 to {merchant.bp.num}
+						set {_p} to "MHF_Chest" parsed as offlineplayer
+						add "&7A special portable bag with" to {_l::*}
+						add "&a9 &7slots which can hold any" to {_l::*}
+						add "&7items within." to {_l::*}
+						add "" to {_l::*}
+						add "&7ID: %{merchant.bp.num}%" to {_l::*}
+						add ({_p}'s skull) named "&aSmall Backpack" with lore {_l::*} to arg 2's inventory 
+						send "&e&l[!] &eYou've gave &71x Backpack with &a%{_bp.rows}% &arows&7 to %arg 2%"
+					else if arg 3 is "Medium":
+						set {_bp.rows} to 2
+						add 1 to {merchant.bp.num}
+						set {_p} to "MHF_Chest" parsed as offlineplayer
+						add "&7A special portable bag with" to {_l::*}
+						add "&a18 &7slots which can hold any" to {_l::*}
+						add "&7items within." to {_l::*}
+						add "" to {_l::*}
+						add "&7ID: %{merchant.bp.num}%" to {_l::*}
+						add ({_p}'s skull) named "&9Medium Backpack" with lore {_l::*} to arg 2's inventory 
+						send "&e&l[!] &eYou've gave &71x Backpack with &a%{_bp.rows}% &arows&7 to %arg 2%"
+					else if arg 3 is "Large":
+						set {_bp.rows} to 3
+						add 1 to {merchant.bp.num}
+						set {_p} to "MHF_Chest" parsed as offlineplayer
+						add "&7A special portable bag with" to {_l::*}
+						add "&a27 &7slots which can hold any" to {_l::*}
+						add "&7items within." to {_l::*}
+						add "" to {_l::*}
+						add "&7ID: %{merchant.bp.num}%" to {_l::*}
+						add ({_p}'s skull) named "&5Large Backpack" with lore {_l::*} to arg 2's inventory 
+						send "&e&l[!] &eYou've gave &71x Backpack with &a%{_bp.rows}% &arows&7 to %arg 2%"
+					else:
+						send "&c&l[!] &cCorrect Usage: /backpack Give %arg 2%&c [Size]"
+				else:
+					send "&c&l[!] &cCorrect Usage: /backpack Give [Player] [Size]"
+			else:
+				send "&c&l[!] &cCorrect Usage: /backpack Give [Player] [Size]"
+		else:
+			send "&c&l[!] &cCorrect Usage: /backpack Give [Player] [Size]"
+on right click:
+	if name of player's tool contains "Backpack":
+		cancel event
+		set {_2} to uncolored 2nd line of lore of player's tool
+		replace all " slots which can hold any" in {_2} with ""
+		set {_5} to uncolored 5th line of lore of player's tool
+		replace all "ID: " in {_5} with ""
+		if {_5} is set:
+			if {_2} is set:
+				open chest inventory with (({_2} parsed as integer) / 9) rows named "%name of player's tool%" to player
+				set {_n} to 0
+				loop {merchant.backpacks.items.%{_5}%::*}:
+					set slot {_n} of player's current inventory to loop-value
+					add 1 to {_n}
+				set {merchant.backpacks.open::%player%} to {_5}
+			else:
+				send ""
+				send "&c&l[!] &cThis backpack doesn't have a valid ID."
+				send "That's odd? Contact an admin."
+				send ""
+		else:
+			cancel event
+on inventory close:
+	if {merchant.backpacks.open::%player%} is set:
+		loop 54 times:
+			set {merchant.backpacks.items.%{merchant.backpacks.open::%player%}%::%loop-number - 1%} to slot "%loop-number - 1%" parsed as an integer of current inventory of player
+		delete {merchant.backpacks.open::%player%}
+on inventory click:
+	if {merchant.backpacks.open::%player%} is set:
+		if name of event-slot contains "Backpack":
+			cancel event
+			send "&c&l[!] &cYou cannot move a backpack while you have another backpack open!"
+
+on right click:
+	if name of player's offhand contains "Backpack":
+		cancel event
+		send "&c&l[!] &cYou cannot use a backpack in your offhand!"

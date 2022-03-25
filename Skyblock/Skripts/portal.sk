@@ -1,0 +1,7 @@
+on portal:
+	cancel event
+	if player is in world "ul_spawn":
+		if {island.owner::%player%} is set:
+			make player execute command "/is go"
+		else if {island.owner::%player%} is not set:
+			make player execute command "/start"

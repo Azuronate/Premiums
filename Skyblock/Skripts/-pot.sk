@@ -1,0 +1,7 @@
+command /debug-pot:
+    trigger:
+        give player 1 flower pot named "&fPot Full of Gems" with lore "", "&7&oRight-click to redeem the", "&7&ogems hidden away in this", "&7&overy ancient pot!", "" and "<##ff930f>&lL<##ffa012>&lE<##ffae19>&lG<##ffbb21>&lE<##ffc72b>&lN<##ffd436>&lD<##ffe041>&lA<##ffed4e>&lR<##fff95b>&lY"
+        give player 1 flower pot named "&fPot Full of Gems" with lore "", "&7&oRight-click to redeem the", "&7&ogems hidden away in this", "&7&overy ancient pot!", "" and "<##ec00ec>&lE<##f22af2>&lP<##f93ff9>&lI<##ff50ff>&lC"
+        give player 1 flower pot named "&fPot Full of Gems" with lore "", "&7&oRight-click to redeem the", "&7&ogems hidden away in this", "&7&overy ancient pot!", "" and "<##45abd8>&LR<##22c7ed>&LA<##00e3fa>&LR<##00e3fa>&LE"
+        give player 1 flower pot named "&fPot Full of Gems" with lore "", "&7&oRight-click to redeem the", "&7&ogems hidden away in this", "&7&overy ancient pot!", "" and "<##00db3b>&LU<##01e042>&LN<##01e549>&LC<##02ea50>&LO<##02ef57>&LM<##01f55e>&LM<##01fa64>&LO<##00ff6b>&LN"
+        give player 1 flower pot named "&fPot Full of Gems" with lore "", "&7&oRight-click to redeem the", "&7&ogems hidden away in this", "&7&overy ancient pot!", "" and "<##ababab>&LC<##bbbbbb>&LO<##cccccc>&LM<##dddddd>&LM<##eeeeee>&LO<##ffffff>&LN"

@@ -1,0 +1,316 @@
+# =================================================
+# Ultimate Pets
+# Developed by Adventure Studios for the Minehut Market
+# Requires SkBee & a permissions plugin
+# https://minehut.com/market/creator/adventure-studios - Team Minehut Marketplace profile
+# https://discord.gg/hFMugd6pVD - Official Team Discord
+# =================================================
+
+options: # These options configure the settings used in the game. Make sure to only change the text after the colon.
+
+# Need help? Check out the Gitbook: https://adventurestudios.gitbook.io/adventure-studios/
+
+# Prefix - We recommend you set this to your server's name. This will prefix most messages. Hex codes are available for 1.16+
+	prefix: <##7289DA>Adventure Studios &7»
+
+# Permission - The permissions required to use certain commands/functions
+	# Generic permission to access menu and manage your pet
+	perm: Ultimatepets.use
+
+# Admin Permission - Permission needed to utilize admin commands for managing pets server-wide
+	adminperm: Ultimatepets.admin
+
+# Sound - The sound played when interacting with things
+	# A valid sound list can be found here: http://www.theredengineer.com/1.9-playsound-list.html
+	sound: block.note_block.pling
+
+# Buff toggle - Select whether bonuses should be applied when pets are active
+	# Set to a boolean; true or false
+	buffs: true
+
+# Bonuses - The buff applied when a pet is active. Can be toggled off with the option above
+	# A valid effect list can be found here: https://skripthub.net/docs/?id=2161
+	bee: slow falling
+	elephant: resistance
+	squid: water breathing
+	basketball: jump boost
+	fox: swiftness
+	penguin: haste
+	hamburger: saturation
+
+
+
+
+
+# =================================================
+# Ultimate Pets Code
+# Do not edit anything below unless you know what you're doing
+#
+# Note for people acquainted with Skript: The spawnPet() function is not hard-coded. Feel free to make your own pet menu - see lines below:
+# Simply define an online player, skull-ID & name; the defined pet will spawn.
+# Format: spawnPet(player, "SkullID", "name")
+# If you're looking to get proper skull IDs, https://freshcoal.com/maincollection has a great list of heads. Just copy the correct portion of the NBT tag.
+# Just make sure to double the quotations!
+# =================================================
+
+on tab complete of "/pets" or "/Ultimatepets":
+	set tab completions for position 1 to "help", "menu", "despawn" and "clearall"
+
+command /pets [<text>]:
+	aliases: /ultimatepets
+	permission: {@perm}
+	permission message: &cYou lack the required permissions!
+	trigger:
+		if arg-1 is not set:
+			petsMenu(player)
+		else if arg-1 is "menu":
+			petsMenu(player)
+		else if arg-1 is "despawn":
+			if {ultimatepets::parrots::%uuid of player%} is set:
+				kill {ultimatepets::armorstands::%uuid of player%}
+				kill {ultimatepets::parrots::%uuid of player%}
+				delete {ultimatepets::armorstands::%uuid of player%}
+				delete {ultimatepets::parrots::%uuid of player%}
+				send "{@prefix} &aYour pet has been released into the wild."
+				play sound "{@sound}" at volume 0.75 with pitch 1.4 to player
+				resetEffects(player, "all")
+			else:
+				send "{@prefix} &cYou do not currently have a pet."
+				play sound "{@sound}" at volume 0.75 with pitch 0.7 to player
+		else if arg-1 is "clearall":
+			if player has permission "{@adminperm}":
+				clearPets()
+			else:
+				send "&cYou lack the required permission!"
+				play sound "{@sound}" at volume 0.75 with pitch 0.7 to player
+		else if arg-1 is "help":
+			send "%nl%{@prefix} &aPets Help%nl%&7%nl%&8| &e/pets help &7- &eBrings up this help page%nl%&8| &e/pets menu &7- &eOpen the pets menu%nl%&8| &e/pets despawn &7- &eDespawns your active pet%nl%&8| &e/pets clearall &7- &eForce-clears all pets%nl%"
+			play sound "{@sound}" at volume 0.75 with pitch 1.4 to player
+		else:
+			send "{@prefix} &cThis is not a valid syntax. Correct usage: &7&o/pets <menu|help|despawn|clearall>"
+			play sound "{@sound}" at volume 0.75 with pitch 0.7 to player
+
+on chat:
+	if event is not cancelled:
+		if {ultimatepets::choosing::%uuid of player%} is set:
+			if message does not contain " ":
+				if message is "cancel":
+					delete {ultimatepets::choosing::%uuid of player%}
+					send "{@prefix} &aPet selection successfully disabled."
+					play sound "{@sound}" at volume 0.75 with pitch 1.4 to {_p}
+				else:
+					delete {ultimatepets::choosing::%uuid of player%}
+					spawnPet(player, "custom, no ID needed", message)
+					play sound "{@sound}" at volume 0.75 with pitch 1.4 to {_p}
+			else:
+				send "{@prefix} &cYou cannot have spaces in the pet ID."
+				play sound "{@sound}" at volume 0.75 with pitch 0.7 to {_p}
+			cancel event
+
+on inventory click:
+	if event-inventory is (metadata tag "petsMenu" of player):
+		cancel event
+		if index of event-slot is 4:
+			# CUSTOM
+			if {ultimatepets::choosing::%uuid of player%} is not set:
+				play sound "{@sound}" at volume 0.75 with pitch 1.4 to {_p}
+				set {ultimatepets::choosing::%uuid of player%} to true
+				send "{@prefix} &aPlease type your desired pet's name in chat. Note that it must be a valid player or the pet will default to Steve. Expires in 10 seconds; type cancel to exit selection."
+				close inventory of player
+				wait 10 seconds
+				if {ultimatepets::choosing::%uuid of player%} is set:
+					delete {ultimatepets::choosing::%uuid of player%}
+					send "{@prefix} &cYour custom pet selection has timed out."
+			else:
+				send "{@prefix} &cYou are already in the pet selection stage!"
+				play sound "{@sound}" at volume 0.75 with pitch 0.7 to {_p}
+		if index of event-slot is 10:
+			# BEE
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:""bc1ca880-4dc5-4d17-9c05-027a7d3999b3"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQ3MzIyZjgzMWUzYzE2OGNmYmQzZTI4ZmU5MjUxNDRiMjYxZTc5ZWIzOWM3NzEzNDlmYWM1NWE4MTI2NDczIn19fQ==""}]}}}", "Bumblebee")
+			close inventory of player
+		else if index of event-slot is 11:
+			# ELEPHANT
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:""9a58e25a-cf47-447d-b13c-3ea36eccfa31"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzA3MWE3NmY2NjlkYjVlZDZkMzJiNDhiYjJkYmE1NWQ1MzE3ZDdmNDUyMjVjYjMyNjdlYzQzNWNmYTUxNCJ9fX0=""}]}}}", "Elephant")
+			close inventory of player
+		else if index of event-slot is 12:
+			# SQUID
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:""f95d9504-ea2b-4b89-b2d0-d40065"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMDE0MzNiZTI0MjM2NmFmMTI2ZGE0MzRiODczNWRmMWViNWIzY2IyY2VkZTM5MTQ1OTc0ZTljNDgzNjA3YmFjIn19fQ==""}]}}}", "Squid")
+			close inventory of player
+		else if index of event-slot is 13:
+			# BASKETBALL
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1702455456,-1532081748,-1785142986,-831210893],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWRmODQ3MTVhNjRkYzQ1NTg2ZjdhNjA3OWY4ZTQ5YTk0NzdjMGZlOTY1ODliNGNmZDcxY2JhMzIyNTRhYzgifX19""}]}}}", "Basketball")
+			close inventory of player
+		else if index of event-slot is 14:
+			# FOX
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1103256763,1904296847,-1492124469,-1081960743],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjYwMDhiMzM4ZjBhNTM0ZjkzNWQzYThiOWIxMjg5ZDNlZjAyMGZmZjJjODUzMThhYWI4NzU0Nzk0MTBjYzM0NiJ9fX0=""}]}}}", "Fox")
+			close inventory of player
+		else if index of event-slot is 15:
+			# PENGUIN
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:[I;866455505,1030704517,-1082850969,-1714443155],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2IxNzUwODhmZGYwZjZmZWU2ZTgzODZhYTVjNWM1MGVlYThmZTk5ZTBjODU5MjRlMjgwMDExODk0OWIzNDUyZCJ9fX0=""}]}}}", "Penguin")
+			close inventory of player
+		else if index of event-slot is 16:
+			# HAMBURGER
+			spawnPet(player, "{display:{Name:""Pet""},SkullOwner:{Id:""f597e06f-e01a-492d-b63f-c23b9809ce01"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzVlMjc5ODhhNjUzODAxMGVmYzBlMjQ3NTZiYzNlM2VlYTI0ZDc1MzZiMjA5MzJjMTdlMDQwNGU1Y2M1NWYifX19""}]}}}", "Hamburger")
+			close inventory of player
+		else if index of event-slot is 22:
+			if {ultimatepets::parrots::%uuid of player%} is set:
+				kill {ultimatepets::armorstands::%uuid of player%}
+				kill {ultimatepets::parrots::%uuid of player%}
+				delete {ultimatepets::armorstands::%uuid of player%}
+				delete {ultimatepets::parrots::%uuid of player%}
+				send "{@prefix} &aYour pet has been released into the wild."
+				play sound "{@sound}" at volume 0.75 with pitch 1.4 to player
+				resetEffects(player, "all")
+			else:
+				send "{@prefix} &cYou do not currently have a pet."
+				play sound "{@sound}" at volume 0.75 with pitch 0.7 to player
+
+function petsMenu(p: player):
+	play sound "{@sound}" at volume 0.75 with pitch 1.4 to {_p}
+	set metadata tag "petsMenu" of {_p} to chest inventory with 3 rows named "&e⭐ {@prefix} <##FFBA31>Pets"
+	set slot (integers between 0 and 27) of metadata tag "petsMenu" of {_p} to gray stained glass pane named "&7"
+	set slot 22 of metadata tag "petsMenu" of {_p} to structure void named "&cClear Pet" with lore "<##717171>Despawn your active pet."
+	if {@buffs} is not true:
+		set slot 4 of (metadata tag "petsMenu" of {_p}) to experience bottle named "<##00D1FF>Custom Pet" with lore "&7", "<##717171>Summon a custom pet." and "&7"
+		set slot 10 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""bc1ca880-4dc5-4d17-9c05-027a7d3999b3"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQ3MzIyZjgzMWUzYzE2OGNmYmQzZTI4ZmU5MjUxNDRiMjYxZTc5ZWIzOWM3NzEzNDlmYWM1NWE4MTI2NDczIn19fQ==""}]}}}" named "<##00D1FF>Bumblebee" with lore "&7", "<##717171>Summon a Bumblebee pet." and "&7"
+		set slot 11 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""9a58e25a-cf47-447d-b13c-3ea36eccfa31"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzA3MWE3NmY2NjlkYjVlZDZkMzJiNDhiYjJkYmE1NWQ1MzE3ZDdmNDUyMjVjYjMyNjdlYzQzNWNmYTUxNCJ9fX0=""}]}}}" named "<##00D1FF>Elephant" with lore "&7", "<##717171>Summon an Elephant pet." and "&7"
+		set slot 12 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""f95d9504-ea2b-4b89-b2d0-d40065"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMDE0MzNiZTI0MjM2NmFmMTI2ZGE0MzRiODczNWRmMWViNWIzY2IyY2VkZTM5MTQ1OTc0ZTljNDgzNjA3YmFjIn19fQ==""}]}}}" named "<##00D1FF>Squid" with lore "&7", "<##717171>Summon a Squid pet." and "&7"
+		set slot 13 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1702455456,-1532081748,-1785142986,-831210893],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWRmODQ3MTVhNjRkYzQ1NTg2ZjdhNjA3OWY4ZTQ5YTk0NzdjMGZlOTY1ODliNGNmZDcxY2JhMzIyNTRhYzgifX19""}]}}}" named "<##00D1FF>Basketball" with lore "&7", "<##717171>Summon a Basketball pet." and "&7"
+		set slot 14 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1103256763,1904296847,-1492124469,-1081960743],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjYwMDhiMzM4ZjBhNTM0ZjkzNWQzYThiOWIxMjg5ZDNlZjAyMGZmZjJjODUzMThhYWI4NzU0Nzk0MTBjYzM0NiJ9fX0=""}]}}}" named "<##00D1FF>Fox" with lore "&7", "<##717171>Summon a Fox pet." and "&7"
+		set slot 15 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;866455505,1030704517,-1082850969,-1714443155],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2IxNzUwODhmZGYwZjZmZWU2ZTgzODZhYTVjNWM1MGVlYThmZTk5ZTBjODU5MjRlMjgwMDExODk0OWIzNDUyZCJ9fX0=""}]}}}" named "<##00D1FF>Penguin" with lore "&7", "<##717171>Summon a Penguin pet." and "&7"
+		set slot 16 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""f597e06f-e01a-492d-b63f-c23b9809ce01"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzVlMjc5ODhhNjUzODAxMGVmYzBlMjQ3NTZiYzNlM2VlYTI0ZDc1MzZiMjA5MzJjMTdlMDQwNGU1Y2M1NWYifX19""}]}}}" named "<##00D1FF>Hamburger" with lore "&7", "<##717171>Summon a Hamburger pet." and "&7"
+	else:
+		set slot 4 of (metadata tag "petsMenu" of {_p}) to experience bottle named "<##00D1FF>Custom Pet" with lore "&7", "<##717171>Summon a custom pet." and "<##BFBFBF>Applies no effects while active." and "&7"
+		set slot 10 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""bc1ca880-4dc5-4d17-9c05-027a7d3999b3"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQ3MzIyZjgzMWUzYzE2OGNmYmQzZTI4ZmU5MjUxNDRiMjYxZTc5ZWIzOWM3NzEzNDlmYWM1NWE4MTI2NDczIn19fQ==""}]}}}" named "<##00D1FF>Bumblebee" with lore "&7", "<##717171>Summon a Bumblebee pet." and "<##BFBFBF>Applies <##00FF8B>{@bee}<##BFBFBF> while active." and "&7"
+		set slot 11 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""9a58e25a-cf47-447d-b13c-3ea36eccfa31"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzA3MWE3NmY2NjlkYjVlZDZkMzJiNDhiYjJkYmE1NWQ1MzE3ZDdmNDUyMjVjYjMyNjdlYzQzNWNmYTUxNCJ9fX0=""}]}}}" named "<##00D1FF>Elephant" with lore "&7", "<##717171>Summon an Elephant pet." and "<##BFBFBF>Applies <##00FF8B>{@elephant}<##BFBFBF> while active." and "&7"
+		set slot 12 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""f95d9504-ea2b-4b89-b2d0-d40065"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMDE0MzNiZTI0MjM2NmFmMTI2ZGE0MzRiODczNWRmMWViNWIzY2IyY2VkZTM5MTQ1OTc0ZTljNDgzNjA3YmFjIn19fQ==""}]}}}" named "<##00D1FF>Squid" with lore "&7", "<##717171>Summon a Squid pet." and "<##BFBFBF>Applies <##00FF8B>{@squid}<##BFBFBF> while active." and "&7"
+		set slot 13 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1702455456,-1532081748,-1785142986,-831210893],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWRmODQ3MTVhNjRkYzQ1NTg2ZjdhNjA3OWY4ZTQ5YTk0NzdjMGZlOTY1ODliNGNmZDcxY2JhMzIyNTRhYzgifX19""}]}}}" named "<##00D1FF>Basketball" with lore "&7", "<##717171>Summon a Basketball pet." and "<##BFBFBF>Applies <##00FF8B>{@basketball}<##BFBFBF> while active." and "&7"
+		set slot 14 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;-1103256763,1904296847,-1492124469,-1081960743],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjYwMDhiMzM4ZjBhNTM0ZjkzNWQzYThiOWIxMjg5ZDNlZjAyMGZmZjJjODUzMThhYWI4NzU0Nzk0MTBjYzM0NiJ9fX0=""}]}}}" named "<##00D1FF>Fox" with lore "&7", "<##717171>Summon a Fox pet." and "<##BFBFBF>Applies <##00FF8B>{@fox}<##BFBFBF> while active." and "&7"
+		set slot 15 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:[I;866455505,1030704517,-1082850969,-1714443155],Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2IxNzUwODhmZGYwZjZmZWU2ZTgzODZhYTVjNWM1MGVlYThmZTk5ZTBjODU5MjRlMjgwMDExODk0OWIzNDUyZCJ9fX0=""}]}}}" named "<##00D1FF>Penguin" with lore "&7", "<##717171>Summon a Penguin pet." and "<##BFBFBF>Applies <##00FF8B>{@penguin}<##BFBFBF> while active." and "&7"
+		set slot 16 of (metadata tag "petsMenu" of {_p}) to skull of {_p} with nbt "{display:{Name:""Pet""},SkullOwner:{Id:""f597e06f-e01a-492d-b63f-c23b9809ce01"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzVlMjc5ODhhNjUzODAxMGVmYzBlMjQ3NTZiYzNlM2VlYTI0ZDc1MzZiMjA5MzJjMTdlMDQwNGU1Y2M1NWYifX19""}]}}}" named "<##00D1FF>Hamburger" with lore "&7", "<##717171>Summon a Hamburger pet." and "<##BFBFBF>Applies <##00FF8B>{@hamburger}<##BFBFBF> while active." and "&7"
+	
+	open (metadata tag "petsMenu" of {_p}) to {_p}
+
+function spawnPet(p: player, id: text, name: text):
+	set {_u} to uuid of {_p}
+	if {_p} and {_id} and {_name} are set:
+		if {ultimatepets::parrots::%{_u}%} is set:
+			kill {ultimatepets::armorstands::%{_u}%}
+			kill {ultimatepets::parrots::%{_u}%}
+			delete {ultimatepets::armorstands::%{_u}%}
+			delete {ultimatepets::parrots::%{_u}%}
+		if {@buffs} is true:
+			resetEffects({_p}, "all")
+			if {_name} = "Bumblebee":
+				apply {@bee} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Elephant":
+				apply {@elephant} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Squid":
+				apply {@squid} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Basketball":
+				apply {@basketball} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Fox":
+				apply {@fox} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Penguin":
+				apply {@penguin} of tier 1 without particles to {_p} for 111111 seconds
+			else if {_name} is "Hamburger":
+				apply {@hamburger} of tier 1 without particles to {_p} for 111111 seconds
+		send "{@prefix} &aYour %uncolored {_name}%&a was successfully spawned." to {_p}
+		spawn an armor stand at location of {_p}
+		add "{Invisible:1b,Invulnerable:1b,NoBasePlate:1b,NoGravity:1b,Small:1b}" to nbt of spawned armor stand
+		if {_name} is "Bumblebee" or "Elephant" or "Squid" or "Basketball" or "Fox" or "Penguin" or "Hamburger":
+			set helmet of spawned armor stand to skull of {_p} with nbt {_id}
+			set display name of spawned armor stand to "<##FFB448>%uncolored display name of {_p}%'s %uncolored {_name}%"
+		else:
+			set helmet of spawned armor stand to ("%{_name}%" parsed as offline player)'s skull
+			set display name of spawned armor stand to "<##FFB448>%uncolored display name of {_p}%'s Pet"
+		set {ultimatepets::armorstands::%{_u}%} to spawned armor stand
+		spawn a parrot at location of {_p}
+		silence spawned parrot
+		apply invisibility of tier 1 without particles to spawned parrot for 111111 seconds
+		set {ultimatepets::parrots::%{_u}%} to spawned parrot
+		play sound "{@sound}" at volume 0.75 with pitch 1.4 to {_p}
+		while {ultimatepets::parrots::%{_u}%} is alive:
+			if (distance between {ultimatepets::parrots::%{_u}%} and {_p}) is less than 12.5:
+				set path target with speed (distance between {ultimatepets::parrots::%{_u}%} and {_p} / 3) of {ultimatepets::parrots::%{_u}%} to (location 1 above {_p})
+			else:
+				teleport {ultimatepets::parrots::%{_u}%} to (location of block above {_p})
+				delete path target of {ultimatepets::parrots::%{_u}%}
+			teleport {ultimatepets::armorstands::%{_u}%} to {ultimatepets::parrots::%{_u}%}
+			add "{Pose:{Head:[%pitch of {ultimatepets::parrots::%{_u}%}%f,0f,0f]}}" to nbt of {ultimatepets::armorstands::%{_u}%}
+			wait 1 tick
+		if {@buffs} is true:
+			resetEffects({_p}, "%{_name}%")
+	else:
+		send "{@prefix} &cAn error occured while spawning your pet." to {_p}
+
+function resetEffects(p: player, name: text):
+	if {_name} is "Bumblebee":
+		remove {@bee} from {_p}
+	else if {_name} is "Elephant":
+		remove {@elephant} from {_p}
+	else if {_name} is "Squid":
+		remove {@squid} from {_p}
+	else if {_name} is "Basketball":
+		remove {@basketball} from {_p}
+	else if {_name} is "Fox":
+		remove {@fox} from {_p}
+	else if {_name} is "Penguin":
+		remove {@penguin} from {_p}
+	else if {_name} is "Hamburger":
+		remove {@hamburger} from {_p}
+	else if {_name} is "all":
+		remove {@bee} from {_p}
+		remove {@elephant} from {_p}
+		remove {@squid} from {_p}
+		remove {@basketball} from {_p}
+		remove {@fox} from {_p}
+		remove {@penguin} from {_p}
+		remove {@hamburger} from {_p}
+
+on disconnect:
+	resetEffects(player, "all")
+	delete {ultimatepets::choosing::%uuid of player%}
+
+function clearPets():
+	loop all players:
+		resetEffects(loop-player, "all")
+	loop {ultimatepets::parrots::*}:
+		kill loop-value
+	loop {ultimatepets::armorstands::*}:
+		kill loop-value
+	delete {ultimatepets::armorstands::*}
+	delete {ultimatepets::parrots::*}
+	broadcast "{@prefix} &cAll pets have been forcefully cleared."
+	play sound "{@sound}" at volume 0.75 with pitch 0.7 to all players
+
+on unload:
+	wait 3 ticks
+	clearPets()
+
+on target:
+	if {ultimatepets::parrots::*} or {ultimatepets::armorstands::*} contains event-entity:
+		if target is not a player:
+			cancel event
+
+on right click on armor stand or parrot:
+	if {ultimatepets::armorstands::*} contains event-entity:
+		cancel event
+	else if {ultimatepets::parrots::*} contains event-entity:
+		cancel event
+
+on damage of parrot or armor stand:
+	if {ultimatepets::parrots::*} contains victim:
+		cancel event
+	else if {ultimatepets::parrots::*} contains victim:
+		cancel event
+
+on death:
+	if {ultimatepets::parrots::*} contains the victim:
+		cancel the drops
+
+on disconnect:
+	kill {ultimatepets::parrots::%uuid of player%}
+	kill {ultimatepets::armorstands::%uuid of player%}
+	delete {ultimatepets::armorstands::%uuid of player%}
+	delete {ultimatepets::parrots::%uuid of player%}

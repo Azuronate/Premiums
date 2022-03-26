@@ -53,8 +53,8 @@ This is a github with all source code and internal documents of PREMIUMS Servers
     Formats the chat to include: Ranks, Item formatting ([item]), Player Statics, Pinging, and Message Blocking (Includes set words + Preventing muted players from messaging) 
 </details>
 <details>
-    <summary>Core.sk</summary>
-    Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`, `/tp`, and `/clearlag`
+<summary>Core.sk</summary>
+Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`, `/tp`, and `/clearlag`
 </details>
 <details>
     <summary>Crates.sk</summary>

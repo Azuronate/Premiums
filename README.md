@@ -39,7 +39,6 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Go to `<your server folder>/plugins/skript/scripts` paste
 - You can do `/sk reload scripts` or restart the server
 
-
 ```
 1GB Server:
 java -Xmx1024M -Xms1024M -jar paper.jar nogui

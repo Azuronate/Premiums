@@ -1,4 +1,4 @@
-# Premiums
- The best server on all of Minehut. With the best features and the best quality. 
+# Premiums Network
+This is a github with all source code and internal documents of PREMIUMS Servers. Including Images, Skripts, Plugins, Configs, Worlds, and more. 
 
-# THIS IS INTERNAL SOURCE CODE OF PREMIUMS 
+# DO NOT DISTRIBUTE 

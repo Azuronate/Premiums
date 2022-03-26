@@ -53,8 +53,8 @@ This is a github with all source code and internal documents of PREMIUMS Servers
     Formats the chat to include: Ranks, Item formatting ([item]), Player Statics, Pinging, and Message Blocking (Includes set words + Preventing muted players from messaging) 
 </details>
 <details>
-<summary>Core.sk</summary>
-Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`, `/tp`, and `/clearlag`
+    <summary>Core.sk</summary>
+    Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`, `/tp`, and `/clearlag`
 </details>
 <details>
     <summary>Crates.sk</summary>
@@ -85,9 +85,10 @@ Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`
 <details>
     <summary>Island.sk</summary>
     This behemoth skript handles ALL island generations, island setups, island co-ops, island chatting, island bounds, island homes, island values, island resetting, island visiting/island control, island upgrades, island leaderboard data, and placement of island value blocks. 
-    <br>
-    This skript needs a target world, to create this world do `/mv create ul_islands normal -g 
+    ```
+    >This skript needs a target world, to create this world do `/mv create ul_islands normal -g 
     VoidGenerator:PLAINS -t FLAT`
+    ```
 </details>
 
 ```

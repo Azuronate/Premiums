@@ -5,6 +5,7 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 
 # How to install
 **Installing a local Paper server**
+> You don't have to do this if you're using a server provider (Ex: Minehut)
 - Install [Java 17](https://www.oracle.com/java/technologies/downloads/#java17)
 - Create a folder to put the below items in
 - Install [PaperMC 1.17.1](https://papermc.io/legacy)
@@ -15,9 +16,10 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Once the first set of files appears, close the cmd line
 - Open the `eula.txt` file and agree to it by turning `eula=false` -> `eula=true`
 - Save the `eula.txt` file
-- Run the `run.bat` file and startup the server (You will run this file every time to boot up the server)
+- Run the `run.bat` file and startup the server **(You will run this file every time to boot up the server)**
 
-**Connecting to the server**
+**Connecting to the server (Paper only)**
+> For a server provider use the ip given to you
 - Open a new cmd line in admin mode
 - Type `ipconfig` hit enter
 - Copy the address after this: `IPv4 Address. . . . . . . . . . . :`
@@ -32,6 +34,7 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Make sure you go to every config folder, copy the files, and replace them within designated plugin config folders.
 
 **Installing worlds**
+> Some worlds like spawns have to have the gamerule `/gamerule randomtickspeed 0` as soon you enter so that leaves don't decay
 - Go to `Premiums/<designated server>/Worlds` and copy every folder
 - Go to `<your server folder>/` and paste
 - Restart the server

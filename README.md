@@ -32,6 +32,7 @@ java -Xmx4096M -Xms4096M -jar paper.jar nogui
 PAUSE
 ```
 </details>
+
 - Delete the `run.txt` file
 - Run the `run.bat` file
 - Once the first set of files appears, close the cmd line

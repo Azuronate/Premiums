@@ -50,7 +50,41 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 
 <details>
     <summary>Chat.sk</summary>
-    Test
+    Formats the chat to include: Ranks, Item formatting ([item]), Player Statics, Pinging, and Message Blocking (Includes set words + Preventing muted players from messaging) 
+</details>
+<details>
+    <summary>Core.sk</summary>
+    Handles first joins, joins/quits, bossbars, and basic commands such as: `/spawn`, `/tp`, and `/clearlag`
+</details>
+<details>
+    <summary>Crates.sk</summary>
+    Contains the necessary events and commands to make crates at spawn work. 
+</details>
+<details>
+    <summary>Daily.sk</summary>
+    A daily reward system for logging on. Uses our DiSky "API" to make sure the player is linked via Discord, and makes sure to give them rewards. 
+</details>
+<details>
+    <summary>Disky.sk</summary>
+    > You do need to make a bot if not already, and put the API key in from discord development panel
+    This is our Disky "API". It hosts our bots and connects them to the server. It keeps tracking of linked players, and regular players. It fetches data from Minecraft and presents them on Discord with embeds and or text via commands. There are various commands and discord commands such as: `/link`, `/unlink`, `.link`, `!health`, `!reactions`, `!rules`, `!purge`, `.suggestion`, `.istop`, and `.baltop. *(Note: `!` is an admin command, and `.` is a global command, anyone can use it)*.
+</details>
+<details>
+    <summary>Donor.sk</summary>
+    Keeps track of donations from Tebex. It hosts an updating npc with the recent donor at spawn. Though we don't use this often. 
+</details>
+<details>
+    <summary>Eco.sk</summary>
+    Hosts most of our economy commands, balance leaderboards, and use of banknotes. Players can also withdraw their money into banknotes, and admins can handel any players balance or gems. 
+</details>
+<details>
+    <summary>Gemshop.sk</summary>
+    A GUI shop that allows players to buy various items with their gems. 
+</details>
+<details>
+    <summary>Island.sk</summary>
+    > This skript needs a target world, to create this world do `/mv create ul_islands normal -g VoidGenerator:PLAINS -t FLAT`
+    This behemoth skript handles ALL island generations, island setups, island co-ops, island chatting, island bounds, island homes, island values, island resetting, island visiting/island control, island upgrades, island leaderboard data, and placement of island value blocks. 
 </details>
 
 ```

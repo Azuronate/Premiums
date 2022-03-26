@@ -67,7 +67,7 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 <details>
     <summary>Disky.sk</summary>
     > You do need to make a bot if not already, and put the API key in from discord development panel
-
+    <br>
     This is our Disky "API". It hosts our bots and connects them to the server. It keeps tracking of linked players, and regular players. It fetches data from Minecraft and presents them on Discord with embeds and or text via commands. There are various commands and discord commands such as: `/link`, `/unlink`, `.link`, `!health`, `!reactions`, `!rules`, `!purge`, `.suggestion`, `.istop`, and `.baltop. *(Note: `!` is an admin command, and `.` is a global command, anyone can use it)*.
 </details>
 <details>

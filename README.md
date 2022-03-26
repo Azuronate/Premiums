@@ -66,10 +66,9 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 </details>
 <details>
     <summary>Disky.sk</summary>
-    ```
-    You do need to make a bot if not already, and put the API key in from discord development panel
-    ```
     This is our Disky "API". It hosts our bots and connects them to the server. It keeps tracking of linked players, and regular players. It fetches data from Minecraft and presents them on Discord with embeds and or text via commands. There are various commands and discord commands such as: `/link`, `/unlink`, `.link`, `!health`, `!reactions`, `!rules`, `!purge`, `.suggestion`, `.istop`, and `.baltop. *(Note: `!` is an admin command, and `.` is a global command, anyone can use it)*.
+    <br>
+    You do need to make a bot if not already, and put the API key in from discord development panel
 </details>
 <details>
     <summary>Donor.sk</summary>
@@ -85,11 +84,10 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 </details>
 <details>
     <summary>Island.sk</summary>
-    ```
+    This behemoth skript handles ALL island generations, island setups, island co-ops, island chatting, island bounds, island homes, island values, island resetting, island visiting/island control, island upgrades, island leaderboard data, and placement of island value blocks. 
+    <br>
     This skript needs a target world, to create this world do `/mv create ul_islands normal -g 
     VoidGenerator:PLAINS -t FLAT`
-    ```
-    This behemoth skript handles ALL island generations, island setups, island co-ops, island chatting, island bounds, island homes, island values, island resetting, island visiting/island control, island upgrades, island leaderboard data, and placement of island value blocks. 
 </details>
 
 ```

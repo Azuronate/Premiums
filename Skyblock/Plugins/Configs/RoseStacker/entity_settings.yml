@@ -1,0 +1,704 @@
+BAT:
+  enabled: true
+  display-name: Bat
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-sleeping: false
+BEE:
+  enabled: true
+  display-name: Bee
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-angry: false
+  dont-stack-if-has-hive: false
+  dont-stack-if-different-hives: false
+  dont-stack-if-stung: false
+  dont-stack-if-has-flower: false
+  dont-stack-if-has-nectar: false
+BLAZE:
+  enabled: true
+  display-name: Blaze
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+CAT:
+  enabled: true
+  display-name: Cat
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-sitting: false
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-type: false
+  dont-stack-if-different-collar-color: false
+CAVE_SPIDER:
+  enabled: true
+  display-name: Cave Spider
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+CHICKEN:
+  enabled: true
+  display-name: Chicken
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  multiply-egg-drops-by-stack-size: true
+COD:
+  enabled: true
+  display-name: Cod
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+COW:
+  enabled: true
+  display-name: Cow
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+CREEPER:
+  enabled: true
+  display-name: Creeper
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-charged: false
+DOLPHIN:
+  enabled: true
+  display-name: Dolphin
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+DONKEY:
+  enabled: true
+  display-name: Donkey
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+  dont-stack-if-chested: false
+DROWNED:
+  enabled: true
+  display-name: Drowned
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+ELDER_GUARDIAN:
+  enabled: true
+  display-name: Elder Guardian
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+ENDER_DRAGON:
+  enabled: false
+  display-name: Ender Dragon
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+ENDERMAN:
+  enabled: true
+  display-name: Enderman
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-holding-block: false
+ENDERMITE:
+  enabled: true
+  display-name: Endermite
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+EVOKER:
+  enabled: true
+  display-name: Evoker
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+FOX:
+  enabled: true
+  display-name: Fox
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-sitting: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-type: false
+GHAST:
+  enabled: true
+  display-name: Ghast
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+GIANT:
+  enabled: true
+  display-name: Giant
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+GUARDIAN:
+  enabled: true
+  display-name: Guardian
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+HOGLIN:
+  enabled: true
+  display-name: Hoglin
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-unhuntable: false
+HORSE:
+  enabled: true
+  display-name: Horse
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+  dont-stack-if-armored: false
+  dont-stack-if-different-style: false
+  dont-stack-if-different-color: false
+HUSK:
+  enabled: true
+  display-name: Husk
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+ILLUSIONER:
+  enabled: true
+  display-name: Illusioner
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+IRON_GOLEM:
+  enabled: true
+  display-name: Iron Golem
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-player-created: false
+LLAMA:
+  enabled: true
+  display-name: Llama
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+  dont-stack-if-chested: false
+  dont-stack-if-different-decor: false
+  dont-stack-if-different-color: false
+MAGMA_CUBE:
+  enabled: true
+  display-name: Magma Cube
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-size: false
+MULE:
+  enabled: true
+  display-name: Mule
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+  dont-stack-if-chested: false
+MUSHROOM_COW:
+  enabled: true
+  display-name: Mooshroom
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-type: false
+OCELOT:
+  enabled: true
+  display-name: Ocelot
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+PANDA:
+  enabled: true
+  display-name: Panda
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-main-gene: false
+  dont-stack-if-different-recessive-gene: false
+PARROT:
+  enabled: true
+  display-name: Parrot
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-sitting: false
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-type: false
+PHANTOM:
+  enabled: true
+  display-name: Phantom
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-size: false
+PIGLIN_BRUTE:
+  enabled: true
+  display-name: Piglin Brute
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+  dont-stack-if-immune-to-zombification: false
+PIGLIN:
+  enabled: true
+  display-name: Piglin
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+  dont-stack-if-unable-to-hunt: false
+  dont-stack-if-immune-to-zombification: false
+PIG:
+  enabled: true
+  display-name: Pig
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+PILLAGER:
+  enabled: true
+  display-name: Pillager
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+POLAR_BEAR:
+  enabled: true
+  display-name: Polar Bear
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+PUFFERFISH:
+  enabled: true
+  display-name: Pufferfish
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-inflation: false
+RABBIT:
+  enabled: true
+  display-name: Rabbit
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-type: false
+RAVAGER:
+  enabled: true
+  display-name: Ravager
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+SALMON:
+  enabled: true
+  display-name: Salmon
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+SHEEP:
+  enabled: true
+  display-name: Sheep
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-color: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-sheared: false
+  shear-all-sheep-in-stack: true
+  percentage-of-wool-to-regrow-per-grass-eaten: 25
+SHULKER:
+  enabled: true
+  display-name: Shulker
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-color: false
+SKELETON_HORSE:
+  enabled: true
+  display-name: Skeleton Horse
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+SKELETON:
+  enabled: true
+  display-name: Skeleton
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+SLIME:
+  enabled: true
+  display-name: Slime
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-size: false
+SNOWMAN:
+  enabled: true
+  display-name: Snow Golem
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-no-pumpkin: false
+SPIDER:
+  enabled: true
+  display-name: Spider
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+SQUID:
+  enabled: true
+  display-name: Squid
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+STRAY:
+  enabled: true
+  display-name: Stray
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+STRIDER:
+  enabled: true
+  display-name: Strider
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-shivering: false
+  dont-stack-if-saddled: false
+TRADER_LLAMA:
+  enabled: true
+  display-name: Trader Llama
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+  dont-stack-if-chested: false
+  dont-stack-if-different-decor: false
+  dont-stack-if-different-color: false
+TROPICAL_FISH:
+  enabled: true
+  display-name: Tropical Fish
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-body-color: false
+  dont-stack-if-different-pattern: false
+  dont-stack-if-different-pattern-color: false
+TURTLE:
+  enabled: true
+  display-name: Turtle
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+VEX:
+  enabled: true
+  display-name: Vex
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-charging: false
+VILLAGER:
+  enabled: true
+  display-name: Villager
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-trading: false
+  dont-stack-if-different-profession: false
+  dont-stack-if-different-type: false
+  dont-stack-if-different-level: false
+VINDICATOR:
+  enabled: true
+  display-name: Vindicator
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+WANDERING_TRADER:
+  enabled: true
+  display-name: Wandering Trader
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-trading: false
+WITCH:
+  enabled: true
+  display-name: Witch
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-patrol-leader: false
+WITHER_SKELETON:
+  enabled: true
+  display-name: Wither Skeleton
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+WITHER:
+  enabled: false
+  display-name: Wither
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+WOLF:
+  enabled: true
+  display-name: Wolf
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-sitting: false
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-angry: false
+  dont-stack-if-different-collar-color: false
+ZOGLIN:
+  enabled: true
+  display-name: Zoglin
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: false
+ZOMBIE_HORSE:
+  enabled: true
+  display-name: Zombie Horse
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-tamed: false
+  dont-stack-if-different-owners: false
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-saddled: false
+ZOMBIE:
+  enabled: true
+  display-name: Zombie
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+ZOMBIE_VILLAGER:
+  enabled: true
+  display-name: Zombie Villager
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-profession: false
+  dont-stack-if-converting: false
+  dont-stack-if-different-age: false
+ZOMBIFIED_PIGLIN:
+  enabled: true
+  display-name: Zombified Piglin
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-angry: false
+  dont-stack-if-different-age: false
+SILVERFISH:
+  enabled: false
+  display-name: '&e&lMINER &e&lROBOT'
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+AXOLOTL:
+  enabled: true
+  display-name: Axolotl
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-different-color: false
+  dont-stack-if-playing-dead: false
+GLOW_SQUID:
+  enabled: true
+  display-name: Glow Squid
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-dark: false
+GOAT:
+  enabled: true
+  display-name: Goat
+  min-stack-size: -1
+  max-stack-size: -1
+  kill-entire-stack-on-death: default
+  merge-radius: -1
+  dont-stack-if-different-age: true
+  dont-stack-if-baby: false
+  dont-stack-if-breeding: false
+  dont-stack-if-screaming: false

@@ -1,0 +1,725 @@
+#      __________                      _________ __                 __                 
+#      \______   \ ____  ______ ____  /   _____//  |______    ____ |  | __ ___________ 
+#       |       _//  _ \/  ___// __ \ \_____  \\   __\__  \ _/ ___\|  |/ // __ \_  __ \
+#       |    |   (  <_> )___ \\  ___/ /        \|  |  / __ \\  \___|    <\  ___/|  | \/
+#       |____|_  /\____/____  >\___  >_______  /|__| (____  /\___  >__|_ \\___  >__|   
+#              \/           \/     \/        \/           \/     \/     \/    \/       
+
+# The locale to use in the /locale folder
+# Default: en_US
+locale: en_US
+
+# A list of worlds that the plugin is disabled in
+disabled-worlds:
+  - ul_spawn
+
+# How often should we try to stack nearby entities?
+# Higher values mean longer times between checks, but also less lag
+# If you are having issues with TPS, increase this value
+# Values are in ticks, do not set lower than 1
+# Default: 100
+stack-frequency: 100
+
+# How often should we try to stack nearby items?
+# Values are in ticks, do not set lower than 1
+# Default: 20
+item-stack-frequency: 20
+
+# How often should we update stacked entity nametags?
+# Default: 30
+nametag-update-frequency: 30
+
+# How often should we autosave all loaded stack data?
+# Value is measured in minutes, set to -1 to disable
+# Default: 15
+autosave-frequency: 15
+
+# Global entity settings
+# Changed values in entity_settings.yml will override these values
+global-entity-settings:
+
+  # Should entity stacking be enabled at all?
+  # Default: true
+  stacking-enabled: true
+
+  # Should entities try to be stacked instantly upon spawning?
+  # Setting this to false may yield better performance at the cost of entities being visible before stacking
+  # Default: true
+  instant-stack: true
+
+  # The minimum number of nearby entities required to form a stack
+  # Do not set this lower than 2
+  # Default: 2
+  min-stack-size: 2
+
+  # The maximum number of entities that can be in a single stack
+  # Default: 128
+  max-stack-size: 2500
+
+  # How close do entities need to be to merge with each other?
+  # Default: 5
+  merge-radius: 5
+
+  # Should we merge all similar entities into a single stack per chunk?
+  # This setting overrides the above
+  # Default: false
+  merge-entire-chunk: false
+
+  # Should only individual entities be counted for the min-stack-size requirement?
+  # When false, an existing stack larger than min-stack-size can have other mobs stack into it
+  # Default: false
+  min-stack-count-only-individuals: false
+
+  # Should tags be displayed above stacks to show their amount and type?
+  # Default: true
+  display-tags: true
+
+  # Should tags be displayed if the stack only has one entity?
+  # Default: false
+  display-tags-single: false
+
+  # Do stacks need to be hovered over for their tags to be visible?
+  # Default: false
+  display-tags-hover: false
+
+  # Should the entity custom name be visible with the stack size?
+  # Default: true
+  display-tags-custom-name: true
+
+  # Should the entire stack of entities always be killed when the main entity dies?
+  # Default: false
+  kill-entire-stack-on-death: true
+
+  # Under what conditions should the entire stack be killed when the main entity dies?
+  # If kill-entire-stack-on-death is true, this setting will not be used
+  # Valid conditions can be found here:
+  # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+  kill-entire-stack-on-death-conditions:
+    - FALL
+
+  # Should knockback be transferred to the next entity in the stack?
+  # Default: true
+  kill-transfer-velocity: true
+
+  # Should a corpse appear when a mob in the stack dies?
+  # This is the red death animation that appears when a mob dies
+  # Default: true
+  display-corpse: true
+
+  # Should all animals in a stack be bred together with as much food as they can?
+  # Please note that this setting is not perfect, it is here to make breeding more simple for players
+  # For best baby animal support, set dont-stack-if-baby to true for each breedable entity type in entity_settings.yml
+  # Default: true
+  cumulative-breeding: true
+
+  # Under what conditions will the damage be propagated through the whole stack?
+  # Valid conditions can be found here:
+  # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+  share-damage-conditions:
+    - MAGIC
+
+  # Should items be dropped for all entities when an entire stack is killed at once?
+  # Default: true
+  drop-accurate-items: true
+
+  # Should exp be dropped for all entities when an entire stack is killed at once?
+  # Default: true
+  drop-accurate-exp: true
+
+  # Should newly stacked entities be put on the bottom of the stack?
+  # Default: false
+  stack-to-bottom: false
+
+  # Do entities need to be able to see each other to be able to stack?
+  # Setting this to true will prevent entities from stacking through walls
+  # Default: true
+  require-line-of-sight: true
+
+  # Should the entire stack of entities be transformed when the main entity is transformed?
+  # This applies to pigs getting struck by lightning, zombies drowning, etc
+  # Default: true
+  transform-entire-stack: true
+
+  # Do entities have to be on the ground in order to stack?
+  # This does not apply if the mobs can fly or live in the water
+  # Default: false
+  only-stack-on-ground: false
+
+  # Should we stack entities if they are in the water?
+  # This does not apply if the mobs can fly or live in the water
+  # Default: false
+  dont-stack-if-in-water: false
+
+  # Should we stack entities if they are leashed?
+  # You will still be able to leash stacks, it will just prevent them from stacking into other stacks
+  # This can cause some weird effects if disabled
+  # Default: true
+  dont-stack-if-leashed: true
+
+  # Should we stack entities if they are invulnerable?
+  # Default: true
+  dont-stack-if-invulnerable: true
+
+  # Should we stack entities with custom names?
+  # Default: false
+  dont-stack-custom-named: false
+
+  # Should we stack entities that are part of an active raid?
+  # This may cause issues when loading entities if disabled
+  # Default: true
+  dont-stack-if-active-raider: true
+
+  # Should flying mobs always be stacked downwards?
+  # This is useful for mob grinders
+  # Default: false
+  stack-flying-downwards: false
+
+  # Should we only stack entities spawned from spawners?
+  # Default: false
+  only-stack-from-spawners: false
+
+  # Should an entity death event be triggered for each mob in a stack?
+  # If you use custom drops plugins, make sure to enable this
+  # Note to developers: The death events are asynchronous based on the below setting
+  # Default: false
+  trigger-death-event-for-entire-stack-kill: false
+
+  # Should the entity loot be calculated asynchronously?
+  # If you try enabling this and you get errors that say something like '<SomeEvent> may only be triggered synchronously'
+  # and has RoseStacker in the stacktrace, you should keep this as false.
+  # Set this as true for optimal performance if you are not having issues.
+  # Default: false
+  death-event-trigger-async: false
+
+  # This will cause only a single death event to run which will save resources but
+  # also make it so rare drops can drop significantly more often since the
+  # drops will be multiplied by the stack size.
+  # Note: This only applies to custom loot
+  # Default: false
+  multiply-custom-loot: false
+
+  # Should entities with disabled AI be killed instantly when receiving damage from a player?
+  # Default: false
+  instant-kill-disabled-ai: false
+
+  # Should entity stacks split into individual mobs if the stack size goes below the min-stack-size setting?
+  # Default: false
+  min-split-if-lower: false
+
+# Global item settings
+# Changed values in item_settings.yml will override these values
+global-item-settings:
+
+  # Should item stacking be enabled at all?
+  # Default: true
+  stacking-enabled: true
+
+  # The maximum number of items that can be in a single stack
+  # Default: 1024
+  max-stack-size: 1024
+
+  # How close do items need to be to merge with each other?
+  # Default: 2.5
+  merge-radius: 2.5
+
+  # Should tags be displayed above stacks to show their amount and type?
+  # Default: true
+  display-tags: true
+
+  # Should tags be displayed if the stack only has one item?
+  # Default: false
+  display-tags-single: false
+
+  # Should items with custom names be shown on their tags?
+  # Default: true
+  display-custom-names: true
+
+  # Should the color of custom names be shown on their tags?
+  # Default: true
+  display-custom-names-color: true
+
+  # Should items with a custom name always display their tags?
+  # This mirrors vanilla behavior
+  # Default: true
+  display-custom-names-always: true
+
+# Global block settings
+# Changed values in block_settings.yml will override these values
+global-block-settings:
+
+  # Should block stacking be enabled at all?
+  # Default: true
+  stacking-enabled: true
+
+  # The maximum number of blocks that can be in a single stack
+  # Default: 2048
+  max-stack-size: 2048
+
+  # Should tags be displayed above stacks to show their amount and type?
+  # Default: true
+  display-tags: true
+
+  # Should stacked blocks be protected from explosions?
+  # Default: true
+  explosion-protection: true
+
+  # If enabled, only the stack size will decrease from explosions, no items will be dropped
+  # Default: true
+  explosion-decrease-stack-size-only: true
+
+  # The percentage chance of blocks getting destroyed from an explosion (0-100)
+  # Default: 10.0
+  explosion-destroy-chance: 10.0
+
+  # The percentage of blocks in the stack that will be destroyed from an explosion
+  # If a stack of 10 blocks is exploded with a chance of 50.0, 5 blocks will be saved
+  # Default: 50.0
+  explosion-amount-percentage: 50.0
+
+  # The fixed amount of blocks in the stack to destroy
+  # If this is set to 1 or greater, overrides explosion-amount-percentage
+  # If a stack of 10 blocks is exploded with a fixed amount of 3, 7 blocks will be saved
+  # Default: -1
+  explosion-amount-fixed: -1
+
+  # Should blocks be dropped directly into the player's inventory when broken?
+  # Default: false
+  drop-to-inventory: false
+
+  # Should the entire stack be broken if the player is sneaking?
+  # Default: true
+  break-entire-stack-while-sneaking: true
+
+  # Should the entire stack be broken into individual blocks?
+  # Default: true
+  break-entire-stack-into-separate: true
+
+  # Should a GUI to edit the stack open when the player shift-right-clicks the stack?
+  # Default: true
+  gui-enabled: true
+
+  # What material should be used for the border of the GUI?
+  # If you want no border, set it to AIR
+  # Default: BLUE_STAINED_GLASS_PANE
+  gui-border-material: BLUE_STAINED_GLASS_PANE
+
+# Global spawner settings
+# Changed values in spawner_settings.yml will override these values
+global-spawner-settings:
+
+  # Should RoseStacker handle spawners?
+  # Disabling this will prevent spawners from stacking and being handled entirely.
+  # If you don't want spawners to stack but still want them handled
+  # by RoseStacker, set the max-stack-size to 1 instead.
+  # Default: true
+  stacking-enabled: true
+
+  # The maximum number of spawners that can be in a single stack
+  # Default: 32
+  max-stack-size: 100000
+
+  # Should tags be displayed above stacks to show their amount and type?
+  # Default: true
+  display-tags: true
+
+  # Should tags be displayed if the stack only has one spawner?
+  # Default: false
+  display-tags-single: false
+
+  # Should stacks of size one show the amount on their tags if enabled?
+  # Default: false
+  display-tags-single-amount: false
+
+  # Should mob AI be disabled for mobs spawned by spawners?
+  # Default: false
+  disable-mob-ai: false
+
+  # Should mobs spawned from spawners be prevented from attacking anything?
+  # Default: false
+  disable-attacking: false
+
+  # How many random blocks should we check to spawn a mob before giving up?
+  # Default: 50
+  max-failed-spawn-attempts: 50
+
+  # Should spawners turn off when powered by redstone?
+  # Default: false
+  deactivate-when-powered: false
+
+  # Should spawners be protected from explosions?
+  # Default: true
+  explosion-protection: true
+
+  # If enabled, only the stack size will decrease from explosions, no items will be dropped
+  # Default: true
+  explosion-decrease-stack-size-only: true
+
+  # The percentage chance of spawners getting destroyed from an explosion (0-100)
+  # Default: 10.0
+  explosion-destroy-chance: 10.0
+
+  # The percentage of spawners in the stack that will be destroyed from an explosion
+  # If a stack of 10 spawners is exploded with a chance of 50.0, 5 blocks will be saved
+  # Default: 50.0
+  explosion-amount-percentage: 50.0
+
+  # The fixed amount of spawners in the stack to destroy
+  # If this is set to 0 or greater, overrides explosion-amount-percentage
+  # If a stack of 10 spawners is exploded with a fixed amount of 3, 7 blocks will be saved
+  # Default: -1
+  explosion-amount-fixed: -1
+
+  # Should spawners be dropped directly into the player's inventory when broken?
+  # Default: false
+  drop-to-inventory: false
+
+  # Should spawners always drop when broken in creative mode?
+  # Default: false
+  drop-in-creative: false
+
+  # Should the entire stack be broken if the player is sneaking?
+  # Default: true
+  break-entire-stack-while-sneaking: true
+
+  # Should the entire stack be broken into individual spawners?
+  # Default: false
+  break-entire-stack-into-separate: false
+
+  # Should advanced silk touch permissions be used?
+  # Requires silk-touch-require-permission to be enabled for the silk touch permissions
+  # This will enable the following permissions:
+  # - rosestacker.silktouch.<entityType>
+  # - rosestacker.nosilk.<entityType>
+  # - rosestacker.spawnerplace.<entityType>
+  # Default: false
+  silk-touch-advanced-permissions: false
+
+  # Should silk touch be required to pick up spawners?
+  # Default: false
+  silk-touch-required: false
+
+  # The chance that spawners will be picked up with a silk touch tool
+  # You may use rosestacker.silktouch.chance.<#> to use a custom percent chance through a permission
+  # The highest number between the config and permissions will be used
+  # Use a whole number value between 0 and 100
+  # Default: 100
+  silk-touch-chance: 100
+
+  # Should only natural spawners have a chance of being picked up with silk touch?
+  # If enabled, player-placed spawners will always have a 100% chance of being picked up with silk touch
+  # Default: false
+  silk-touch-only-natural: false
+
+  # Should silk touch of level II or higher be guaranteed to pick up the spawner?
+  # Default: true
+  silk-touch-guarantee: true
+
+  # Should the permission rosestacker.silktouch be required
+  # to be able to pick up spawners with silk touch?
+  # Default: false
+  silk-touch-require-permission: false
+
+  # Should spawners be protected from being destroyed without silk touch?
+  # A message will be sent to the player explaining why it cannot be broken
+  # Default: false
+  silk-touch-protect: false
+
+  # How close should spawners have to be placed to auto stack together?
+  # A value of -1 will disable this setting
+  # Default: -1
+  auto-stack-range: -1
+
+  # Should particles be displayed when auto stacking spawners together?
+  # Useful for letting the player know where their spawner just went
+  # Default: true
+  auto-stack-particles: true
+
+  # Should the same number of spawn eggs as the spawner stack be required for conversion?
+  # Default: false
+  convert-require-same-amount: false
+
+  # How many mobs should spawn per stacked spawner?
+  # Will use spawner tile value if set to -1
+  # Default: 4
+  spawn-count-stack-size-multiplier: 4
+
+  # Should the amount of mobs spawned be randomized between the stack size and the max spawn amount?
+  # Default: true
+  spawn-count-stack-size-randomized: true
+
+  # The minimum number of ticks between spawn attempts
+  # Will use spawner tile value if set to -1
+  # Default: 200
+  spawn-delay-minimum: 200
+
+  # The maximum number of ticks between spawn attempts
+  # Will use spawner tile value if set to -1
+  # Default: 800
+  spawn-delay-maximum: 800
+
+  # If more than this number of entities are near the spawner, it will not spawn anything
+  # This only counts the individual mobs, and not the stack size
+  # Can be overridden for each spawner type using the max-nearby-entities:# spawn requirement
+  # Default: 6
+  spawn-max-nearby-entities: 6
+
+  # How far away from the spawner should we search for nearby entities when using max-nearby-entities?
+  # A value of -1 will make this setting use the same value as the spawn range
+  # Default: -1
+  spawn-entity-search-range: -1
+
+  # How close do players need to be to activate the spawner?
+  # Will use spawner tile value if set to -1
+  # Default: 16
+  spawn-player-activation-range: 16
+
+  # How far away can entities be spawned from the spawner?
+  # Will use spawner tile value if set to -1
+  # Default: 4
+  spawn-range: 4
+
+  # Should mobs spawned from spawners spawn directly into nearby stacks?
+  # Default: true
+  spawn-into-nearby-stacks: true
+
+  # Should the vertical spawn range use the horizontal spawn range?
+  # Entities normally only spawn one block above and below the spawner
+  # Default: false
+  use-vertical-spawn-range: false
+
+  # When enabled, this will force the 'air' condition tag onto the
+  # spawner if it doesn't have 'fluid' or 'air' already
+  # Disabling this will allow mobs to spawn into blocks unless
+  # you explicitly add the 'fluid' or 'air' tags.
+  # Default: true
+  dont-spawn-into-blocks: true
+
+  # Should patrol leaders be prevented when spawning potential raid member mobs?
+  # Default: false
+  nerf-patrol-leaders: false
+
+  # When enabled, the entire stack size of entities will be taken into account for nearby entiites
+  # When disabled, only one entity per stack will count towards nearby entities
+  # Default: false
+  max-nearby-entities-include-stacks: false
+
+  # Should a GUI to view the spawner information open when the player shift-right-clicks the stack?
+  # Default: true
+  gui-enabled: true
+
+  # How often should the time before next spawn message be updated?
+  # Value is measured in ticks, do not go below 1
+  # Default: 2
+  gui-tick-update-rate: 2
+
+  # What material should be used for the border of the GUI?
+  # Default: GRAY_STAINED_GLASS_PANE
+  gui-border-material: GRAY_STAINED_GLASS_PANE
+
+  # What material should be used for the top right and bottom left corners of the GUI?
+  # Default: LIGHT_BLUE_STAINED_GLASS_PANE
+  gui-border-corner-material: GRAY_STAINED_GLASS_PANE
+
+  # What material should be used for the corner accents of the GUI?
+  # Default: BLUE_STAINED_GLASS_PANE
+  gui-border-accent-material: GRAY_STAINED_GLASS_PANE
+
+  # What material should the spawner stats icon be?
+  # Default: BOOK
+  gui-spawner-stats-material: BOOK
+
+  # What material should the central icon be?
+  # Default: SPAWNER
+  gui-central-material: CLOCK
+
+  # What material should the valid spawn conditions icon be?
+  # Default: EMERALD_BLOCK
+  gui-valid-spawn-conditions-material: SLIME_SPAWN_EGG
+
+  # What material should the invalid spawn conditions icon be?
+  # Default: REDSTONE_BLOCK
+  gui-invalid-spawn-conditions-material: MOOSHROOM_SPAWN_EGG
+  disable-mob-ai-options:
+
+    # Should mob goals be removed? This includes movement and targeting
+    # Default: true
+    remove-goals: true
+
+    # Should mobs be silenced so they don't make any sounds?
+    # Default: true
+    silence: true
+
+    # Should knockback be disabled?
+    # Default: true
+    no-knockback: true
+
+    # Should mobs with disabled AI be able to breed?
+    # Default: true
+    disable-breeding: true
+
+    # Should the entire stack of mobs be killed on death?
+    # This will only apply to mobs with disabled AI and overwrites any other settings.
+    # Default: false
+    kill-entire-stack-on-death: false
+
+    # Should undead mobs be able to burn in the daylight?
+    # Default: false
+    undead-burn-in-daylight: false
+
+  # Should only spawners placed by players spawn mobs with disabled AI?
+  # disable-mob-ai must be enabled for this to work
+  # Default: false
+  disable-mob-ai-only-player-placed: false
+
+# Settings that apply to the tags above stacks
+# These settings require their respective display-tags settings to be set to true to function
+# These settings run at the same frequency as the stack-frequency setting
+# If you are seeing impacts to server performance, consider disabling these settings
+dynamic-tag-settings:
+
+  # Should entity tags be hidden when the player is a certain distance away?
+  # Note: This overrides global-entity-settings.display-tags-hover if enabled
+  # Default: true
+  entity-dynamic-tag-view-range-enabled: true
+
+  # Should item tags be hidden when the player is a certain distance away?
+  # Default: true
+  item-dynamic-tag-view-range-enabled: true
+
+  # Should block/spawner tags be hidden when the player is a certain distance away?
+  # Default: true
+  block-dynamic-tag-view-range-enabled: true
+
+  # How far away should a player be able to see entity tags?
+  # Default: 32
+  entity-dynamic-tag-view-range: 32
+
+  # How far away should a player be able to see item tags?
+  # Default: 32
+  item-dynamic-tag-view-range: 32
+
+  # How far away should a player be able to see block/spawner tags?
+  # Default: 32
+  block-dynamic-tag-view-range: 32
+
+  # Should entity tags be hidden if they are out of view?
+  # Default: true
+  entity-dynamic-tag-view-range-wall-detection-enabled: true
+
+  # Should item tags be hidden if they are out of view?
+  # Default: true
+  item-dynamic-tag-view-range-wall-detection-enabled: true
+
+  # Should block/spawner tags be hidden if they are out of view?
+  # Default: true
+  block-dynamic-tag-view-range-wall-detection-enabled: true
+
+# Settings that apply to the item given from '/rs stacktool'
+stack-tool-settings:
+
+  # The material of the stacking tool
+  # Default: STICK
+  material: STICK
+
+  # The name to display on the stacking tool
+  # Default: <g:#ed3737:#ffaf3e>Stacking Tool
+  name: <g:#ed3737:#ffaf3e>Stacking Tool
+
+  # The lore to display on the stacking tool
+  lore:
+    - '&bLeft Click:'
+    - '&7- &eSelect two mobs to test if they can stack together.'
+    - '&bShift Left Click:'
+    - '&7- &eView stack details, works on all stack types.'
+    - '&bRight Click:'
+    - '&7- &eToggle if a mob is stackable or not.'
+    - '&bShift Right Click:'
+    - '&7- &eMark an entire entity stack as unstackable.'
+    - '&7- &eThis will cause everything to unstack.'
+    - '&bWhile Held:'
+    - '&7- &eA particle will appear above nearby mobs.'
+    - '&7- &aGreen &emeans the mob can stack.'
+    - '&7- &cRed &emeans the mob can not stack.'
+
+# Miscellaneous other settings for the plugin
+misc-settings:
+
+  # Should a custom WorldGuard region named 'rosestacker' be registered and used to test entity stacking?
+  # Entity stacking within regions will only work if the result is ALLOW
+  # This setting will only be updated after a restart
+  # Default: false
+  worldguard-region: false
+
+  # If CoreProtect is installed, should we log stacked block/spawner break/placing?
+  # Default: true
+  coreprotect-logging-enabled: true
+
+  # If LogBlock is installed, should we log stacked block/spawner break/placing?
+  # Default: true
+  logblock-logging-enabled: true
+
+  # If Clearlag is installed, should we clear stacked entities?
+  # Default: false
+  clearlag-clear-entities: false
+
+  # If Clearlag is installed, should we clear stacked items?
+  # Default: false
+  clearlag-clear-items: false
+
+  # Should single mobs be removed with `/rs clearall`?
+  # This will also affect the clearlag-clear-entities setting above
+  # Default: false
+  clearall-remove-single: false
+
+  # Should mobs owned by MythicMobs be allowed to stack?
+  # This is recommended to keep set to false unless you specifically only change mob attributes
+  # If you are keeping mob attributes, remember to enable global-entity-settings.save-attributes
+  # Default: false
+  mythicmobs-allow-stacking: false
+
+# Settings for if you want to use MySQL for data management
+mysql-settings:
+
+  # Enable MySQL
+  # If false, SQLite will be used instead
+  # Default: false
+  enabled: false
+
+  # MySQL Database Hostname
+  # Default: 
+  hostname: ''
+
+  # MySQL Database Port
+  # Default: 3306
+  port: 3306
+
+  # MySQL Database Name
+  # Default: 
+  database-name: ''
+
+  # MySQL Database User Name
+  # Default: 
+  user-name: ''
+
+  # MySQL Database User Password
+  # Default: 
+  user-password: ''
+
+  # If the database connection should use SSL
+  # You should enable this if your database supports SSL
+  # Default: false
+  use-ssl: false
+
+  # The number of connections to make to the database
+  # Default: 3
+  connection-pool-size: 3
+
+# That's everything! You reached the end of the configuration.
+# Enjoy the plugin!
+# Should data from versions of RoseStacker older than v1.3.0 be updated to the new format?
+# Disabling this will also disable any active stack plugin converters that are active
+# Disabling this can provide a large performance boost, but it may be needed if your server is still updating data from an old RoseStacker version
+# Default: true
+legacy-data-migration: true
+
+# Options to apply to mobs with disabled AI

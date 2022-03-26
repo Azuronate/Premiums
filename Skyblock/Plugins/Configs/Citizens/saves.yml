@@ -1,0 +1,275 @@
+# Citizens NPC Storage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+last-created-npc-id: 102
+npc:
+  '98':
+    metadata:
+      cached-skin-uuid-name: 0cb7f28f-dafc-420f-a125-fae5c23644a0
+      cached-skin-uuid: 067e0596-52fa-4ff2-a44f-bfe06e517a15
+      nameplate-visible: 'false'
+    name: islandnpc
+    uuid: 940c6a03-8830-4010-804a-e575e71463a7
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: K2FWPI0SNgIROFarSMUsLxbzY9Xtd2ZiXEkOLshymicNWP+t1fT1qI0QLqpvozT2uWR/b2tchDZPjgY7lvVLlXoeFBOqFlo8qOqRPGAYqkO0OUgfhLNQ5uyOynoDjVXV9Rv6I0M4NrmLejEMKjr/QHddozW4xlE9QvMtcyJBnGiXvz9AOcsuRj1j055O53zKYI+uhw7XrOZJfIGQ5cYLEMcHWw5o6XVsOkT2fsrW6qcJo3gITWcQM03ccO4tWgbb8NQ3zzPNBhTJp3OF+Ms5sSz9rqoUYogW9s5bdcJXFZXu1n4KdjUL+NczuDwQ+mBCcNY8NFrs7HuOCbM8MPa68f0JGIsIAy6yLlpn3t3CesGEOAoo4L1U/dfGru/ScuhKD7cR5ioAARwadZwJ8C/HmBuklBAQ/8zMFqIIBV+XnO2ALUaiWzZITJxVUkH3tnTumX/3VXXo1J/E+SxixqzSWnaGIYLVHqgK3S5pTTbDtqYCfKd72qV0Wx8OanNxRv1mUkcv5YFsaZX1u9cygfv7az+PbG2kxILUz91sayW0CEM84Tni1vSuWc4VnlGsIohMCUf+jnDGk/K/6xKuZh94K1z2NCjC3aGWM3pWeAwGw3y4WYYZ408aHJYJptdpCzklMI7kyxliete4U0KtF7oLzToJliVP312NiYeXq33PqQk=
+        skinName: 0cb7f28f-dafc-420f-a125-fae5c23644a0
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMzE4MjA4OTMzOCwKICAicHJvZmlsZUlkIiA6ICJlNzkzYjJjYTdhMmY0MTI2YTA5ODA5MmQ3Yzk5NDE3YiIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVfSG9zdGVyX01hbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xZjI5OTkxZTEwMWExOWIzMzUxNGY0MWQxNzY5MGUyZjRmMWJiZjhlMjQ4YWNjYmYyM2E0MDlkOGQ2Y2Y1NWRiIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+        updateSkins: false
+      location:
+        bodyYaw: -93.06201
+        world: ul_spawn
+        x: '320.5'
+        y: '159.0'
+        z: '91.5'
+        yaw: '-91.1322'
+        pitch: '2.6413'
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: false
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      owner:
+        owner: Ninja_Talon
+        uuid: 49941e05-a77d-4e01-92a7-06ee58b8d401
+    traitnames: spawned,owner,type,skintrait,location,scoreboardtrait,lookclose,mounttrait,inventory,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '100':
+    metadata:
+      cached-skin-uuid-name: 6a940076-4441-4f86-8181-207dc50e2fa4
+      nameplate-visible: 'false'
+    name: storenpc
+    uuid: 2af678ec-fe9a-4de8-af17-16d981b93897
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: kiuUNxK8iFaftZsqhX9DVNXG9lKb772DVBtahBBYfgYav9t/bgQDKq8vboTJZpXTEQzXXk1k/8hinR4bBddMqOV/BER53P34BjDHuz1CkAeqUeVm+DRHiTjOStRXaQbrgORACYIGc2/OxAYfBBlHYBvxYz+r3W8OP5Xjffjd9bcH9ZxsVgN6V9GQbWSqtF7D9KBTvC8y+qGMW15iUm8PMvfzurNygUJkjSJmAZTBjUagVa5YZZPmzoTdpFS8XlU4xzgTp8q3o/l77TxEkF+oxah0FOxU0DUT2Jb2gIsZGKAEOh4ou1BlYPXJo0GwhaVH9nF5VU4/LTVoKMyu4HYlx4rBt6jr0AOTLI0IR3hsy2z1ANb3ddp5GH0BN+I5kqJhIm/orKpPxz4rFQJjdjunSkjh4PHXLDmlOj57NVbx40u+X5Ki8yIcqSdaBkdkV90sGjqtI0HAddi5XX/3Oo4KszfrJnQ2UACS95BGTSktubxbNb47s8Gt0omyzWIlWRjtGyjw+7kwVkmHxZ5B0HCA0lVws2Fts81mJtoR+xecJtcx4p1yopT4+8a2FlTgemQLMv538DGDu68lZ5hqij4SBuFxCJVx+iHitd5efjdR+qd62WoevcSfKev98g4Y5i71cSDMlth+UWR/eT4wvr/vqSY/y4rT/BJfOX+TCwcuzdY=
+        skinName: 6a940076-4441-4f86-8181-207dc50e2fa4
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNDc3ODg3NTIxMCwKICAicHJvZmlsZUlkIiA6ICJjNTBhZmE4YWJlYjk0ZTQ1OTRiZjFiNDI1YTk4MGYwMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJUd29FQmFlIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2E4ZDdlODUwODJkMWY3YzQzNmVhOTUzNzFjODM5Y2M0MTk0ZTc0YzUxOTQ2Yzk0MGY1ZTZiNjczNjM5OWY3OGIiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+        updateSkins: false
+      location:
+        bodyYaw: -50.716026
+        world: ul_spawn
+        x: '319.5'
+        y: '159.0'
+        z: '83.5'
+        yaw: '-90.716'
+        pitch: '0.0333'
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: false
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      owner:
+        owner: Ninja_Talon
+        uuid: 49941e05-a77d-4e01-92a7-06ee58b8d401
+    traitnames: spawned,owner,type,skintrait,location,scoreboardtrait,lookclose,mounttrait,inventory,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '99':
+    metadata:
+      cached-skin-uuid-name: 5c3c6db4-af88-4a21-98f8-fd1dfd8ba530
+      nameplate-visible: 'false'
+    name: shopnpc
+    uuid: 0e8b7aba-2da9-42ac-b8b2-f3c3882a6eae
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: TOSy9ai675IveW1XCzDTnmQ10+kv3s2uKwboFrBQQOybO4vkPi/2IiEAqJfn+73GV5qUag+2SyVmOG9ZXPSgWGXnqKs2Mw8hfHbMI2dEwP49LMOxgD1SsZfaTSk776fBsqvMLDEBCjy1DDyeUDqMD8EK2JoQ4nJw0+Ivof4lXEAvROGV1XpZHhA5KdFf7gERnRLLFhI9JY8zoU5QX2AQT8InV5PJDEZTe514WgMj7fZGTHHBsvKeow/g9QsHVzdCOuoHzoQrHtMptmMGMEvLjg6VS+r/iqnvHjlbPXAighZw08H0hh2+FDNxSyhj+15wXrxC7xUd9jE8/BnBcKL8sRcSq0DLl0ta4x5tZkwr66xveUT1tUmWYBoGcq+ERwnXN3SCLdlu8+GX0wbHpSjbJkVKzqkfchHeg0WkmyRwWZ7RnRg53SH327apV/QJRavzWLi8DL/Zrsh00O3piGGPNSHDrrcB4cbrhenomypdffYuh0CKeB+itNIlysyLKGPXRWMp+qPvs+Hmy6oKwxpDAkPa1STEyxj/pHt1Xha7jPRDEYmuQelI8UMPVuaxhm4KjpNlzdIOsfSoHSSCaDCBu/Z/iYxGR2MbOFbZjh6LUmyL1c75qbaxCHAKfJQI2yz4pRBoNaImykdyHpTcu2ta5DSqvs3upnW2meolOOmsy/I=
+        skinName: 5c3c6db4-af88-4a21-98f8-fd1dfd8ba530
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTU4OTY1MTk1Mjg3NywKICAicHJvZmlsZUlkIiA6ICI1YzNjNmRiNGFmODg0YTIxOThmOGZkMWRmZDhiYTUzMCIsCiAgInByb2ZpbGVOYW1lIiA6ICJEYWthbjgyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzMwM2ZkZDI1NzYzYjNkNDc1ZTA5ZjhiZjVhNDJlODY4M2U0OGFiNzMyM2EzY2M1NDJiYjhkOTlhZTRiNzAzYjkiCiAgICB9CiAgfQp9
+        updateSkins: false
+      location:
+        bodyYaw: -91.707275
+        world: ul_spawn
+        x: '319.5'
+        y: '159.0'
+        z: '87.5'
+        yaw: '-90.2953'
+        pitch: '0.0'
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: false
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      owner:
+        owner: Ninja_Talon
+        uuid: 49941e05-a77d-4e01-92a7-06ee58b8d401
+    traitnames: spawned,owner,type,location,skintrait,scoreboardtrait,lookclose,mounttrait,inventory,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '101':
+    metadata:
+      cached-skin-uuid-name: f60538d7-eb6d-47b5-91fa-d8e762198e45
+      nameplate-visible: 'false'
+    name: gamblenpc
+    uuid: 57ef0eed-4cc3-4672-aaca-b7ad0439c9c5
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: iv7xN+Er5JHhRLVC7ZtqyWOSQpZw7s/zi7X5idspQF4OAnoDTyg44Bq7aSX6LoLdVh3J4hHiYhL2BOQi2Swwt3pg9v6oAU/ztxTTeEYnVNfRQoHLcol2Nyw9R4bcNAl645Hn0SNAS3sBcZKT/skfwe9pn9oZ1pHTEQ/p2FioOHtEk7EbHlOrvilGw6LB4O9GnmLDnURqBneAYKBUXIvWoCdArKnvybVZoNrxiAIAjpoRiJBgHlPeMGFw3fWppn38da9pk7C5ceBspRaPg4BU0DOGkuPy2nm0ZrHnqPlH1nhBW0Wl/u3cm4BcTkTbtyu95qxQKefkZ61MjwJKUGfD7Eo1GTbYIP9TnT6DOslZt7dMrACBzKMNh+R0JjEwfXqJdqsF4bqT908cBLcqU5R5miRwsxxT84zs3Qe2LkWUfQqEVYKx4615pSGH5+VQqxNd0KARhVcHHbDZSOrj5qPaByEmn4GzWjZDeD/PbICK1CDIzfwYbATsqULyVjA6+uL3VbMkgpcmcGbe2MhhoQfWFbhxxKxV5cGfSlKgORw54G94PhJTuLlSHsuIobMUo7WT0hGQUpbVbNqji47xO0A7OV1UffBY8TnODLuqnId4m8nyYiU/DDdsDWY6BWA4LBAypaKy2RJVm16pzhILPSvWVIvJGquO1s71FWpAmrh/Bc0=
+        skinName: f60538d7-eb6d-47b5-91fa-d8e762198e45
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNjg2MDAwMzAwNSwKICAicHJvZmlsZUlkIiA6ICI0ZGU4MjQxNjJkZTU0MzU5YWFlMDBmMzQ1ZmMyZTY0MSIsCiAgInByb2ZpbGVOYW1lIiA6ICJOYXRoYW5fS2luZyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9hNWY2NzAxMmYwYmZkMTcxNTYzMjRmYzE5MjJhMzVkNDM0NWM0MDk5OGFkZDU5OGJjZTkzNGQwOTg1MzY1NTdmIgogICAgfQogIH0KfQ==
+        updateSkins: false
+      location:
+        bodyYaw: -50.070328
+        world: ul_spawn
+        x: '320.5'
+        y: '159.0'
+        z: '79.5'
+        yaw: '-90.0703'
+        pitch: '0.0394'
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: false
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      owner:
+        owner: Ninja_Talon
+        uuid: 49941e05-a77d-4e01-92a7-06ee58b8d401
+    traitnames: spawned,owner,type,skintrait,location,scoreboardtrait,lookclose,mounttrait,inventory,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '102':
+    metadata:
+      cached-skin-uuid-name: crops
+      cached-skin-uuid: 4a5ed33d-50a2-4a89-b9b7-35cafa7bcc3d
+      nameplate-visible: 'false'
+    name: farmer
+    uuid: ab7dba80-0597-482c-a4cf-54407d40bd29
+    traits:
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: diamond_hoe
+          amount: 1
+          durability: 0
+      location:
+        bodyYaw: 101.31467
+        world: ul_spawn
+        x: '367.5086'
+        y: '158.0'
+        z: '100.7811'
+        yaw: '66.3719'
+        pitch: '0.0'
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: diamond_hoe
+          amount: 1
+          durability: 0
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: false
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      skintrait:
+        fetchDefaultSkin: true
+        signature: Q0ceR8aL3HGibWzVzmLik6UPK8jRHWu/sDjCPEwr3FIswiV3iSU1TTohbesfYawm6BFIX6x8kGMlYUztBS4ig06DFbCp0JqDpujcQ6GWlMxsA+8BlTExoW0AkBKQJumBvDMl5PrI6bJlK6nFNS0u3lGKg/66g/9ol5CEGhVVlHLJ8mqZkAsA/vM9EVvGkmGn40aXQctcOdoAuLwpYelX/5wctL6iWCCwpHEqcmcwzf9ejgEIN3USXLc6QYOyVW47XXPJyEN+TPEmzfN2wwhimZEbgL1dBa8LNmFtUQ3+5zCnP2I/14FirkAO8KHEja5uoDlql//8j7cwNxkWnq5aqXrNd/x73OZnxE1Jhv5djSNeO3porFOh9ypGruFx1izNMSKx94otomNDYHCrwPIMRi746JSrgTH1qU5SREbettRj3KMPowmMNDrIfDasEXR43ImCKZjQZazMZNpR89sPjidObebRtzzPa+9dWirha7FSrgrVwQLRPWot5AnrpCAwcla0UBKQdp+q82xTNxwZ/i8dSA/J2sKuEaEFdxrqWrtkmzt4cyQYYINhhX6a0zG4Q49mZS/D0b6g/yg8XIEeu3CgXnrORk1bJ+mPL2axNfWJ1dZluUxMqyTMB7MLYgScXf9qTPZHjt+Ttjl8pnUkbxQR+XYG/jx8WTzrpXNFVk0=
+        skinName: crops
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNjg3MjAwNTEyMiwKICAicHJvZmlsZUlkIiA6ICI0YTVlZDMzZDUwYTI0YTg5YjliNzM1Y2FmYTdiY2MzZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJjcm9wcyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83YThhYjIyNjdhZTQ0M2U4M2IwNWUzYThkNjdiOGI3NjBhZGZhYWQzMzVjOTA0NzMzOGMwZTE3NzRhNjVjMzcyIgogICAgfQogIH0KfQ==
+        updateSkins: false
+      type: PLAYER
+      spawned: true
+      owner:
+        owner: Ninja_Talon
+        uuid: 49941e05-a77d-4e01-92a7-06ee58b8d401
+    traitnames: spawned,owner,type,skintrait,location,scoreboardtrait,lookclose,mounttrait,inventory,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true

@@ -1,0 +1,51 @@
+Groups:
+  owner:
+    Permission: displayname.Owner
+    Prefix: '&6&lOWNER &7|&f '
+    Suffix: '&f'
+    SortPriority: 1
+  admin:
+    Permission: displayname.Admin
+    Prefix: '&#F32121&lADMIN &7|&f '
+    Suffix: '&f'
+    SortPriority: 2
+  mod:
+    Permission: displayname.Mod
+    Prefix: '&d&lMOD &7|&f '
+    Suffix: '&f'
+    SortPriority: 3
+  helper:
+    Permission: displayname.Helper
+    Prefix: '&a&lHELPER &7|&f '
+    Suffix: '&f'
+    SortPriority: 4
+  amethyst:
+    Permission: displayname.Amethyst
+    Prefix: '&#DA04B1&lAMETHYST &7|&f '
+    Suffix: '&f'
+    SortPriority: 5
+  ruby:
+    Permission: displayname.Ruby
+    Prefix: '&#FF6666&lRUBY &7|&f '
+    Suffix: '&f'
+    SortPriority: 6
+  diamond:
+    Permission: displayname.Diamond
+    Prefix: '&#19C8FB&lDIAMOND &7|&f '
+    Suffix: '&f'
+    SortPriority: 7
+  sapphire:
+    Permission: displayname.Sapphire
+    Prefix: '&#056AF6&lSAPPHIRE &7|&f '
+    Suffix: '&f'
+    SortPriority: 8
+  pearl:
+    Permission: displayname.Pearl
+    Prefix: '&f&lPEARL &7|&f '
+    Suffix: '&f'
+    SortPriority: 9
+  default:
+    Permission: displayname.None
+    Prefix: '&7'
+    Suffix: '&f'
+    SortPriority: 10

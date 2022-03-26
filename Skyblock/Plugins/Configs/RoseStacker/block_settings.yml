@@ -1,0 +1,1392 @@
+ACACIA_LEAVES:
+  enabled: false
+  display-name: Acacia Leaves
+  max-stack-size: -1
+ACACIA_LOG:
+  enabled: false
+  display-name: Acacia Log
+  max-stack-size: -1
+ACACIA_PLANKS:
+  enabled: false
+  display-name: Acacia Planks
+  max-stack-size: -1
+ACACIA_WOOD:
+  enabled: false
+  display-name: Acacia Wood
+  max-stack-size: -1
+ANCIENT_DEBRIS:
+  enabled: false
+  display-name: Ancient Debris
+  max-stack-size: -1
+ANDESITE:
+  enabled: false
+  display-name: Andesite
+  max-stack-size: -1
+BAMBOO:
+  enabled: false
+  display-name: Bamboo
+  max-stack-size: -1
+BARRIER:
+  enabled: false
+  display-name: Barrier
+  max-stack-size: -1
+BASALT:
+  enabled: false
+  display-name: Basalt
+  max-stack-size: -1
+BEDROCK:
+  enabled: false
+  display-name: Bedrock
+  max-stack-size: -1
+BIRCH_LEAVES:
+  enabled: false
+  display-name: Birch Leaves
+  max-stack-size: -1
+BIRCH_LOG:
+  enabled: false
+  display-name: Birch Log
+  max-stack-size: -1
+BIRCH_PLANKS:
+  enabled: false
+  display-name: Birch Planks
+  max-stack-size: -1
+BIRCH_WOOD:
+  enabled: false
+  display-name: Birch Wood
+  max-stack-size: -1
+BLACKSTONE:
+  enabled: false
+  display-name: Blackstone
+  max-stack-size: -1
+BLACK_CONCRETE:
+  enabled: false
+  display-name: Black Concrete
+  max-stack-size: -1
+BLACK_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Black Glazed Terracotta
+  max-stack-size: -1
+BLACK_STAINED_GLASS:
+  enabled: false
+  display-name: Black Stained Glass
+  max-stack-size: -1
+BLACK_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Black Stained Glass Pane
+  max-stack-size: -1
+BLACK_TERRACOTTA:
+  enabled: false
+  display-name: Black Terracotta
+  max-stack-size: -1
+BLACK_WOOL:
+  enabled: false
+  display-name: Black Wool
+  max-stack-size: -1
+BLUE_CONCRETE:
+  enabled: false
+  display-name: Blue Concrete
+  max-stack-size: -1
+BLUE_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Blue Glazed Terracotta
+  max-stack-size: -1
+BLUE_ICE:
+  enabled: false
+  display-name: Blue Ice
+  max-stack-size: -1
+BLUE_STAINED_GLASS:
+  enabled: false
+  display-name: Blue Stained Glass
+  max-stack-size: -1
+BLUE_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Blue Stained Glass Pane
+  max-stack-size: -1
+BLUE_TERRACOTTA:
+  enabled: false
+  display-name: Blue Terracotta
+  max-stack-size: -1
+BLUE_WOOL:
+  enabled: false
+  display-name: Blue Wool
+  max-stack-size: -1
+BONE_BLOCK:
+  enabled: false
+  display-name: Bone Block
+  max-stack-size: -1
+BOOKSHELF:
+  enabled: false
+  display-name: Bookshelf
+  max-stack-size: -1
+BRAIN_CORAL_BLOCK:
+  enabled: false
+  display-name: Brain Coral Block
+  max-stack-size: -1
+BRICKS:
+  enabled: false
+  display-name: Bricks
+  max-stack-size: -1
+BROWN_CONCRETE:
+  enabled: false
+  display-name: Brown Concrete
+  max-stack-size: -1
+BROWN_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Brown Glazed Terracotta
+  max-stack-size: -1
+BROWN_MUSHROOM_BLOCK:
+  enabled: false
+  display-name: Brown Mushroom Block
+  max-stack-size: -1
+BROWN_STAINED_GLASS:
+  enabled: false
+  display-name: Brown Stained Glass
+  max-stack-size: -1
+BROWN_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Brown Stained Glass Pane
+  max-stack-size: -1
+BROWN_TERRACOTTA:
+  enabled: false
+  display-name: Brown Terracotta
+  max-stack-size: -1
+BROWN_WOOL:
+  enabled: false
+  display-name: Brown Wool
+  max-stack-size: -1
+BUBBLE_CORAL_BLOCK:
+  enabled: false
+  display-name: Bubble Coral Block
+  max-stack-size: -1
+CACTUS:
+  enabled: false
+  display-name: Cactus
+  max-stack-size: -1
+CARVED_PUMPKIN:
+  enabled: false
+  display-name: Carved Pumpkin
+  max-stack-size: -1
+CHAIN:
+  enabled: false
+  display-name: Chain
+  max-stack-size: -1
+CHISELED_NETHER_BRICKS:
+  enabled: false
+  display-name: Chiseled Nether Bricks
+  max-stack-size: -1
+CHISELED_POLISHED_BLACKSTONE:
+  enabled: false
+  display-name: Chiseled Polished Blackstone
+  max-stack-size: -1
+CHISELED_QUARTZ_BLOCK:
+  enabled: false
+  display-name: Chiseled Quartz Block
+  max-stack-size: -1
+CHISELED_RED_SANDSTONE:
+  enabled: false
+  display-name: Chiseled Red Sandstone
+  max-stack-size: -1
+CHISELED_SANDSTONE:
+  enabled: false
+  display-name: Chiseled Sandstone
+  max-stack-size: -1
+CHISELED_STONE_BRICKS:
+  enabled: false
+  display-name: Chiseled Stone Bricks
+  max-stack-size: -1
+CLAY:
+  enabled: false
+  display-name: Clay
+  max-stack-size: -1
+COAL_BLOCK:
+  enabled: false
+  display-name: Block of Coal
+  max-stack-size: -1
+COAL_ORE:
+  enabled: false
+  display-name: Coal Ore
+  max-stack-size: -1
+COARSE_DIRT:
+  enabled: false
+  display-name: Coarse Dirt
+  max-stack-size: -1
+COBBLESTONE:
+  enabled: false
+  display-name: Cobblestone
+  max-stack-size: -1
+CONDUIT:
+  enabled: false
+  display-name: Conduit
+  max-stack-size: -1
+CRACKED_NETHER_BRICKS:
+  enabled: false
+  display-name: Cracked Nether Bricks
+  max-stack-size: -1
+CRACKED_POLISHED_BLACKSTONE_BRICKS:
+  enabled: false
+  display-name: Cracked Polished Blackstone Bricks
+  max-stack-size: -1
+CRACKED_STONE_BRICKS:
+  enabled: false
+  display-name: Cracked Stone Bricks
+  max-stack-size: -1
+CRIMSON_HYPHAE:
+  enabled: false
+  display-name: Crimson Hyphae
+  max-stack-size: -1
+CRIMSON_NYLIUM:
+  enabled: false
+  display-name: Crimson Nylium
+  max-stack-size: -1
+CRIMSON_PLANKS:
+  enabled: false
+  display-name: Crimson Planks
+  max-stack-size: -1
+CRIMSON_STEM:
+  enabled: false
+  display-name: Crimson Stem
+  max-stack-size: -1
+CRYING_OBSIDIAN:
+  enabled: false
+  display-name: Crying Obsidian
+  max-stack-size: -1
+CUT_RED_SANDSTONE:
+  enabled: false
+  display-name: Cut Red Sandstone
+  max-stack-size: -1
+CUT_SANDSTONE:
+  enabled: false
+  display-name: Cut Sandstone
+  max-stack-size: -1
+CYAN_CONCRETE:
+  enabled: false
+  display-name: Cyan Concrete
+  max-stack-size: -1
+CYAN_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Cyan Glazed Terracotta
+  max-stack-size: -1
+CYAN_STAINED_GLASS:
+  enabled: false
+  display-name: Cyan Stained Glass
+  max-stack-size: -1
+CYAN_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Cyan Stained Glass Pane
+  max-stack-size: -1
+CYAN_TERRACOTTA:
+  enabled: false
+  display-name: Cyan Terracotta
+  max-stack-size: -1
+CYAN_WOOL:
+  enabled: false
+  display-name: Cyan Wool
+  max-stack-size: -1
+DARK_OAK_LEAVES:
+  enabled: false
+  display-name: Dark Oak Leaves
+  max-stack-size: -1
+DARK_OAK_LOG:
+  enabled: false
+  display-name: Dark Oak Log
+  max-stack-size: -1
+DARK_OAK_PLANKS:
+  enabled: false
+  display-name: Dark Oak Planks
+  max-stack-size: -1
+DARK_OAK_WOOD:
+  enabled: false
+  display-name: Dark Oak Wood
+  max-stack-size: -1
+DARK_PRISMARINE:
+  enabled: false
+  display-name: Dark Prismarine
+  max-stack-size: -1
+DEAD_BRAIN_CORAL:
+  enabled: false
+  display-name: Dead Brain Coral
+  max-stack-size: -1
+DEAD_BRAIN_CORAL_BLOCK:
+  enabled: false
+  display-name: Dead Brain Coral Block
+  max-stack-size: -1
+DEAD_BRAIN_CORAL_FAN:
+  enabled: false
+  display-name: Dead Brain Coral Fan
+  max-stack-size: -1
+DEAD_BUBBLE_CORAL:
+  enabled: false
+  display-name: Dead Bubble Coral
+  max-stack-size: -1
+DEAD_BUBBLE_CORAL_BLOCK:
+  enabled: false
+  display-name: Dead Bubble Coral Block
+  max-stack-size: -1
+DEAD_BUBBLE_CORAL_FAN:
+  enabled: false
+  display-name: Dead Bubble Coral Fan
+  max-stack-size: -1
+DEAD_FIRE_CORAL:
+  enabled: false
+  display-name: Dead Fire Coral
+  max-stack-size: -1
+DEAD_FIRE_CORAL_BLOCK:
+  enabled: false
+  display-name: Dead Fire Coral Block
+  max-stack-size: -1
+DEAD_FIRE_CORAL_FAN:
+  enabled: false
+  display-name: Dead Fire Coral Fan
+  max-stack-size: -1
+DEAD_HORN_CORAL:
+  enabled: false
+  display-name: Dead Horn Coral
+  max-stack-size: -1
+DEAD_HORN_CORAL_BLOCK:
+  enabled: false
+  display-name: Dead Horn Coral Block
+  max-stack-size: -1
+DEAD_HORN_CORAL_FAN:
+  enabled: false
+  display-name: Dead Horn Coral Fan
+  max-stack-size: -1
+DEAD_TUBE_CORAL:
+  enabled: false
+  display-name: Dead Tube Coral
+  max-stack-size: -1
+DEAD_TUBE_CORAL_BLOCK:
+  enabled: false
+  display-name: Dead Tube Coral Block
+  max-stack-size: -1
+DEAD_TUBE_CORAL_FAN:
+  enabled: false
+  display-name: Dead Tube Coral Fan
+  max-stack-size: -1
+DIAMOND_BLOCK:
+  enabled: true
+  display-name: Block of Diamond
+  max-stack-size: -1
+DIAMOND_ORE:
+  enabled: false
+  display-name: Diamond Ore
+  max-stack-size: -1
+DIORITE:
+  enabled: false
+  display-name: Diorite
+  max-stack-size: -1
+DIRT:
+  enabled: false
+  display-name: Dirt
+  max-stack-size: -1
+DRIED_KELP_BLOCK:
+  enabled: false
+  display-name: Dried Kelp Block
+  max-stack-size: -1
+EMERALD_BLOCK:
+  enabled: true
+  display-name: Block of Emerald
+  max-stack-size: -1
+EMERALD_ORE:
+  enabled: false
+  display-name: Emerald Ore
+  max-stack-size: -1
+END_PORTAL_FRAME:
+  enabled: false
+  display-name: End Portal Frame
+  max-stack-size: -1
+END_STONE:
+  enabled: false
+  display-name: End Stone
+  max-stack-size: -1
+END_STONE_BRICKS:
+  enabled: false
+  display-name: End Stone Bricks
+  max-stack-size: -1
+FARMLAND:
+  enabled: false
+  display-name: Farmland
+  max-stack-size: -1
+FIRE_CORAL_BLOCK:
+  enabled: false
+  display-name: Fire Coral Block
+  max-stack-size: -1
+GILDED_BLACKSTONE:
+  enabled: false
+  display-name: Gilded Blackstone
+  max-stack-size: -1
+GLASS:
+  enabled: false
+  display-name: Glass
+  max-stack-size: -1
+GLASS_PANE:
+  enabled: false
+  display-name: Glass Pane
+  max-stack-size: -1
+GLOWSTONE:
+  enabled: false
+  display-name: Glowstone
+  max-stack-size: -1
+GOLD_BLOCK:
+  enabled: true
+  display-name: Block of Gold
+  max-stack-size: -1
+GOLD_ORE:
+  enabled: false
+  display-name: Gold Ore
+  max-stack-size: -1
+GRANITE:
+  enabled: false
+  display-name: Granite
+  max-stack-size: -1
+GRASS_BLOCK:
+  enabled: false
+  display-name: Grass Block
+  max-stack-size: -1
+GRASS_PATH:
+  enabled: false
+  display-name: Grass Path
+  max-stack-size: -1
+GRAY_CONCRETE:
+  enabled: false
+  display-name: Gray Concrete
+  max-stack-size: -1
+GRAY_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Gray Glazed Terracotta
+  max-stack-size: -1
+GRAY_STAINED_GLASS:
+  enabled: false
+  display-name: Gray Stained Glass
+  max-stack-size: -1
+GRAY_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Gray Stained Glass Pane
+  max-stack-size: -1
+GRAY_TERRACOTTA:
+  enabled: false
+  display-name: Gray Terracotta
+  max-stack-size: -1
+GRAY_WOOL:
+  enabled: false
+  display-name: Gray Wool
+  max-stack-size: -1
+GREEN_CONCRETE:
+  enabled: false
+  display-name: Green Concrete
+  max-stack-size: -1
+GREEN_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Green Glazed Terracotta
+  max-stack-size: -1
+GREEN_STAINED_GLASS:
+  enabled: false
+  display-name: Green Stained Glass
+  max-stack-size: -1
+GREEN_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Green Stained Glass Pane
+  max-stack-size: -1
+GREEN_TERRACOTTA:
+  enabled: false
+  display-name: Green Terracotta
+  max-stack-size: -1
+GREEN_WOOL:
+  enabled: false
+  display-name: Green Wool
+  max-stack-size: -1
+HAY_BLOCK:
+  enabled: false
+  display-name: Hay Bale
+  max-stack-size: -1
+HONEYCOMB_BLOCK:
+  enabled: false
+  display-name: Honeycomb Block
+  max-stack-size: -1
+HONEY_BLOCK:
+  enabled: false
+  display-name: Honey Block
+  max-stack-size: -1
+HORN_CORAL_BLOCK:
+  enabled: false
+  display-name: Horn Coral Block
+  max-stack-size: -1
+ICE:
+  enabled: false
+  display-name: Ice
+  max-stack-size: -1
+INFESTED_CHISELED_STONE_BRICKS:
+  enabled: false
+  display-name: Infested Chiseled Stone Bricks
+  max-stack-size: -1
+INFESTED_COBBLESTONE:
+  enabled: false
+  display-name: Infested Cobblestone
+  max-stack-size: -1
+INFESTED_CRACKED_STONE_BRICKS:
+  enabled: false
+  display-name: Infested Cracked Stone Bricks
+  max-stack-size: -1
+INFESTED_MOSSY_STONE_BRICKS:
+  enabled: false
+  display-name: Infested Mossy Stone Bricks
+  max-stack-size: -1
+INFESTED_STONE:
+  enabled: false
+  display-name: Infested Stone
+  max-stack-size: -1
+INFESTED_STONE_BRICKS:
+  enabled: false
+  display-name: Infested Stone Bricks
+  max-stack-size: -1
+IRON_BARS:
+  enabled: false
+  display-name: Iron Bars
+  max-stack-size: -1
+IRON_BLOCK:
+  enabled: true
+  display-name: Block of Iron
+  max-stack-size: -1
+IRON_ORE:
+  enabled: false
+  display-name: Iron Ore
+  max-stack-size: -1
+JACK_O_LANTERN:
+  enabled: false
+  display-name: Jack o'Lantern
+  max-stack-size: -1
+JUNGLE_LEAVES:
+  enabled: false
+  display-name: Jungle Leaves
+  max-stack-size: -1
+JUNGLE_LOG:
+  enabled: false
+  display-name: Jungle Log
+  max-stack-size: -1
+JUNGLE_PLANKS:
+  enabled: false
+  display-name: Jungle Planks
+  max-stack-size: -1
+JUNGLE_WOOD:
+  enabled: false
+  display-name: Jungle Wood
+  max-stack-size: -1
+LANTERN:
+  enabled: false
+  display-name: Lantern
+  max-stack-size: -1
+LAPIS_BLOCK:
+  enabled: true
+  display-name: Block of Lapis Lazuli
+  max-stack-size: -1
+LAPIS_ORE:
+  enabled: false
+  display-name: Lapis Lazuli Ore
+  max-stack-size: -1
+LIGHT_BLUE_CONCRETE:
+  enabled: false
+  display-name: Light Blue Concrete
+  max-stack-size: -1
+LIGHT_BLUE_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Light Blue Glazed Terracotta
+  max-stack-size: -1
+LIGHT_BLUE_STAINED_GLASS:
+  enabled: false
+  display-name: Light Blue Stained Glass
+  max-stack-size: -1
+LIGHT_BLUE_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Light Blue Stained Glass Pane
+  max-stack-size: -1
+LIGHT_BLUE_TERRACOTTA:
+  enabled: false
+  display-name: Light Blue Terracotta
+  max-stack-size: -1
+LIGHT_BLUE_WOOL:
+  enabled: false
+  display-name: Light Blue Wool
+  max-stack-size: -1
+LIGHT_GRAY_CONCRETE:
+  enabled: false
+  display-name: Light Gray Concrete
+  max-stack-size: -1
+LIGHT_GRAY_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Light Gray Glazed Terracotta
+  max-stack-size: -1
+LIGHT_GRAY_STAINED_GLASS:
+  enabled: false
+  display-name: Light Gray Stained Glass
+  max-stack-size: -1
+LIGHT_GRAY_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Light Gray Stained Glass Pane
+  max-stack-size: -1
+LIGHT_GRAY_TERRACOTTA:
+  enabled: false
+  display-name: Light Gray Terracotta
+  max-stack-size: -1
+LIGHT_GRAY_WOOL:
+  enabled: false
+  display-name: Light Gray Wool
+  max-stack-size: -1
+LIME_CONCRETE:
+  enabled: false
+  display-name: Lime Concrete
+  max-stack-size: -1
+LIME_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Lime Glazed Terracotta
+  max-stack-size: -1
+LIME_STAINED_GLASS:
+  enabled: false
+  display-name: Lime Stained Glass
+  max-stack-size: -1
+LIME_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Lime Stained Glass Pane
+  max-stack-size: -1
+LIME_TERRACOTTA:
+  enabled: false
+  display-name: Lime Terracotta
+  max-stack-size: -1
+LIME_WOOL:
+  enabled: false
+  display-name: Lime Wool
+  max-stack-size: -1
+LODESTONE:
+  enabled: false
+  display-name: Lodestone
+  max-stack-size: -1
+MAGENTA_CONCRETE:
+  enabled: false
+  display-name: Magenta Concrete
+  max-stack-size: -1
+MAGENTA_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Magenta Glazed Terracotta
+  max-stack-size: -1
+MAGENTA_STAINED_GLASS:
+  enabled: false
+  display-name: Magenta Stained Glass
+  max-stack-size: -1
+MAGENTA_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Magenta Stained Glass Pane
+  max-stack-size: -1
+MAGENTA_TERRACOTTA:
+  enabled: false
+  display-name: Magenta Terracotta
+  max-stack-size: -1
+MAGENTA_WOOL:
+  enabled: false
+  display-name: Magenta Wool
+  max-stack-size: -1
+MAGMA_BLOCK:
+  enabled: false
+  display-name: Magma Block
+  max-stack-size: -1
+MELON:
+  enabled: false
+  display-name: Melon
+  max-stack-size: -1
+MOSSY_COBBLESTONE:
+  enabled: false
+  display-name: Mossy Cobblestone
+  max-stack-size: -1
+MOSSY_STONE_BRICKS:
+  enabled: false
+  display-name: Mossy Stone Bricks
+  max-stack-size: -1
+MUSHROOM_STEM:
+  enabled: false
+  display-name: Mushroom Stem
+  max-stack-size: -1
+MYCELIUM:
+  enabled: false
+  display-name: Mycelium
+  max-stack-size: -1
+NETHERITE_BLOCK:
+  enabled: true
+  display-name: Block of Netherite
+  max-stack-size: -1
+NETHERRACK:
+  enabled: false
+  display-name: Netherrack
+  max-stack-size: -1
+NETHER_BRICKS:
+  enabled: false
+  display-name: Nether Bricks
+  max-stack-size: -1
+NETHER_GOLD_ORE:
+  enabled: false
+  display-name: Nether Gold Ore
+  max-stack-size: -1
+NETHER_QUARTZ_ORE:
+  enabled: false
+  display-name: Nether Quartz Ore
+  max-stack-size: -1
+NETHER_WART_BLOCK:
+  enabled: false
+  display-name: Nether Wart Block
+  max-stack-size: -1
+OAK_LEAVES:
+  enabled: false
+  display-name: Oak Leaves
+  max-stack-size: -1
+OAK_LOG:
+  enabled: false
+  display-name: Oak Log
+  max-stack-size: -1
+OAK_PLANKS:
+  enabled: false
+  display-name: Oak Planks
+  max-stack-size: -1
+OAK_WOOD:
+  enabled: false
+  display-name: Oak Wood
+  max-stack-size: -1
+OBSERVER:
+  enabled: false
+  display-name: Observer
+  max-stack-size: -1
+OBSIDIAN:
+  enabled: false
+  display-name: Obsidian
+  max-stack-size: -1
+ORANGE_CONCRETE:
+  enabled: false
+  display-name: Orange Concrete
+  max-stack-size: -1
+ORANGE_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Orange Glazed Terracotta
+  max-stack-size: -1
+ORANGE_STAINED_GLASS:
+  enabled: false
+  display-name: Orange Stained Glass
+  max-stack-size: -1
+ORANGE_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Orange Stained Glass Pane
+  max-stack-size: -1
+ORANGE_TERRACOTTA:
+  enabled: false
+  display-name: Orange Terracotta
+  max-stack-size: -1
+ORANGE_WOOL:
+  enabled: false
+  display-name: Orange Wool
+  max-stack-size: -1
+PACKED_ICE:
+  enabled: false
+  display-name: Packed Ice
+  max-stack-size: -1
+PINK_CONCRETE:
+  enabled: false
+  display-name: Pink Concrete
+  max-stack-size: -1
+PINK_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Pink Glazed Terracotta
+  max-stack-size: -1
+PINK_STAINED_GLASS:
+  enabled: false
+  display-name: Pink Stained Glass
+  max-stack-size: -1
+PINK_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Pink Stained Glass Pane
+  max-stack-size: -1
+PINK_TERRACOTTA:
+  enabled: false
+  display-name: Pink Terracotta
+  max-stack-size: -1
+PINK_WOOL:
+  enabled: false
+  display-name: Pink Wool
+  max-stack-size: -1
+PISTON:
+  enabled: false
+  display-name: Piston
+  max-stack-size: -1
+PODZOL:
+  enabled: false
+  display-name: Podzol
+  max-stack-size: -1
+POLISHED_ANDESITE:
+  enabled: false
+  display-name: Polished Andesite
+  max-stack-size: -1
+POLISHED_BASALT:
+  enabled: false
+  display-name: Polished Basalt
+  max-stack-size: -1
+POLISHED_BLACKSTONE:
+  enabled: false
+  display-name: Polished Blackstone
+  max-stack-size: -1
+POLISHED_BLACKSTONE_BRICKS:
+  enabled: false
+  display-name: Polished Blackstone Bricks
+  max-stack-size: -1
+POLISHED_DIORITE:
+  enabled: false
+  display-name: Polished Diorite
+  max-stack-size: -1
+POLISHED_GRANITE:
+  enabled: false
+  display-name: Polished Granite
+  max-stack-size: -1
+PRISMARINE:
+  enabled: false
+  display-name: Prismarine
+  max-stack-size: -1
+PRISMARINE_BRICKS:
+  enabled: false
+  display-name: Prismarine Bricks
+  max-stack-size: -1
+PURPLE_CONCRETE:
+  enabled: false
+  display-name: Purple Concrete
+  max-stack-size: -1
+PURPLE_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Purple Glazed Terracotta
+  max-stack-size: -1
+PURPLE_STAINED_GLASS:
+  enabled: false
+  display-name: Purple Stained Glass
+  max-stack-size: -1
+PURPLE_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Purple Stained Glass Pane
+  max-stack-size: -1
+PURPLE_TERRACOTTA:
+  enabled: false
+  display-name: Purple Terracotta
+  max-stack-size: -1
+PURPLE_WOOL:
+  enabled: false
+  display-name: Purple Wool
+  max-stack-size: -1
+PURPUR_BLOCK:
+  enabled: false
+  display-name: Purpur Block
+  max-stack-size: -1
+PURPUR_PILLAR:
+  enabled: false
+  display-name: Purpur Pillar
+  max-stack-size: -1
+QUARTZ_BLOCK:
+  enabled: false
+  display-name: Block of Quartz
+  max-stack-size: -1
+QUARTZ_BRICKS:
+  enabled: false
+  display-name: Quartz Bricks
+  max-stack-size: -1
+QUARTZ_PILLAR:
+  enabled: false
+  display-name: Quartz Pillar
+  max-stack-size: -1
+REDSTONE_BLOCK:
+  enabled: false
+  display-name: Block of Redstone
+  max-stack-size: -1
+REDSTONE_LAMP:
+  enabled: false
+  display-name: Redstone Lamp
+  max-stack-size: -1
+RED_CONCRETE:
+  enabled: false
+  display-name: Red Concrete
+  max-stack-size: -1
+RED_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Red Glazed Terracotta
+  max-stack-size: -1
+RED_MUSHROOM_BLOCK:
+  enabled: false
+  display-name: Red Mushroom Block
+  max-stack-size: -1
+RED_NETHER_BRICKS:
+  enabled: false
+  display-name: Red Nether Bricks
+  max-stack-size: -1
+RED_SANDSTONE:
+  enabled: false
+  display-name: Red Sandstone
+  max-stack-size: -1
+RED_STAINED_GLASS:
+  enabled: false
+  display-name: Red Stained Glass
+  max-stack-size: -1
+RED_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Red Stained Glass Pane
+  max-stack-size: -1
+RED_TERRACOTTA:
+  enabled: false
+  display-name: Red Terracotta
+  max-stack-size: -1
+RED_WOOL:
+  enabled: false
+  display-name: Red Wool
+  max-stack-size: -1
+SANDSTONE:
+  enabled: false
+  display-name: Sandstone
+  max-stack-size: -1
+SEA_LANTERN:
+  enabled: false
+  display-name: Sea Lantern
+  max-stack-size: -1
+SHROOMLIGHT:
+  enabled: false
+  display-name: Shroomlight
+  max-stack-size: -1
+SLIME_BLOCK:
+  enabled: false
+  display-name: Slime Block
+  max-stack-size: -1
+SMOOTH_QUARTZ:
+  enabled: false
+  display-name: Smooth Quartz Block
+  max-stack-size: -1
+SMOOTH_RED_SANDSTONE:
+  enabled: false
+  display-name: Smooth Red Sandstone
+  max-stack-size: -1
+SMOOTH_SANDSTONE:
+  enabled: false
+  display-name: Smooth Sandstone
+  max-stack-size: -1
+SMOOTH_STONE:
+  enabled: false
+  display-name: Smooth Stone
+  max-stack-size: -1
+SNOW_BLOCK:
+  enabled: false
+  display-name: Snow Block
+  max-stack-size: -1
+SOUL_LANTERN:
+  enabled: false
+  display-name: Soul Lantern
+  max-stack-size: -1
+SOUL_SAND:
+  enabled: false
+  display-name: Soul Sand
+  max-stack-size: -1
+SOUL_SOIL:
+  enabled: false
+  display-name: Soul Soil
+  max-stack-size: -1
+SPONGE:
+  enabled: false
+  display-name: Sponge
+  max-stack-size: -1
+SPRUCE_LEAVES:
+  enabled: false
+  display-name: Spruce Leaves
+  max-stack-size: -1
+SPRUCE_LOG:
+  enabled: false
+  display-name: Spruce Log
+  max-stack-size: -1
+SPRUCE_PLANKS:
+  enabled: false
+  display-name: Spruce Planks
+  max-stack-size: -1
+SPRUCE_WOOD:
+  enabled: false
+  display-name: Spruce Wood
+  max-stack-size: -1
+STICKY_PISTON:
+  enabled: false
+  display-name: Sticky Piston
+  max-stack-size: -1
+STONE:
+  enabled: false
+  display-name: Stone
+  max-stack-size: -1
+STONE_BRICKS:
+  enabled: false
+  display-name: Stone Bricks
+  max-stack-size: -1
+STRIPPED_ACACIA_LOG:
+  enabled: false
+  display-name: Stripped Acacia Log
+  max-stack-size: -1
+STRIPPED_ACACIA_WOOD:
+  enabled: false
+  display-name: Stripped Acacia Wood
+  max-stack-size: -1
+STRIPPED_BIRCH_LOG:
+  enabled: false
+  display-name: Stripped Birch Log
+  max-stack-size: -1
+STRIPPED_BIRCH_WOOD:
+  enabled: false
+  display-name: Stripped Birch Wood
+  max-stack-size: -1
+STRIPPED_CRIMSON_HYPHAE:
+  enabled: false
+  display-name: Stripped Crimson Hyphae
+  max-stack-size: -1
+STRIPPED_CRIMSON_STEM:
+  enabled: false
+  display-name: Stripped Crimson Stem
+  max-stack-size: -1
+STRIPPED_DARK_OAK_LOG:
+  enabled: false
+  display-name: Stripped Dark Oak Log
+  max-stack-size: -1
+STRIPPED_DARK_OAK_WOOD:
+  enabled: false
+  display-name: Stripped Dark Oak Wood
+  max-stack-size: -1
+STRIPPED_JUNGLE_LOG:
+  enabled: false
+  display-name: Stripped Jungle Log
+  max-stack-size: -1
+STRIPPED_JUNGLE_WOOD:
+  enabled: false
+  display-name: Stripped Jungle Wood
+  max-stack-size: -1
+STRIPPED_OAK_LOG:
+  enabled: false
+  display-name: Stripped Oak Log
+  max-stack-size: -1
+STRIPPED_OAK_WOOD:
+  enabled: false
+  display-name: Stripped Oak Wood
+  max-stack-size: -1
+STRIPPED_SPRUCE_LOG:
+  enabled: false
+  display-name: Stripped Spruce Log
+  max-stack-size: -1
+STRIPPED_SPRUCE_WOOD:
+  enabled: false
+  display-name: Stripped Spruce Wood
+  max-stack-size: -1
+STRIPPED_WARPED_HYPHAE:
+  enabled: false
+  display-name: Stripped Warped Hyphae
+  max-stack-size: -1
+STRIPPED_WARPED_STEM:
+  enabled: false
+  display-name: Stripped Warped Stem
+  max-stack-size: -1
+TARGET:
+  enabled: false
+  display-name: Target
+  max-stack-size: -1
+TERRACOTTA:
+  enabled: false
+  display-name: Terracotta
+  max-stack-size: -1
+TNT:
+  enabled: false
+  display-name: TNT
+  max-stack-size: -1
+TUBE_CORAL_BLOCK:
+  enabled: false
+  display-name: Tube Coral Block
+  max-stack-size: -1
+TURTLE_EGG:
+  enabled: false
+  display-name: Turtle Egg
+  max-stack-size: -1
+WARPED_HYPHAE:
+  enabled: false
+  display-name: Warped Hyphae
+  max-stack-size: -1
+WARPED_NYLIUM:
+  enabled: false
+  display-name: Warped Nylium
+  max-stack-size: -1
+WARPED_PLANKS:
+  enabled: false
+  display-name: Warped Planks
+  max-stack-size: -1
+WARPED_STEM:
+  enabled: false
+  display-name: Warped Stem
+  max-stack-size: -1
+WARPED_WART_BLOCK:
+  enabled: false
+  display-name: Warped Wart Block
+  max-stack-size: -1
+WET_SPONGE:
+  enabled: false
+  display-name: Wet Sponge
+  max-stack-size: -1
+WHITE_CONCRETE:
+  enabled: false
+  display-name: White Concrete
+  max-stack-size: -1
+WHITE_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: White Glazed Terracotta
+  max-stack-size: -1
+WHITE_STAINED_GLASS:
+  enabled: false
+  display-name: White Stained Glass
+  max-stack-size: -1
+WHITE_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: White Stained Glass Pane
+  max-stack-size: -1
+WHITE_TERRACOTTA:
+  enabled: false
+  display-name: White Terracotta
+  max-stack-size: -1
+WHITE_WOOL:
+  enabled: false
+  display-name: White Wool
+  max-stack-size: -1
+YELLOW_CONCRETE:
+  enabled: false
+  display-name: Yellow Concrete
+  max-stack-size: -1
+YELLOW_GLAZED_TERRACOTTA:
+  enabled: false
+  display-name: Yellow Glazed Terracotta
+  max-stack-size: -1
+YELLOW_STAINED_GLASS:
+  enabled: false
+  display-name: Yellow Stained Glass
+  max-stack-size: -1
+YELLOW_STAINED_GLASS_PANE:
+  enabled: false
+  display-name: Yellow Stained Glass Pane
+  max-stack-size: -1
+YELLOW_TERRACOTTA:
+  enabled: false
+  display-name: Yellow Terracotta
+  max-stack-size: -1
+YELLOW_WOOL:
+  enabled: false
+  display-name: Yellow Wool
+  max-stack-size: -1
+AMETHYST_BLOCK:
+  enabled: false
+  display-name: Amethyst Block
+  max-stack-size: -1
+AMETHYST_CLUSTER:
+  enabled: false
+  display-name: Amethyst Cluster
+  max-stack-size: -1
+AZALEA_LEAVES:
+  enabled: false
+  display-name: Azalea Leaves
+  max-stack-size: -1
+BUDDING_AMETHYST:
+  enabled: false
+  display-name: Budding Amethyst
+  max-stack-size: -1
+CALCITE:
+  enabled: false
+  display-name: Calcite
+  max-stack-size: -1
+CHISELED_DEEPSLATE:
+  enabled: false
+  display-name: Chiseled Deepslate
+  max-stack-size: -1
+COBBLED_DEEPSLATE:
+  enabled: false
+  display-name: Cobbled Deepslate
+  max-stack-size: -1
+COPPER_BLOCK:
+  enabled: false
+  display-name: Copper Block
+  max-stack-size: -1
+COPPER_ORE:
+  enabled: false
+  display-name: Copper Ore
+  max-stack-size: -1
+CRACKED_DEEPSLATE_BRICKS:
+  enabled: false
+  display-name: Cracked Deepslate Bricks
+  max-stack-size: -1
+CRACKED_DEEPSLATE_TILES:
+  enabled: false
+  display-name: Cracked Deepslate Tiles
+  max-stack-size: -1
+CUT_COPPER:
+  enabled: false
+  display-name: Cut Copper
+  max-stack-size: -1
+DEEPSLATE:
+  enabled: false
+  display-name: Deepslate
+  max-stack-size: -1
+DEEPSLATE_BRICKS:
+  enabled: false
+  display-name: Deepslate Bricks
+  max-stack-size: -1
+DEEPSLATE_COAL_ORE:
+  enabled: false
+  display-name: Deepslate Coal Ore
+  max-stack-size: -1
+DEEPSLATE_COPPER_ORE:
+  enabled: false
+  display-name: Deepslate Copper Ore
+  max-stack-size: -1
+DEEPSLATE_DIAMOND_ORE:
+  enabled: false
+  display-name: Deepslate Diamond Ore
+  max-stack-size: -1
+DEEPSLATE_EMERALD_ORE:
+  enabled: false
+  display-name: Deepslate Emerald Ore
+  max-stack-size: -1
+DEEPSLATE_GOLD_ORE:
+  enabled: false
+  display-name: Deepslate Gold Ore
+  max-stack-size: -1
+DEEPSLATE_IRON_ORE:
+  enabled: false
+  display-name: Deepslate Iron Ore
+  max-stack-size: -1
+DEEPSLATE_LAPIS_ORE:
+  enabled: false
+  display-name: Deepslate Lapis Ore
+  max-stack-size: -1
+DEEPSLATE_TILES:
+  enabled: false
+  display-name: Deepslate Tiles
+  max-stack-size: -1
+DIRT_PATH:
+  enabled: false
+  display-name: Dirt Path
+  max-stack-size: -1
+DRIPSTONE_BLOCK:
+  enabled: false
+  display-name: Dripstone Block
+  max-stack-size: -1
+EXPOSED_COPPER:
+  enabled: false
+  display-name: Exposed Copper
+  max-stack-size: -1
+EXPOSED_CUT_COPPER:
+  enabled: false
+  display-name: Exposed Cut Copper
+  max-stack-size: -1
+FLOWERING_AZALEA_LEAVES:
+  enabled: false
+  display-name: Flowering Azalea Leaves
+  max-stack-size: -1
+INFESTED_DEEPSLATE:
+  enabled: false
+  display-name: Infested Deepslate
+  max-stack-size: -1
+LARGE_AMETHYST_BUD:
+  enabled: false
+  display-name: Large Amethyst Bud
+  max-stack-size: -1
+LIGHTNING_ROD:
+  enabled: false
+  display-name: Lightning Rod
+  max-stack-size: -1
+MEDIUM_AMETHYST_BUD:
+  enabled: false
+  display-name: Medium Amethyst Bud
+  max-stack-size: -1
+MOSS_BLOCK:
+  enabled: false
+  display-name: Moss Block
+  max-stack-size: -1
+OXIDIZED_COPPER:
+  enabled: false
+  display-name: Oxidized Copper
+  max-stack-size: -1
+OXIDIZED_CUT_COPPER:
+  enabled: false
+  display-name: Oxidized Cut Copper
+  max-stack-size: -1
+POINTED_DRIPSTONE:
+  enabled: false
+  display-name: Pointed Dripstone
+  max-stack-size: -1
+POLISHED_DEEPSLATE:
+  enabled: false
+  display-name: Polished Deepslate
+  max-stack-size: -1
+RAW_COPPER_BLOCK:
+  enabled: false
+  display-name: Raw Copper Block
+  max-stack-size: -1
+RAW_GOLD_BLOCK:
+  enabled: false
+  display-name: Raw Gold Block
+  max-stack-size: -1
+RAW_IRON_BLOCK:
+  enabled: false
+  display-name: Raw Iron Block
+  max-stack-size: -1
+ROOTED_DIRT:
+  enabled: false
+  display-name: Rooted Dirt
+  max-stack-size: -1
+SCULK_SENSOR:
+  enabled: false
+  display-name: Sculk Sensor
+  max-stack-size: -1
+SMALL_AMETHYST_BUD:
+  enabled: false
+  display-name: Small Amethyst Bud
+  max-stack-size: -1
+SMOOTH_BASALT:
+  enabled: false
+  display-name: Smooth Basalt
+  max-stack-size: -1
+TINTED_GLASS:
+  enabled: false
+  display-name: Tinted Glass
+  max-stack-size: -1
+TUFF:
+  enabled: false
+  display-name: Tuff
+  max-stack-size: -1
+WAXED_COPPER_BLOCK:
+  enabled: false
+  display-name: Waxed Copper Block
+  max-stack-size: -1
+WAXED_CUT_COPPER:
+  enabled: false
+  display-name: Waxed Cut Copper
+  max-stack-size: -1
+WAXED_EXPOSED_COPPER:
+  enabled: false
+  display-name: Waxed Exposed Copper
+  max-stack-size: -1
+WAXED_EXPOSED_CUT_COPPER:
+  enabled: false
+  display-name: Waxed Exposed Cut Copper
+  max-stack-size: -1
+WAXED_OXIDIZED_COPPER:
+  enabled: false
+  display-name: Waxed Oxidized Copper
+  max-stack-size: -1
+WAXED_OXIDIZED_CUT_COPPER:
+  enabled: false
+  display-name: Waxed Oxidized Cut Copper
+  max-stack-size: -1
+WAXED_WEATHERED_COPPER:
+  enabled: false
+  display-name: Waxed Weathered Copper
+  max-stack-size: -1
+WAXED_WEATHERED_CUT_COPPER:
+  enabled: false
+  display-name: Waxed Weathered Cut Copper
+  max-stack-size: -1
+WEATHERED_COPPER:
+  enabled: false
+  display-name: Weathered Copper
+  max-stack-size: -1
+WEATHERED_CUT_COPPER:
+  enabled: false
+  display-name: Weathered Cut Copper
+  max-stack-size: -1

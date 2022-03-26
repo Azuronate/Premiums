@@ -1,4 +1,4 @@
 # Premiums Network
 This is a github with all source code and internal documents of PREMIUMS Servers. Including Images, Skripts, Plugins, Configs, Worlds, and more. 
 
-<h1 align="center">Material Bread</h1> 
+<h1 align="center">DON'T DISTRIBUTE</h1> 

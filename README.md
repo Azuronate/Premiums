@@ -5,7 +5,7 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 
 # How to install
 **Installing a local Paper server**
-> You don't have to do this if you're using a server provider (Ex: Minehut)
+> You don't have to do this if you're using a server provider (Ex: Minehut). Though it has to provide Paper since our servers were built on that. 
 - Install [Java 17](https://www.oracle.com/java/technologies/downloads/#java17)
 - Create a folder to put the below items in
 - Install [PaperMC 1.17.1](https://papermc.io/legacy)

@@ -46,10 +46,11 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Go to `<your server folder>/plugins/skript/scripts` paste
 - You can do `/sk reload scripts` or restart the server
 
-**Witch Skripts do what**
+# Witch Skripts do what
 
 <details>
     <summary>Chat.sk</summary>
+    Test
 </details>
 
 ```

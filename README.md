@@ -16,11 +16,13 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Open the `eula.txt` file and agree to it by turning `eula=false` -> `eula=true`
 - Save the `eula.txt` file
 - Run the `run.bat` file and startup the server (You will run this file every time to boot up the server)
+
 **Connecting to the server**
 - Open a new cmd line in admin mode
 - Type `ipconfig` hit enter
 - Copy the address after this: `IPv4 Address. . . . . . . . . . . :`
 - Direct connect in Minecraft using that address
+
 **Installing the plugins**
 > Made sure you have cloned or downloaded the files from the GitHub
 - Go to `Premiums/<designated server>/plugins` and copy every file
@@ -28,12 +30,14 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Restart the server, so that it can generate default configs
 - Once it has restarted go to `Premiums/<designated server>/plugins/configs`
 - Make sure you go to every config folder, copy the files, and replace them within designated plugin config folders.
+
 **Installing worlds**
 - Go to `Premiums/<designated server>/Worlds` and copy every folder
 - Go to `<your server folder>/` and paste
 - Restart the server
 - Once rebooted, type `/mv import <world>`
 - To teleport type `/mvtp <world>`
+
 **Installing Skripts** 
 - Go to `Premiums/<designated server>/skripts` copy every file
 - Go to `<your server folder>/plugins/skript/scripts` paste

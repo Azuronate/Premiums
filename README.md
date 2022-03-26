@@ -22,7 +22,7 @@ This is a github with all source code and internal documents of PREMIUMS Servers
 - Copy the address after this: `IPv4 Address. . . . . . . . . . . :`
 - Direct connect in Minecraft using that address
 **Installing the plugins**
-***Made sure you have cloned or downloaded the files from the GitHub***
+> Made sure you have cloned or downloaded the files from the GitHub
 - Go to `Premiums/<designated server>/plugins` and copy every file
 - Go to `<your server folder>/plugins` and paste the copied plugins
 - Restart the server, so that it can generate default configs

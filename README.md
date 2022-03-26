@@ -68,7 +68,7 @@ PAUSE
 - You can do `/sk reload scripts` or restart the server
 
 # Witch Skripts do what
-***Note: Skripts not listed are no longer use, or non-functional***
+***Note: Skripts not listed are no longer use or non-functional***
 <details>
     <summary>chat.sk</summary>
     Formats the chat to include: Ranks, Item formatting ([item]), Player Statics, Pinging, and Message Blocking (Includes set words + Preventing muted players from messaging) 

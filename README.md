@@ -68,7 +68,7 @@ PAUSE
 - Go to `<your server folder>/plugins/Skript/scripts` paste
 - You can do `/sk reload scripts` or restart the server
 
-# Witch Skripts do what
+# Skripts
 ***Note: Skripts not listed are no longer use or non-functional***
 <details>
     <summary>chat.sk</summary>
